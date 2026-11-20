@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0b0f19" id="meta-theme-color">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HandlerCut Pro">
+<link id="pwa-manifest-link" rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22HandlerCut%20Pro%22%2C%22short_name%22%3A%22HandlerCut%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%230b0f19%22%7D">
+<title>HandlerCut Pro — Film Handler Cut Optimizer</title>
+<style>
+  :root {
+    --bg-app: #0b0f19;
+    --bg-card: #131b2e;
+    --bg-card-inner: #0d1322;
+    --bg-elevated: #1c2742;
+    --border-subtle: #24314f;
+    --border-strong: #354770;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --amber: #f59e0b;
+    --amber-bright: #fbbf24;
+    --amber-bg: rgba(245, 158, 11, 0.14);
+    --emerald: #10b981;
+    --emerald-bright: #34d399;
+    --emerald-bg: rgba(16, 185, 129, 0.15);
+    --cyan: #06b6d4;
+    --cyan-bright: #22d3ee;
+    --cyan-bg: rgba(6, 182, 212, 0.15);
+    --rose: #f43f5e;
+    --rose-bg: rgba(244, 63, 94, 0.15);
+    --header-bg: rgba(11, 15, 25, 0.94);
+    --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.35);
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  body.light-mode {
+    --bg-app: #eef2f7;
+    --bg-card: #ffffff;
+    --bg-card-inner: #f4f7fb;
+    --bg-elevated: #e6ecf5;
+    --border-subtle: #cbd5e1;
+    --border-strong: #94a3b8;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-dim: #64748b;
+    --amber: #d97706;
+    --amber-bright: #b45309;
+    --amber-bg: rgba(217, 119, 6, 0.12);
+    --emerald: #059669;
+    --emerald-bright: #047857;
+    --emerald-bg: rgba(5, 150, 105, 0.12);
+    --cyan: #0284c7;
+    --cyan-bright: #0369a1;
+    --cyan-bg: rgba(2, 132, 199, 0.12);
+    --rose: #dc2626;
+    --rose-bg: rgba(220, 38, 38, 0.12);
+    --header-bg: rgba(255, 255, 255, 0.94);
+    --shadow-card: 0 8px 20px rgba(15, 23, 42, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.4;
+    padding-bottom: 84px;
+    overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 10px 14px;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .brand-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .brand-title {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+  }
+
+  .brand-title span {
+    color: var(--amber-bright);
+  }
+
+  .shop-badge-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--amber-bg);
+    color: var(--amber-bright);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .shop-edit-trigger {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px dashed var(--border-subtle);
+  }
+
+  .shop-edit-trigger:hover {
+    color: var(--text-main);
+    border-color: var(--border-strong);
+  }
+
+  .shop-editor-bar {
+    max-width: 760px;
+    margin: 8px auto 0;
+    padding: 8px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .shop-editor-bar.hidden {
+    display: none;
+  }
+
+  .brand-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .btn-theme {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--bg-elevated);
+    color: var(--text-main);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+
+  /* Buttons */
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .btn-secondary {
+    background: var(--bg-elevated);
+    color: var(--text-main);
+    border: 1px solid var(--border-strong);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .btn-secondary:hover {
+    background: #253356;
+  }
+
+  .btn-cyan {
+    background: var(--cyan-bg);
+    color: var(--cyan-bright);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    padding: 7px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-primary-cyan {
+    background: var(--cyan);
+    color: #08101e;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .btn-ghost-danger {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .btn-ghost-danger:hover {
+    color: var(--rose);
+    background: var(--rose-bg);
+  }
+
+  /* Layout Container */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot-amber { background: var(--amber); }
+  .dot-cyan { background: var(--cyan); }
+  .dot-emerald { background: var(--emerald); }
+
+  /* Pill Switchers */
+  .pill-group {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .pill-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0 6px;
+    font-weight: 600;
+  }
+
+  .pill-btn {
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    background: transparent;
+    color: var(--text-muted);
+  }
+
+  .pill-btn.active-amber {
+    background: var(--amber);
+    color: #0b0f19;
+  }
+
+  .pill-btn.active-cyan {
+    background: var(--cyan);
+    color: #0b0f19;
+  }
+
+  /* Roll Grid */
+  .roll-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  @media (min-width: 560px) {
+    .roll-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .roll-toggle {
+    position: relative;
+    background: var(--bg-card-inner);
+    border: 2px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .roll-toggle.enabled {
+    background: var(--amber-bg);
+    border-color: var(--amber);
+    color: var(--text-main);
+  }
+
+  .roll-toggle-width {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .roll-toggle-status {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .roll-toggle.enabled .roll-toggle-status {
+    color: var(--amber-bright);
+  }
+
+  .roll-remove-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Custom Roll Add Row */
+  .custom-roll-row {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    gap: 8px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 9px 11px;
+    width: 100%;
+    transition: border-color 0.15s ease;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+  }
+
+  input[type="number"] {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-align: center;
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Quick Paste Box */
+  .paste-panel {
+    background: var(--bg-card-inner);
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+
+  .paste-panel.hidden {
+    display: none;
+  }
+
+  .paste-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan-bright);
+  }
+
+  .paste-panel textarea {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    resize: vertical;
+    margin-bottom: 10px;
+  }
+
+  .paste-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* Window Rows */
+  .win-col-headers {
+    display: none;
+  }
+
+  @media (min-width: 600px) {
+    .win-col-headers {
+      display: grid;
+      grid-template-columns: 5fr 1.6fr 2fr 2fr 36px;
+      gap: 8px;
+      padding: 0 4px 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .win-col-headers div:first-child {
+      text-align: left;
+    }
+  }
+
+  .windows-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .win-row {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1.25fr 36px;
+    gap: 8px;
+    align-items: end;
+  }
+
+  .win-room-cell {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 600px) {
+    .win-row {
+      grid-template-columns: 5fr 1.6fr 2fr 2fr 36px;
+      align-items: center;
+      padding: 8px;
+    }
+    .win-room-cell {
+      grid-column: auto;
+    }
+    .mobile-field-label {
+      display: none;
+    }
+  }
+
+  .mobile-field-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .win-qty-input {
+    color: var(--amber-bright) !important;
+  }
+
+  .btn-del-row {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .btn-del-row:hover {
+    background: var(--rose-bg);
+    color: var(--rose);
+  }
+
+  .btn-add-row {
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: transparent;
+    border: 2px dashed var(--border-strong);
+    color: var(--text-main);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-add-row:hover {
+    border-color: var(--amber);
+    color: var(--amber-bright);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .summary-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Comparison Grid */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  @media (min-width: 560px) {
+    .comp-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .comp-card {
+    background: var(--bg-card-inner);
+    border: 2px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: left;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comp-card.selected {
+    background: var(--bg-elevated);
+    border-color: var(--amber);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.14);
+  }
+
+  .comp-card.infeasible {
+    opacity: 0.55;
+  }
+
+  .comp-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .comp-roll-name {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .badge-best {
+    background: var(--emerald);
+    color: #06130e;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  .badge-waste {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .badge-narrow {
+    background: var(--rose-bg);
+    color: var(--rose);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  .comp-stats {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .comp-stats strong {
+    display: block;
+    font-size: 13px;
+    color: var(--text-main);
+    margin-top: 2px;
+  }
+
+  /* KPI Strip */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .kpi-box {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 10px 6px;
+    text-align: center;
+    font-family: var(--font-mono);
+  }
+
+  .kpi-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .kpi-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main);
+    display: block;
+  }
+
+  .kpi-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Strategy Toggle */
+  .strategy-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .strategy-top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .strategy-btn {
+    background: var(--bg-card-inner);
+    border: 2px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: left;
+    color: var(--text-muted);
+  }
+
+  .strategy-btn.active-lw {
+    background: var(--emerald-bg);
+    border-color: var(--emerald);
+    color: var(--text-main);
+  }
+
+  .strategy-btn.active-fs {
+    background: var(--cyan-bg);
+    border-color: var(--cyan);
+    color: var(--text-main);
+  }
+
+  .strategy-btn-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .strategy-name {
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .strategy-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 5px;
+  }
+
+  .strategy-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* Shift Blades Divider */
+  .shift-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 0;
+  }
+
+  .shift-line {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+
+  .shift-badge {
+    position: relative;
+    background: var(--bg-app);
+    border: 1px solid var(--amber);
+    color: var(--amber-bright);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 999px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Stage Card */
+  .stage-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .stage-header {
+    background: var(--bg-elevated);
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .stage-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 9px;
+    border-radius: 7px;
+    text-transform: uppercase;
+  }
+
+  .stage-tag-amber {
+    background: var(--amber);
+    color: #0b0f19;
+  }
+
+  .stage-tag-cyan {
+    background: var(--cyan);
+    color: #0b0f19;
+  }
+
+  /* Blade Readout Boxes */
+  .blade-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .blade-box {
+    background: var(--bg-card-inner);
+    border: 2px solid var(--border-subtle);
+    border-radius: 13px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .blade-box.active-b1 {
+    border-color: rgba(244, 63, 94, 0.75);
+  }
+
+  .blade-box.active-b2 {
+    border-color: rgba(245, 158, 11, 0.75);
+  }
+
+  .blade-info {
+    min-width: 0;
+  }
+
+  .blade-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .blade-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .blade-val {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-main);
+    flex-shrink: 0;
+  }
+
+  .blade-val.parked {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(100, 116, 139, 0.14);
+    padding: 5px 8px;
+    border-radius: 7px;
+  }
+
+  .side-trim-warn {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--amber-bright);
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    padding: 8px 10px;
+    border-radius: 9px;
+  }
+
+  /* Visual Handler SVG Container */
+  .svg-wrapper {
+    margin: 14px 16px 0;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .svg-wrapper svg {
+    width: 100%;
+    min-width: 480px;
+    height: auto;
+    display: block;
+  }
+
+  .svg-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  /* Sequential Pull Checklist */
+  .pulls-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pull-card {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border-subtle);
+    border-radius: 13px;
+    padding: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.15s ease, border-color 0.15s ease;
+  }
+
+  .pull-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .pull-card.checked {
+    opacity: 0.45;
+  }
+
+  .pull-card.checked .pull-heading {
+    text-decoration: line-through;
+  }
+
+  .pull-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .pull-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .checkbox-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    border: 2px solid var(--border-strong);
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b0f19;
+    font-weight: 900;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .pull-card.checked .checkbox-box {
+    background: var(--emerald);
+    border-color: var(--emerald);
+  }
+
+  .pull-heading {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .pull-heading span {
+    font-family: var(--font-mono);
+    color: var(--amber-bright);
+    font-size: 15px;
+  }
+
+  .lane-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .lane-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 7px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .lane-item.drop {
+    color: var(--text-dim);
+    border-style: dashed;
+  }
+
+  .lane-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 5px;
+    background: var(--cyan-bg);
+    color: var(--cyan-bright);
+  }
+
+  .rot-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 5px;
+    background: var(--amber-bg);
+    color: var(--amber-bright);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    color: var(--text-main);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-label="HandlerCut Pro Twin-Blade Film Handler Logo">
+          <svg viewBox="0 0 48 48" width="38" height="38" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hcBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#334155"/>
+                <stop offset="50%" stop-color="#64748b"/>
+                <stop offset="100%" stop-color="#334155"/>
+              </linearGradient>
+              <linearGradient id="hcBlade1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fb7185"/>
+                <stop offset="100%" stop-color="#e11d48"/>
+              </linearGradient>
+              <linearGradient id="hcBlade2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fbbf24"/>
+                <stop offset="100%" stop-color="#d97706"/>
+              </linearGradient>
+            </defs>
+            <!-- Film sheet / cut preview below rail -->
+            <rect x="6" y="22" width="36" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1.2"/>
+            <line x1="18" y1="22" x2="18" y2="42" stroke="#f43f5e" stroke-width="1.3" stroke-dasharray="2.5 2"/>
+            <line x1="31" y1="22" x2="31" y2="42" stroke="#f59e0b" stroke-width="1.3" stroke-dasharray="2.5 2"/>
+            <!-- Precision 72" Handler Bar -->
+            <rect x="3" y="11" width="42" height="9" rx="2.5" fill="url(#hcBarGrad)" stroke="#94a3b8" stroke-width="1"/>
+            <!-- Ruler ticks along handler rail -->
+            <line x1="7" y1="11" x2="7" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="12" y1="11" x2="12" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
+            <line x1="17" y1="11" x2="17" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="22" y1="11" x2="22" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
+            <line x1="27" y1="11" x2="27" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="32" y1="11" x2="32" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
+            <line x1="37" y1="11" x2="37" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="41" y1="11" x2="41" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <!-- Left 0" stop block -->
+            <rect x="3" y="9" width="3" height="13" rx="1" fill="#22d3ee"/>
+            <!-- Twin Slitter Blade Carriages -->
+            <polygon points="15,7 21,7 19.5,24 16.5,24" fill="url(#hcBlade1)"/>
+            <circle cx="18" cy="9.5" r="1.4" fill="#fff1f2"/>
+            <polygon points="28,7 34,7 32.5,24 29.5,24" fill="url(#hcBlade2)"/>
+            <circle cx="31" cy="9.5" r="1.4" fill="#fffbeb"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <div class="brand-title">HandlerCut <span>Pro</span></div>
+            <span id="shop-badge-slot"></span>
+          </div>
+          <div class="brand-sub">72" Handler • 2 Blades • 0" Left Stop</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="btn-theme" class="btn-theme" title="Toggle Dark / Light Mode" aria-label="Toggle Dark / Light Mode">☀️</button>
+        <button type="button" id="btn-demo" class="btn-secondary">Demo Job</button>
+      </div>
+    </div>
+
+    <div id="shop-editor-bar" class="shop-editor-bar hidden">
+      <input type="text" id="shop-name-input" placeholder="Optional shop name (leave blank to hide)" maxlength="40">
+      <button type="button" id="btn-save-shop" class="btn-primary-cyan" style="white-space:nowrap;">Save</button>
+      <button type="button" id="btn-clear-shop" class="btn-ghost-danger" style="white-space:nowrap;">Clear</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: ROLLS ON HAND -->
+    <section class="card">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="dot dot-amber"></span>
+          1. Rolls On Hand
+        </div>
+        <div class="pill-group">
+          <span class="pill-label">Extra Margin:</span>
+          <button type="button" id="bleed-0" class="pill-btn active-amber">+0"</button>
+          <button type="button" id="bleed-1" class="pill-btn">+1"</button>
+        </div>
+      </div>
+
+      <div id="roll-toggles" class="roll-grid"></div>
+
+      <div class="custom-roll-row">
+        <input type="number" id="custom-roll-input" placeholder="Custom roll width (e.g. 54)" min="10" max="72" step="0.5">
+        <button type="button" id="btn-add-roll" class="btn-secondary" style="white-space:nowrap; color:var(--amber-bright);">+ Add Roll</button>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WINDOW CUT LIST -->
+    <section class="card">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="dot dot-cyan"></span>
+          2. Window Cut List
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button type="button" id="btn-toggle-paste" class="btn-cyan">📋 Quick Paste Note</button>
+          <button type="button" id="btn-clear-windows" class="btn-ghost-danger">Clear</button>
+        </div>
+      </div>
+
+      <!-- Quick Paste Box -->
+      <div id="paste-box" class="paste-panel hidden">
+        <div class="paste-header">
+          <span>Paste your phone note below (e.g. (4) 24 x 34):</span>
+          <button type="button" id="btn-close-paste" style="background:none; color:var(--text-muted); font-size:12px;">Close ✕</button>
+        </div>
+        <textarea id="paste-textarea" rows="6" placeholder="Living Room&#10;(4) 24 x 34&#10;Front sitting room&#10;(2) 24 x 34&#10;Upstairs Bathroom&#10;(2) 24 x 16"></textarea>
+        <div class="paste-actions">
+          <button type="button" id="btn-paste-append" class="btn-secondary">Append to List</button>
+          <button type="button" id="btn-paste-replace" class="btn-primary-cyan">Replace Cut List</button>
+        </div>
+      </div>
+
+      <div class="win-col-headers">
+        <div>Room / Label</div>
+        <div>Qty</div>
+        <div>Width (in)</div>
+        <div>Height (in)</div>
+        <div></div>
+      </div>
+
+      <div id="windows-list" class="windows-list"></div>
+
+      <button type="button" id="btn-add-window" class="btn-add-row">+ Add Window Measurement</button>
+
+      <div id="input-summary" class="summary-footer"></div>
+    </section>
+
+    <!-- SECTION 3: OPTIMIZER RESULTS -->
+    <section id="results-container" style="display:flex; flex-direction:column; gap:16px;"></section>
+  </main>
+
+  <div id="toast" class="toast">
+    <span class="dot dot-amber"></span>
+    <span id="toast-msg">Updated</span>
+  </div>
+
+<script>
+(function() {
+  'use strict';
+
+  const HANDLER_MAX_WIDTH = 72;
+  let nextId = 10;
+
+  const state = {
+    availableRolls: [
+      { width: 72, enabled: true, custom: false },
+      { width: 60, enabled: true, custom: false },
+      { width: 48, enabled: false, custom: false },
+      { width: 36, enabled: true, custom: false }
+    ],
+    bleedInches: 0,
+    maxSideTrim: 4,
+    windows: [
+      { id: 1, room: 'Living Room', qty: 4, w: 24, h: 34 },
+      { id: 2, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+      { id: 3, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+    ],
+    selectedRollWidth: null,
+    selectedStrategy: 'lowestWaste', // 'lowestWaste' | 'fastSplit'
+    checkedPulls: {},
+    shopName: ''
+  };
+
+  const HANDLER_LOGO_SVG_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#0b0f19"/><rect x="4" y="22" width="40" height="19" rx="3" fill="#131b2e" stroke="#475569" stroke-width="1.2"/><line x1="18" y1="22" x2="18" y2="41" stroke="#f43f5e" stroke-width="1.4" stroke-dasharray="2.5 2"/><line x1="31" y1="22" x2="31" y2="41" stroke="#f59e0b" stroke-width="1.4" stroke-dasharray="2.5 2"/><rect x="3" y="11" width="42" height="9" rx="2.5" fill="#475569" stroke="#cbd5e1" stroke-width="1"/><rect x="3" y="9" width="3" height="13" rx="1" fill="#22d3ee"/><polygon points="15,7 21,7 19.5,24 16.5,24" fill="#f43f5e"/><polygon points="28,7 34,7 32.5,24 29.5,24" fill="#f59e0b"/></svg>';
+
+  // =========================================================================
+  // SHOP NAME & TOAST UTILITIES
+  // =========================================================================
+  function renderShopBadge() {
+    const slot = document.getElementById('shop-badge-slot');
+    if (!slot) return;
+    const trimmed = (state.shopName || '').trim();
+    if (trimmed) {
+      slot.innerHTML = `
+        <button type="button" id="btn-edit-shop-badge" class="shop-badge-btn" title="Tap to edit shop name">
+          <span>${escapeHtml(trimmed)}</span>
+          <span style="opacity:0.75;">✎</span>
+        </button>
+      `;
+    } else {
+      slot.innerHTML = `
+        <button type="button" id="btn-edit-shop-badge" class="shop-edit-trigger" title="Set optional shop name">+ Shop</button>
+      `;
+    }
+    const editBtn = document.getElementById('btn-edit-shop-badge');
+    if (editBtn) {
+      editBtn.addEventListener('click', () => {
+        const bar = document.getElementById('shop-editor-bar');
+        const input = document.getElementById('shop-name-input');
+        if (!bar || !input) return;
+        bar.classList.toggle('hidden');
+        if (!bar.classList.contains('hidden')) {
+          input.value = state.shopName || '';
+          input.focus();
+        }
+      });
+    }
+  }
+
+  function saveShopName(value) {
+    state.shopName = (value || '').trim().slice(0, 40);
+    try {
+      if (state.shopName) {
+        localStorage.setItem('handlercut_shop_name', state.shopName);
+      } else {
+        localStorage.removeItem('handlercut_shop_name');
+      }
+    } catch (_) {}
+    renderShopBadge();
+    const bar = document.getElementById('shop-editor-bar');
+    if (bar) bar.classList.add('hidden');
+    showToast(state.shopName ? `Shop name set to "${state.shopName}"` : 'Shop name cleared');
+  }
+
+  let toastTimer = null;
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    const msgEl = document.getElementById('toast-msg');
+    if (!el || !msgEl) return;
+    msgEl.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // =========================================================================
+  // ROLLS & BLEED CONTROLS
+  // =========================================================================
+  function renderRollToggles() {
+    const container = document.getElementById('roll-toggles');
+    if (!container) return;
+
+    const sorted = [...state.availableRolls].sort((a, b) => b.width - a.width);
+    container.innerHTML = sorted.map(roll => `
+      <button type="button" data-action="toggle-roll" data-width="${roll.width}"
+        class="roll-toggle ${roll.enabled ? 'enabled' : ''}">
+        <span class="roll-toggle-width">${roll.width}"</span>
+        <span class="roll-toggle-status">${roll.enabled ? 'On Hand' : 'Off'}</span>
+        ${roll.custom ? `<span data-action="remove-roll" data-width="${roll.width}" class="roll-remove-badge" title="Remove">✕</span>` : ''}
+      </button>
+    `).join('');
+  }
+
+  function setBleed(inches, notify = true) {
+    state.bleedInches = inches;
+    const b0 = document.getElementById('bleed-0');
+    const b1 = document.getElementById('bleed-1');
+    if (b0 && b1) {
+      b0.className = 'pill-btn' + (inches === 0 ? ' active-amber' : '');
+      b1.className = 'pill-btn' + (inches === 1 ? ' active-amber' : '');
+    }
+    updateInputSummary();
+    runOptimization();
+    if (notify) {
+      showToast(inches === 0 ? 'Using exact entered sizes (+0")' : 'Added +1" extra margin to W & H');
+    }
+  }
+
+  // =========================================================================
+  // WINDOW CUT LIST CONTROLS
+  // =========================================================================
+  function renderWindowRows() {
+    const container = document.getElementById('windows-list');
+    if (!container) return;
+
+    if (state.windows.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:24px 12px; border-radius:12px; background:var(--bg-card-inner); border:1px solid var(--border-subtle); color:var(--text-dim); font-size:13px;">
+          No windows in cut list. Tap "+ Add Window Measurement" or "Quick Paste Note".
+        </div>
+      `;
+      updateInputSummary();
+      return;
+    }
+
+    container.innerHTML = state.windows.map(win => `
+      <div class="win-row" data-id="${win.id}">
+        <div class="win-room-cell">
+          <input type="text" data-field="room" value="${escapeHtml(win.room)}" placeholder="Room / Label (e.g. Living Room)">
+        </div>
+        <div>
+          <span class="mobile-field-label">Qty</span>
+          <input type="number" class="win-qty-input" data-field="qty" value="${win.qty}" min="1" max="200">
+        </div>
+        <div>
+          <span class="mobile-field-label">Width (in)</span>
+          <input type="number" data-field="w" value="${win.w}" min="1" max="144" step="0.25">
+        </div>
+        <div>
+          <span class="mobile-field-label">Height (in)</span>
+          <input type="number" data-field="h" value="${win.h}" min="1" max="240" step="0.25">
+        </div>
+        <div style="display:flex; justify-content:center;">
+          <button type="button" class="btn-del-row" data-action="delete-row" data-id="${win.id}" title="Remove row">✕</button>
+        </div>
+      </div>
+    `).join('');
+
+    updateInputSummary();
+  }
+
+    function updateInputSummary() {
+    const summary = document.getElementById('input-summary');
+    if (!summary) return;
+    let totalPanes = 0;
+    let netSqIn = 0;
+    state.windows.forEach(w => {
+      const ew = w.w + state.bleedInches;
+      const eh = w.h + state.bleedInches;
+      totalPanes += w.qty;
+      netSqIn += ew * eh * w.qty;
+    });
+    summary.innerHTML = `
+      <span>Total Panes: <strong style="color:var(--text-main);">${totalPanes}</strong></span>
+      <span>Net Film Area: <strong style="color:var(--cyan-bright);">${(netSqIn / 144).toFixed(1)} sq ft</strong></span>
+    `;
+  }
+
+  function parsePastedText(replace) {
+    const textarea = document.getElementById('paste-textarea');
+    if (!textarea) return;
+    const raw = textarea.value.trim();
+    if (!raw) {
+      showToast('Paste your window notes first');
+      return;
+    }
+
+    const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    let currentRoom = 'Window';
+    const parsed = [];
+    const dimRegex = /^(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/;
+
+    for (const line of lines) {
+      const cleaned = line.replace(/~?\d+(?:\.\d+)?\s*sq\s*ft/i, '').trim();
+      const match = cleaned.match(dimRegex);
+      if (match) {
+        const qty = parseInt(match[1] || match[4] || '1', 10);
+        const w = parseFloat(match[2]);
+        const h = parseFloat(match[3]);
+        const trailing = cleaned.replace(match[0], '').replace(/^[-–:]+/, '').trim();
+        const label = trailing || currentRoom;
+        if (qty > 0 && w > 0 && h > 0) {
+          parsed.push({ id: nextId++, room: label, qty, w, h });
+        }
+      } else {
+        currentRoom = cleaned.replace(/[:\-]+$/, '').trim() || currentRoom;
+      }
+    }
+
+    if (parsed.length === 0) {
+      showToast('Could not detect any "W x H" sizes');
+      return;
+    }
+
+    state.windows = replace ? parsed : [...state.windows, ...parsed];
+    textarea.value = '';
+    document.getElementById('paste-box').classList.add('hidden');
+    state.selectedRollWidth = null;
+    state.checkedPulls = {};
+    renderWindowRows();
+    runOptimization();
+    showToast(`Imported ${parsed.length} window group(s)`);
+  }
+
+  // =========================================================================
+  // 2-BLADE MULTI-STAGE FILM HANDLER SOLVER
+  // =========================================================================
+  function computeBladePositions(lanes, rollWidth) {
+    const activeWidth = lanes.reduce((s, w) => s + w, 0);
+    let blade1 = null;
+    let blade2 = null;
+
+    if (lanes.length === 1) {
+      if (lanes[0] < rollWidth) blade1 = lanes[0];
+    } else if (lanes.length === 2) {
+      blade1 = lanes[0];
+      if (lanes[0] + lanes[1] < rollWidth) blade2 = lanes[0] + lanes[1];
+    } else if (lanes.length === 3) {
+      blade1 = lanes[0];
+      blade2 = lanes[0] + lanes[1];
+    }
+
+    return {
+      blade1,
+      blade2,
+      activeWidth,
+      sideWasteWidth: Math.max(0, Math.round((rollWidth - activeWidth) * 100) / 100)
+    };
+  }
+
+  function fitPaneInStripWidth(pane, stripWidth, maxAllowedTrim) {
+    const options = [];
+    if (pane.w <= stripWidth + 1e-6) {
+      const slackW = Math.max(0, stripWidth - pane.w);
+      if (slackW <= maxAllowedTrim + 1e-6) {
+        options.push({ stripW: pane.w, pullH: pane.h, rotated: false, slackW });
+      }
+    }
+    if (pane.h <= stripWidth + 1e-6) {
+      const slackW = Math.max(0, stripWidth - pane.h);
+      if (slackW <= maxAllowedTrim + 1e-6) {
+        options.push({ stripW: pane.h, pullH: pane.w, rotated: true, slackW });
+      }
+    }
+    if (options.length === 0) return null;
+
+    // Prefer shorter vertical pull length; tie-break by tighter fit
+    options.sort((a, b) => {
+      if (Math.abs(a.pullH - b.pullH) > 1e-6) return a.pullH - b.pullH;
+      return a.slackW - b.slackW;
+    });
+    return options[0];
+  }
+
+  function fitPaneInConfig(pane, lanes, maxAllowedTrim) {
+    let best = null;
+    for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
+      const sf = fitPaneInStripWidth(pane, lanes[lIdx], maxAllowedTrim);
+      if (!sf) continue;
+      const score = sf.pullH * 1000 + sf.slackW;
+      if (!best || score < best.score) {
+        best = { ...sf, laneIdx: lIdx, laneWidth: lanes[lIdx], score };
+      }
+    }
+    return best;
+  }
+
+  function packPanesWithConfig(targetPanes, lanes, rollWidth, maxAllowedTrim) {
+    const items = [];
+    for (const p of targetPanes) {
+      const best = fitPaneInConfig(p, lanes, maxAllowedTrim);
+      if (!best) return null;
+
+      const validLanes = [];
+      for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
+        const sf = fitPaneInStripWidth(p, lanes[lIdx], maxAllowedTrim);
+        if (sf) validLanes.push({ ...sf, laneIdx: lIdx, laneWidth: lanes[lIdx] });
+      }
+      items.push({ pane: p, best, validLanes });
+    }
+
+    const remaining = [...items].sort((a, b) => {
+      if (Math.abs(b.best.pullH - a.best.pullH) > 1e-6) return b.best.pullH - a.best.pullH;
+      return b.best.stripW - a.best.stripW;
+    });
+
+    const pulls = [];
+    while (remaining.length > 0) {
+      const anchor = remaining.shift();
+      const rowSlots = new Array(lanes.length).fill(null);
+      rowSlots[anchor.best.laneIdx] = { pane: anchor.pane, fit: anchor.best };
+
+      for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
+        if (rowSlots[lIdx] !== null) continue;
+        let bestIdx = -1;
+        let bestOpt = null;
+        let bestPenalty = Infinity;
+
+        for (let i = 0; i < remaining.length; i++) {
+          const cand = remaining[i];
+          const opt = cand.validLanes.find(vl => vl.laneIdx === lIdx);
+          if (!opt) continue;
+          const hDiff = Math.abs(opt.pullH - anchor.best.pullH);
+          const expands = opt.pullH > anchor.best.pullH ? (opt.pullH - anchor.best.pullH) * 50 : 0;
+          const penalty = hDiff * 10 + expands + opt.slackW;
+          if (penalty < bestPenalty) {
+            bestPenalty = penalty;
+            bestIdx = i;
+            bestOpt = opt;
+          }
+        }
+
+        if (bestIdx !== -1) {
+          const chosen = remaining.splice(bestIdx, 1)[0];
+          rowSlots[lIdx] = { pane: chosen.pane, fit: bestOpt };
+        }
+      }
+
+      const pullLength = Math.max(...rowSlots.map(s => (s ? s.fit.pullH : 0)));
+      pulls.push({ pullLength, slots: rowSlots });
+    }
+
+    const totalPullInches = pulls.reduce((s, p) => s + p.pullLength, 0);
+    const totalFilmSqIn = totalPullInches * rollWidth;
+    return {
+      lanes,
+      blades: computeBladePositions(lanes, rollWidth),
+      pulls,
+      totalPullInches,
+      totalFilmSqIn
+    };
+  }
+
+  function generateLaneConfigs(rollWidth, panes) {
+    const widths = new Set();
+    panes.forEach(p => {
+      if (p.w <= rollWidth) widths.add(p.w);
+      if (p.h <= rollWidth) widths.add(p.h);
+    });
+    const half = Math.round((rollWidth / 2) * 100) / 100;
+    const third = Math.round((rollWidth / 3) * 100) / 100;
+    if (half > 0 && half <= rollWidth) widths.add(half);
+    if (third > 0 && third <= rollWidth) widths.add(third);
+
+    const list = Array.from(widths).sort((a, b) => b - a);
+    const configs = [];
+
+    for (let i = 0; i < list.length; i++) {
+      configs.push([list[i]]);
+      for (let j = i; j < list.length; j++) {
+        if (list[i] + list[j] <= rollWidth + 1e-6) {
+          configs.push([list[i], list[j]]);
+          for (let k = j; k < list.length; k++) {
+            if (list[i] + list[j] + list[k] <= rollWidth + 1e-6) {
+              configs.push([list[i], list[j], list[k]]);
+            }
+          }
+        }
+      }
+    }
+    return configs;
+  }
+
+  function finalizeStrategy(setups, rollWidth, panes) {
+    const netGlassSqIn = panes.reduce((s, p) => s + p.area, 0);
+    const totalPullInches = setups.reduce((s, st) => s + st.totalPullInches, 0);
+    const totalFilmSqIn = setups.reduce((s, st) => s + st.totalFilmSqIn, 0);
+    const totalPullCount = setups.reduce((s, st) => s + st.pulls.length, 0);
+    const wasteSqIn = Math.max(0, totalFilmSqIn - netGlassSqIn);
+    const wastePct = totalFilmSqIn > 0 ? (wasteSqIn / totalFilmSqIn) * 100 : 0;
+
+    return {
+      rollWidth,
+      setups: setups.map((st, idx) => ({ ...st, setupNumber: idx + 1 })),
+      totalPullInches,
+      totalLinearFeet: totalPullInches / 12,
+      totalFilmSqFt: totalFilmSqIn / 144,
+      netGlassSqFt: netGlassSqIn / 144,
+      wasteSqFt: wasteSqIn / 144,
+      wastePct,
+      totalPullCount,
+      totalFilmSqIn
+    };
+  }
+
+  function solveMultiStageOptimal(targetPanes, configs, rollWidth, maxSideTrim) {
+    // First try single setup within maxSideTrim
+    let bestSingle = null;
+    for (const trimLimit of [maxSideTrim, Infinity]) {
+      for (const cfg of configs) {
+        const packed = packPanesWithConfig(targetPanes, cfg, rollWidth, trimLimit);
+        if (!packed) continue;
+        const bCount = (packed.blades.blade1 !== null ? 1 : 0) + (packed.blades.blade2 !== null ? 1 : 0);
+        const score = packed.totalFilmSqIn * 100 + packed.pulls.length * 10 + bCount;
+        if (!bestSingle || score < bestSingle.score) {
+          bestSingle = { ...packed, score };
+        }
+      }
+      if (bestSingle) break;
+    }
+
+    // Also try multi-stage grouping by tight fit within maxSideTrim
+    let unplaced = [...targetPanes];
+    const multiSetups = [];
+    let guard = 0;
+
+    while (unplaced.length > 0 && guard < 12) {
+      guard++;
+      let bestBatch = null;
+      for (const cfg of configs) {
+        const fitting = unplaced.filter(p => fitPaneInConfig(p, cfg, maxSideTrim) !== null);
+        if (fitting.length === 0) continue;
+
+        const exact = unplaced.filter(p => {
+          const f = fitPaneInConfig(p, cfg, maxSideTrim);
+          return f !== null && f.slackW === 0;
+        });
+
+        const candidates = exact.length > 0 ? [exact, fitting] : [fitting];
+        for (const subset of candidates) {
+          const packed = packPanesWithConfig(subset, cfg, rollWidth, maxSideTrim);
+          if (!packed) continue;
+          const netArea = subset.reduce((s, p) => s + p.area, 0);
+          const eff = netArea / packed.totalFilmSqIn;
+          const bScore = eff * 1000 + subset.length * 25 - (packed.totalFilmSqIn - netArea) * 0.02;
+          if (!bestBatch || bScore > bestBatch.bScore) {
+            bestBatch = { packed, subset, bScore };
+          }
+        }
+      }
+
+      if (!bestBatch) break;
+      multiSetups.push(bestBatch.packed);
+      const used = new Set(bestBatch.subset.map(p => p.uid));
+      unplaced = unplaced.filter(p => !used.has(p.uid));
+    }
+
+    if (unplaced.length === 0 && multiSetups.length > 0) {
+      if (!bestSingle) return multiSetups;
+      const multiSqIn = multiSetups.reduce((s, st) => s + st.totalFilmSqIn, 0);
+      if (multiSetups.length > 1 && (bestSingle.totalFilmSqIn - multiSqIn) > 288) {
+        return multiSetups;
+      }
+    }
+
+    return bestSingle ? [bestSingle] : null;
+  }
+
+  function solveForRoll(rollWidth, panes) {
+    const oversized = panes.filter(p => Math.min(p.w, p.h) > rollWidth);
+    if (oversized.length > 0) {
+      return {
+        rollWidth,
+        feasible: false,
+        reason: `${oversized.length} pane(s) exceed ${rollWidth}" roll width.`
+      };
+    }
+
+    const configs = generateLaneConfigs(rollWidth, panes);
+
+    // Strategy A: Lowest Waste
+    const lwSetups = solveMultiStageOptimal(panes, configs, rollWidth, state.maxSideTrim);
+    const lowestWastePlan = finalizeStrategy(lwSetups, rollWidth, panes);
+
+    // Strategy B: Fast Split (1-Blade Priority + Stage 2 Shift for narrower panes)
+    const oneBladeConfigs = configs.filter(cfg => {
+      const b = computeBladePositions(cfg, rollWidth);
+      const count = (b.blade1 !== null ? 1 : 0) + (b.blade2 !== null ? 1 : 0);
+      return count <= 1;
+    });
+
+    let bestFastSetups = null;
+    let bestFastScore = Infinity;
+
+    for (const cfg of oneBladeConfigs) {
+      const stage1Panes = panes.filter(p => fitPaneInConfig(p, cfg, state.maxSideTrim) !== null);
+      if (stage1Panes.length === 0) continue;
+
+      const stage1Packed = packPanesWithConfig(stage1Panes, cfg, rollWidth, state.maxSideTrim);
+      if (!stage1Packed) continue;
+
+      const usedUids = new Set(stage1Panes.map(p => p.uid));
+      const remainingPanes = panes.filter(p => !usedUids.has(p.uid));
+
+      let allSetups = [stage1Packed];
+      if (remainingPanes.length > 0) {
+        const stage2Setups = solveMultiStageOptimal(remainingPanes, configs, rollWidth, state.maxSideTrim);
+        if (!stage2Setups) continue;
+        allSetups = [stage1Packed, ...stage2Setups];
+      }
+
+      const totalSqIn = allSetups.reduce((s, st) => s + st.totalFilmSqIn, 0);
+      const totalPulls = allSetups.reduce((s, st) => s + st.pulls.length, 0);
+      const balancePenalty = cfg.length === 2 ? Math.abs(cfg[0] - cfg[1]) * 0.05 : 0;
+      const score = totalSqIn * 100 + totalPulls * 10 - stage1Panes.length * 40 + balancePenalty;
+
+      if (score < bestFastScore) {
+        bestFastScore = score;
+        bestFastSetups = allSetups;
+      }
+    }
+
+    let fastSplitPlan = null;
+    if (bestFastSetups) {
+      const candidate = finalizeStrategy(bestFastSetups, rollWidth, panes);
+      const sameAsLW =
+        candidate.setups.length === lowestWastePlan.setups.length &&
+        candidate.setups.every((st, i) => {
+          const o = lowestWastePlan.setups[i];
+          return st.blades.blade1 === o.blades.blade1 && st.blades.blade2 === o.blades.blade2;
+        });
+      if (!sameAsLW) {
+        fastSplitPlan = candidate;
+      }
+    }
+
+    return {
+      rollWidth,
+      feasible: true,
+      lowestWastePlan,
+      fastSplitPlan
+    };
+  }
+
+  // =========================================================================
+  // RENDERING RESULTS & SVG DIAGRAMS
+  // =========================================================================
+  function runOptimization() {
+    const container = document.getElementById('results-container');
+    if (!container) return;
+
+    const activeRolls = state.availableRolls.filter(r => r.enabled).map(r => r.width);
+    if (activeRolls.length === 0) {
+      container.innerHTML = `
+        <div class="card" style="text-align:center; border-color:rgba(245,158,11,0.4);">
+          <p style="color:var(--amber-bright); font-weight:800; font-size:14px;">No Rolls Selected</p>
+          <p style="color:var(--text-muted); font-size:12px; margin-top:4px;">Tap at least one roll width above (72", 60", or 36").</p>
+        </div>
+      `;
+      return;
+    }
+
+    const panes = [];
+    state.windows.forEach(win => {
+      const ew = Math.round((win.w + state.bleedInches) * 100) / 100;
+      const eh = Math.round((win.h + state.bleedInches) * 100) / 100;
+      for (let i = 0; i < win.qty; i++) {
+        panes.push({
+          uid: `${win.id}-${i}`,
+          room: win.room || 'Window',
+          w: ew,
+          h: eh,
+          area: ew * eh
+        });
+      }
+    });
+
+    if (panes.length === 0) {
+      container.innerHTML = `
+        <div class="card" style="text-align:center; color:var(--text-muted); font-size:13px;">
+          Add at least one window measurement above to calculate optimal blade positions.
+        </div>
+      `;
+      return;
+    }
+
+    const rollPlans = activeRolls.map(rw => solveForRoll(rw, panes));
+    rollPlans.sort((a, b) => {
+      if (a.feasible !== b.feasible) return a.feasible ? -1 : 1;
+      if (!a.feasible && !b.feasible) return b.rollWidth - a.rollWidth;
+      const wDiff = a.lowestWastePlan.wastePct - b.lowestWastePlan.wastePct;
+      if (Math.abs(wDiff) > 0.05) return wDiff;
+      if (a.lowestWastePlan.totalPullCount !== b.lowestWastePlan.totalPullCount) {
+        return a.lowestWastePlan.totalPullCount - b.lowestWastePlan.totalPullCount;
+      }
+      return b.rollWidth - a.rollWidth;
+    });
+
+    const bestRoll = rollPlans[0];
+    const activeRoll = rollPlans.find(r => r.rollWidth === state.selectedRollWidth) || bestRoll;
+    state.selectedRollWidth = activeRoll.rollWidth;
+
+    if (activeRoll.feasible && state.selectedStrategy === 'fastSplit' && !activeRoll.fastSplitPlan) {
+      state.selectedStrategy = 'lowestWaste';
+    }
+
+    renderResults(rollPlans, bestRoll, activeRoll);
+  }
+
+  function renderResults(rollPlans, bestRoll, activeRoll) {
+    const container = document.getElementById('results-container');
+
+    const compCardsHtml = rollPlans.map(rp => {
+      const isBest = rp.feasible && rp.rollWidth === bestRoll.rollWidth;
+      const isSelected = rp.rollWidth === activeRoll.rollWidth;
+
+      if (!rp.feasible) {
+        return `
+          <button type="button" data-action="select-roll" data-width="${rp.rollWidth}"
+            class="comp-card infeasible ${isSelected ? 'selected' : ''}">
+            <div class="comp-top">
+              <span class="comp-roll-name">${rp.rollWidth}" Roll</span>
+              <span class="badge-narrow">Too Narrow</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-dim);">Cannot fit widest pane</div>
+          </button>
+        `;
+      }
+
+      const lw = rp.lowestWastePlan;
+      return `
+        <button type="button" data-action="select-roll" data-width="${rp.rollWidth}"
+          class="comp-card ${isSelected ? 'selected' : ''}">
+          <div class="comp-top">
+            <span class="comp-roll-name">${rp.rollWidth}" Roll</span>
+            ${isBest ? `<span class="badge-best">Best Choice</span>` : `<span class="badge-waste">${lw.wastePct.toFixed(0)}% waste</span>`}
+          </div>
+          <div class="comp-stats">
+            <div>PULL<strong class="tabular">${lw.totalLinearFeet.toFixed(1)} ft</strong></div>
+            <div style="text-align:right;">WASTE<strong class="tabular" style="color:${lw.wastePct <= 10 ? 'var(--emerald-bright)' : 'var(--amber-bright)'};">${lw.wastePct.toFixed(1)}%</strong></div>
+          </div>
+        </button>
+      `;
+    }).join('');
+
+    const comparisonCard = `
+      <div class="card">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="dot dot-emerald"></span>
+            3. Roll Comparison &amp; Recommendation
+          </div>
+          <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-dim);">Tap roll to inspect</span>
+        </div>
+        <div class="comp-grid">${compCardsHtml}</div>
+      </div>
+    `;
+
+    if (!activeRoll.feasible) {
+      container.innerHTML = comparisonCard + `
+        <div class="card" style="border-color:rgba(244,63,94,0.45);">
+          <h3 style="color:var(--rose); font-size:16px; font-weight:800;">${activeRoll.rollWidth}" Roll Cannot Fit All Panes</h3>
+          <p style="color:var(--text-muted); font-size:13px; margin-top:6px;">${escapeHtml(activeRoll.reason)}</p>
+        </div>
+      `;
+      return;
+    }
+
+    const plan = state.selectedStrategy === 'fastSplit' && activeRoll.fastSplitPlan
+      ? activeRoll.fastSplitPlan
+      : activeRoll.lowestWastePlan;
+
+    const trimOptions = [2, 3, 4, 6];
+    const strategyHtml = activeRoll.fastSplitPlan ? `
+      <div class="strategy-section">
+        <div class="strategy-top-bar">
+          <span style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">
+            Setup Strategy for ${activeRoll.rollWidth}" Roll:
+          </span>
+          <div class="pill-group">
+            <span class="pill-label">Max Side-Trim:</span>
+            ${trimOptions.map(t => `
+              <button type="button" data-action="set-trim" data-trim="${t}"
+                class="pill-btn ${state.maxSideTrim === t ? 'active-cyan' : ''}">${t}"</button>
+            `).join('')}
+          </div>
+        </div>
+        <div class="strategy-grid">
+          <button type="button" data-action="select-strategy" data-strategy="lowestWaste"
+            class="strategy-btn ${state.selectedStrategy === 'lowestWaste' ? 'active-lw' : ''}">
+            <div class="strategy-btn-head">
+              <span class="strategy-name">Lowest Waste</span>
+              <span class="strategy-pill" style="background:var(--emerald-bg); color:var(--emerald-bright);">
+                ${activeRoll.lowestWastePlan.wastePct.toFixed(1)}%
+              </span>
+            </div>
+            <div class="strategy-meta tabular">
+              ${activeRoll.lowestWastePlan.setups.length} setup • ${activeRoll.lowestWastePlan.totalPullCount} pulls (${activeRoll.lowestWastePlan.totalPullInches}")
+            </div>
+          </button>
+
+          <button type="button" data-action="select-strategy" data-strategy="fastSplit"
+            class="strategy-btn ${state.selectedStrategy === 'fastSplit' ? 'active-fs' : ''}">
+            <div class="strategy-btn-head">
+              <span class="strategy-name">Fast Split (1-Blade)</span>
+              <span class="strategy-pill" style="background:var(--cyan-bg); color:var(--cyan-bright);">
+                ${activeRoll.fastSplitPlan.wastePct.toFixed(1)}%
+              </span>
+            </div>
+            <div class="strategy-meta tabular">
+              ${activeRoll.fastSplitPlan.setups.length} ${activeRoll.fastSplitPlan.setups.length > 1 ? 'stages' : 'setup'} • ${activeRoll.fastSplitPlan.totalPullCount} pulls (${activeRoll.fastSplitPlan.totalPullInches}")
+            </div>
+          </button>
+        </div>
+      </div>
+    ` : '';
+
+    const kpiCard = `
+      <div class="card">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">
+          <div>
+            <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+              <h3 style="font-size:18px; font-weight:800; color:var(--text-main);">Load ${plan.rollWidth}" Roll</h3>
+              ${plan.rollWidth === bestRoll.rollWidth && state.selectedStrategy === 'lowestWaste'
+                ? `<span style="font-family:var(--font-mono); font-size:10px; font-weight:800; padding:3px 8px; border-radius:6px; background:var(--emerald-bg); color:var(--emerald-bright); border:1px solid rgba(16,185,129,0.3);">★ Lowest Waste</span>`
+                : ''}
+              ${state.selectedStrategy === 'fastSplit'
+                ? `<span style="font-family:var(--font-mono); font-size:10px; font-weight:800; padding:3px 8px; border-radius:6px; background:var(--cyan-bg); color:var(--cyan-bright); border:1px solid rgba(6,182,212,0.3);">⚡ ${plan.setups.length > 1 ? '1-Blade + Shift' : '1-Blade Fast Split'}</span>`
+                : ''}
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+              Flush roll against <strong style="color:var(--text-main); font-family:var(--font-mono);">0"</strong> left stop •
+              ${plan.setups.length === 1
+                ? '<strong style="color:var(--cyan-bright);">1 blade setup</strong> (no mid-job adjustment)'
+                : `<strong style="color:var(--amber-bright);">${plan.setups.length} blade stages</strong> (1-blade fast split first, then shift blades)`}
+            </p>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-box">
+            <span class="kpi-label">Linear Pull</span>
+            <span class="kpi-val tabular">${plan.totalLinearFeet.toFixed(1)} ft</span>
+            <span class="kpi-sub tabular">(${plan.totalPullInches}")</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">Film Used</span>
+            <span class="kpi-val tabular" style="color:var(--cyan-bright);">${plan.totalFilmSqFt.toFixed(1)}</span>
+            <span class="kpi-sub">sq ft</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">Net Glass</span>
+            <span class="kpi-val tabular">${plan.netGlassSqFt.toFixed(1)}</span>
+            <span class="kpi-sub">sq ft</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">Waste</span>
+            <span class="kpi-val tabular" style="color:${plan.wastePct <= 10 ? 'var(--emerald-bright)' : 'var(--amber-bright)'};">${plan.wastePct.toFixed(1)}%</span>
+            <span class="kpi-sub tabular">${plan.wasteSqFt.toFixed(1)} sf</span>
+          </div>
+        </div>
+
+        ${strategyHtml}
+      </div>
+    `;
+
+    const stagesHtml = plan.setups.map((setup, idx) => {
+      const stageCard = renderStageCard(plan, setup);
+      if (idx === 0) return stageCard;
+
+      const b1 = setup.blades.blade1 !== null ? `${setup.blades.blade1}"` : 'Parked';
+      const b2 = setup.blades.blade2 !== null ? `${setup.blades.blade2}"` : 'Parked';
+      return `
+        <div class="shift-divider">
+          <div class="shift-line"></div>
+          <div class="shift-badge">
+            <span>⚡ SHIFT BLADES → Stage ${setup.setupNumber}:</span>
+            <span style="color:var(--text-main);">B1: ${b1}</span>
+            <span style="color:var(--text-dim);">•</span>
+            <span style="color:var(--text-main);">B2: ${b2}</span>
+          </div>
+        </div>
+        ${stageCard}
+      `;
+    }).join('');
+
+    container.innerHTML = comparisonCard + kpiCard + stagesHtml;
+  }
+
+  function renderStageCard(plan, setup) {
+    const { blade1, blade2, sideWasteWidth } = setup.blades;
+    const activeCount = (blade1 !== null ? 1 : 0) + (blade2 !== null ? 1 : 0);
+
+    const pullsHtml = setup.pulls.map((pull, pIdx) => {
+      const checkKey = `${plan.rollWidth}-${state.selectedStrategy}-${setup.setupNumber}-${pIdx}`;
+      const isChecked = !!state.checkedPulls[checkKey];
+
+      const laneRows = setup.lanes.map((laneW, lIdx) => {
+        const slot = pull.slots[lIdx];
+        const startIn = lIdx === 0 ? 0 : (lIdx === 1 ? setup.lanes[0] : setup.lanes[0] + setup.lanes[1]);
+        const endIn = startIn + laneW;
+
+        if (!slot) {
+          return `
+            <div class="lane-item drop">
+              <span style="font-family:var(--font-mono);">Lane ${lIdx + 1} (${startIn}"–${endIn}")</span>
+              <span style="font-family:var(--font-mono);">Drop / Scrap (${laneW}" × ${pull.pullLength}")</span>
+            </div>
+          `;
+        }
+
+        const p = slot.pane;
+        const f = slot.fit;
+        const dropH = Math.round((pull.pullLength - f.pullH) * 100) / 100;
+        const dropW = Math.round((laneW - f.stripW) * 100) / 100;
+        const extraNotes = [];
+        if (dropH > 0) extraNotes.push(`+${dropH}" tail`);
+        if (dropW > 0) extraNotes.push(`+${dropW}" trim`);
+
+        return `
+          <div class="lane-item">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="lane-badge">L${lIdx + 1}</span>
+              <strong style="color:var(--text-main);">${escapeHtml(p.room)}</strong>
+              ${f.rotated ? `<span class="rot-badge">↻ Rotated</span>` : ''}
+            </div>
+            <div style="font-family:var(--font-mono); color:var(--text-muted);">
+              <strong style="color:var(--text-main);">${f.stripW}"</strong> wide × <strong style="color:var(--text-main);">${f.pullH}"</strong>
+              ${extraNotes.length ? `<span style="color:var(--amber-bright); font-size:10px; margin-left:4px;">(${extraNotes.join(', ')})</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="pull-card ${isChecked ? 'checked' : ''}" data-action="toggle-pull" data-key="${checkKey}">
+          <div class="pull-top">
+            <div class="pull-left">
+              <div class="checkbox-box">${isChecked ? '✓' : ''}</div>
+              <div class="pull-heading">
+                Pull #${pIdx + 1}: Pull Down <span>${pull.pullLength}"</span> &amp; Cross-Cut
+              </div>
+            </div>
+            <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-dim);">
+              ${(pull.pullLength / 12).toFixed(2)} ft
+            </span>
+          </div>
+          <div class="lane-rows">${laneRows}</div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="stage-card">
+        <div class="stage-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="stage-tag ${plan.setups.length > 1 && setup.setupNumber === 1 ? 'stage-tag-cyan' : 'stage-tag-amber'}">
+              ${plan.setups.length > 1 ? `Stage ${setup.setupNumber} of ${plan.setups.length}` : 'Blade Setup'}
+            </span>
+            <span style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--text-main);">
+              ${activeCount === 1 ? '1 Blade Active' : `${activeCount} Blades Active`}
+            </span>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
+            ${setup.pulls.length} pull(s) • ${setup.totalPullInches}"
+          </span>
+        </div>
+
+        <div class="svg-wrapper">
+          <div class="svg-caption">
+            <span>0" Left Stop → ${plan.rollWidth}" Roll</span>
+            <span>B1: ${blade1 !== null ? blade1 + '"' : 'Off'} • B2: ${blade2 !== null ? blade2 + '"' : 'Off'}</span>
+          </div>
+          ${buildHandlerSvg(plan.rollWidth, setup)}
+        </div>
+
+        <div class="pulls-container">
+          <div class="section-title" style="margin-bottom:2px;">Sequential Pull Checklist (Tap to Check Off)</div>
+          ${pullsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  function buildHandlerSvg(rollWidth, setup) {
+    const padX = 22;
+    const scale = 10; // 72" = 720 SVG units
+    const barW = HANDLER_MAX_WIDTH * scale;
+    const rollPx = rollWidth * scale;
+    const svgW = barW + padX * 2 + 24;
+
+    const totalPullIn = setup.totalPullInches || 1;
+    const pullScale = Math.min(2.5, Math.max(1.25, 200 / totalPullIn));
+    const barY = 26;
+    const barH = 26;
+    let curY = barY + barH + 14;
+
+    const pullBlocks = setup.pulls.map(pull => {
+      const hPx = Math.max(36, pull.pullLength * pullScale);
+      const blk = { y: curY, h: hPx, pull };
+      curY += hPx + 5;
+      return blk;
+    });
+
+    const svgH = curY + 14;
+
+    let ticks = '';
+    for (let inch = 0; inch <= 72; inch += 6) {
+      const x = padX + inch * scale;
+      const major = inch % 12 === 0;
+      ticks += `<line x1="${x}" y1="${barY}" x2="${x}" y2="${barY + (major ? 12 : 7)}" stroke="${major ? '#94a3b8' : '#475569'}" stroke-width="${major ? 1.5 : 1}"/>`;
+      if (major) {
+        ticks += `<text x="${x}" y="${barY - 6}" fill="#94a3b8" font-size="11" font-family="monospace" font-weight="700" text-anchor="middle">${inch}"</text>`;
+      }
+    }
+
+    const colors = [
+      { fill: '#0e7490', stroke: '#22d3ee', text: '#ecfeff' },
+      { fill: '#1d4ed8', stroke: '#60a5fa', text: '#eff6ff' },
+      { fill: '#047857', stroke: '#34d399', text: '#ecfdf5' }
+    ];
+
+    let pullsSvg = '';
+    pullBlocks.forEach(pb => {
+      let laneX = padX;
+      setup.lanes.forEach((laneW, lIdx) => {
+        const wPx = laneW * scale;
+        const slot = pb.pull.slots[lIdx];
+        const col = colors[lIdx % colors.length];
+
+        if (slot) {
+          const maxChars = Math.max(4, Math.floor(laneW / 1.5));
+          const name = slot.pane.room.length > maxChars
+            ? slot.pane.room.slice(0, maxChars) + '…'
+            : slot.pane.room;
+          pullsSvg += `
+            <rect x="${laneX + 1}" y="${pb.y}" width="${wPx - 2}" height="${pb.h}" rx="4"
+              fill="${col.fill}" fill-opacity="0.38" stroke="${col.stroke}" stroke-width="1.5"/>
+            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 - 3}" fill="${col.text}"
+              font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">${escapeHtml(name)}</text>
+            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 + 11}" fill="${col.stroke}"
+              font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">${slot.fit.stripW}"×${slot.fit.pullH}"</text>
+          `;
+        } else {
+          pullsSvg += `
+            <rect x="${laneX + 1}" y="${pb.y}" width="${wPx - 2}" height="${pb.h}" rx="4"
+              fill="#1e293b" fill-opacity="0.45" stroke="#475569" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 + 4}" fill="#64748b"
+              font-size="10" font-family="monospace" text-anchor="middle">DROP (${laneW}"×${pb.pull.pullLength}")</text>
+          `;
+        }
+        laneX += wPx;
+      });
+
+      const { activeWidth, sideWasteWidth } = setup.blades;
+      if (sideWasteWidth > 0) {
+        pullsSvg += `
+          <rect x="${padX + activeWidth * scale + 1}" y="${pb.y}" width="${sideWasteWidth * scale - 2}" height="${pb.h}" rx="3"
+            fill="#7f1d1d" fill-opacity="0.3" stroke="#f43f5e" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="3 3"/>
+        `;
+      }
+
+      pullsSvg += `
+        <text x="${padX + rollPx + 8}" y="${pb.y + pb.h / 2 + 4}" fill="#fbbf24"
+          font-size="11" font-family="monospace" font-weight="800">↓${pb.pull.pullLength}"</text>
+      `;
+    });
+
+    let bladesSvg = '';
+    const { blade1, blade2 } = setup.blades;
+    if (blade1 !== null) {
+      const x1 = padX + blade1 * scale;
+      bladesSvg += `
+        <line x1="${x1}" y1="${barY - 2}" x2="${x1}" y2="${curY}" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5 3"/>
+        <rect x="${x1 - 24}" y="${barY + barH - 8}" width="48" height="18" rx="4" fill="#f43f5e"/>
+        <text x="${x1}" y="${barY + barH + 4}" fill="#fff" font-size="10" font-family="monospace" font-weight="800" text-anchor="middle">B1:${blade1}"</text>
+      `;
+    }
+    if (blade2 !== null) {
+      const x2 = padX + blade2 * scale;
+      bladesSvg += `
+        <line x1="${x2}" y1="${barY - 2}" x2="${x2}" y2="${curY}" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 3"/>
+        <rect x="${x2 - 24}" y="${barY + barH - 8}" width="48" height="18" rx="4" fill="#f59e0b"/>
+        <text x="${x2}" y="${barY + barH + 4}" fill="#0b0f19" font-size="10" font-family="monospace" font-weight="800" text-anchor="middle">B2:${blade2}"</text>
+      `;
+    }
+
+    return `
+      <svg viewBox="0 0 ${svgW} ${svgH}">
+        <rect x="${padX}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+        ${rollWidth < 72 ? `<text x="${padX + rollPx + (barW - rollPx) / 2}" y="${barY + 17}" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Empty Bar (${72 - rollWidth}")</text>` : ''}
+        <rect x="${padX}" y="${barY + 13}" width="${rollPx}" height="${barH - 13}" rx="2" fill="#334155"/>
+        <text x="${padX + 6}" y="${barY + 23}" fill="#e2e8f0" font-size="9.5" font-family="monospace" font-weight="700">${rollWidth}" ROLL (0"–${rollWidth}")</text>
+        ${ticks}
+        ${pullsSvg}
+        ${bladesSvg}
+      </svg>
+    `;
+  }
+
+  // =========================================================================
+  // THEME & PWA SETUP
+  // =========================================================================
+  function applyTheme(theme) {
+    const isLight = theme === 'light';
+    document.body.classList.toggle('light-mode', isLight);
+    const btn = document.getElementById('btn-theme');
+    if (btn) btn.textContent = isLight ? '🌙' : '☀️';
+    const metaTheme = document.getElementById('meta-theme-color');
+    if (metaTheme) metaTheme.setAttribute('content', isLight ? '#eef2f7' : '#0b0f19');
+    try {
+      localStorage.setItem('handlercut_theme', isLight ? 'light' : 'dark');
+    } catch (_) {}
+  }
+
+  function initPwa() {
+    const appTitle = state.shopName ? `HandlerCut Pro — ${state.shopName}` : 'HandlerCut Pro';
+    const manifestData = {
+      name: appTitle,
+      short_name: 'HandlerCut Pro',
+      description: '72-inch 2-blade Film Handler cut-list optimizer',
+      start_url: './',
+      display: 'standalone',
+      background_color: '#0b0f19',
+      theme_color: '#0b0f19',
+      icons: [
+        {
+          src: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(HANDLER_LOGO_SVG_ICON),
+          sizes: '192x192 512x512',
+          type: 'image/svg+xml',
+          purpose: 'any maskable'
+        }
+      ]
+    };
+
+    try {
+      const link = document.getElementById('pwa-manifest-link');
+      if (link) {
+        if (link.href && link.href.startsWith('blob:')) {
+          URL.revokeObjectURL(link.href);
+        }
+        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/manifest+json' });
+        link.href = URL.createObjectURL(blob);
+      }
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost') && !navigator.serviceWorker.controller) {
+        const swCode = `
+          const CACHE_NAME = 'handlercut-pro-v1';
+          self.addEventListener('install', event => {
+            event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./'])));
+            self.skipWaiting();
+          });
+          self.addEventListener('fetch', event => {
+            event.respondWith(caches.match(event.request).then(res => res || fetch(event.request)));
+          });
+        `;
+        const swBlob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(swBlob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+      }
+    } catch (_) {}
+  }
+
+  // =========================================================================
+  // EVENT WIRING ON DOMContentLoaded
+  // =========================================================================
+  document.addEventListener('DOMContentLoaded', () => {
+    let savedTheme = 'dark';
+    try {
+      savedTheme = localStorage.getItem('handlercut_theme') || 'dark';
+      state.shopName = localStorage.getItem('handlercut_shop_name') || '';
+    } catch (_) {}
+    applyTheme(savedTheme);
+    renderShopBadge();
+    initPwa();
+
+    const saveShopBtn = document.getElementById('btn-save-shop');
+    const clearShopBtn = document.getElementById('btn-clear-shop');
+    const shopInput = document.getElementById('shop-name-input');
+    if (saveShopBtn && shopInput) {
+      saveShopBtn.addEventListener('click', () => saveShopName(shopInput.value));
+      shopInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          saveShopName(shopInput.value);
+        }
+      });
+    }
+    if (clearShopBtn) {
+      clearShopBtn.addEventListener('click', () => saveShopName(''));
+    }
+
+    const themeBtn = document.getElementById('btn-theme');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const next = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+        applyTheme(next);
+        showToast(next === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
+      });
+    }
+
+    // Load Demo Job
+    document.getElementById('btn-demo').addEventListener('click', () => {
+      state.windows = [
+        { id: nextId++, room: 'Living Room', qty: 4, w: 24, h: 34 },
+        { id: nextId++, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+        { id: nextId++, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+      ];
+      state.bleedInches = 0;
+      state.maxSideTrim = 4;
+      state.selectedRollWidth = null;
+      state.selectedStrategy = 'lowestWaste';
+      state.checkedPulls = {};
+      setBleed(0, false);
+      renderWindowRows();
+      runOptimization();
+      showToast('Loaded your example job');
+    });
+
+    // Bleed buttons
+    document.getElementById('bleed-0').addEventListener('click', () => setBleed(0));
+    document.getElementById('bleed-1').addEventListener('click', () => setBleed(1));
+
+    // Roll toggles delegation
+    document.getElementById('roll-toggles').addEventListener('click', (e) => {
+      const remBtn = e.target.closest('[data-action="remove-roll"]');
+      if (remBtn) {
+        e.stopPropagation();
+        const w = parseFloat(remBtn.dataset.width);
+        state.availableRolls = state.availableRolls.filter(r => r.width !== w);
+        state.selectedRollWidth = null;
+        renderRollToggles();
+        runOptimization();
+        return;
+      }
+
+      const toggleBtn = e.target.closest('[data-action="toggle-roll"]');
+      if (toggleBtn) {
+        const w = parseFloat(toggleBtn.dataset.width);
+        const roll = state.availableRolls.find(r => r.width === w);
+        if (roll) {
+          roll.enabled = !roll.enabled;
+          state.selectedRollWidth = null;
+          renderRollToggles();
+          runOptimization();
+        }
+      }
+    });
+
+    // Custom roll add
+    document.getElementById('btn-add-roll').addEventListener('click', () => {
+      const input = document.getElementById('custom-roll-input');
+      const val = parseFloat(input.value);
+      if (isNaN(val) || val < 10 || val > 72) {
+        showToast('Enter a width between 10" and 72"');
+        return;
+      }
+      const existing = state.availableRolls.find(r => r.width === val);
+      if (existing) {
+        existing.enabled = true;
+      } else {
+        state.availableRolls.push({ width: val, enabled: true, custom: true });
+      }
+      input.value = '';
+      state.selectedRollWidth = null;
+      renderRollToggles();
+      runOptimization();
+      showToast(`Added ${val}" roll`);
+    });
+
+    // Quick paste modal
+    document.getElementById('btn-toggle-paste').addEventListener('click', () => {
+      const box = document.getElementById('paste-box');
+      box.classList.toggle('hidden');
+      if (!box.classList.contains('hidden')) {
+        document.getElementById('paste-textarea').focus();
+      }
+    });
+    document.getElementById('btn-close-paste').addEventListener('click', () => {
+      document.getElementById('paste-box').classList.add('hidden');
+    });
+    document.getElementById('btn-paste-append').addEventListener('click', () => parsePastedText(false));
+    document.getElementById('btn-paste-replace').addEventListener('click', () => parsePastedText(true));
+
+    // Clear windows
+    document.getElementById('btn-clear-windows').addEventListener('click', () => {
+      state.windows = [];
+      state.checkedPulls = {};
+      renderWindowRows();
+      runOptimization();
+    });
+
+    // Add window row
+    document.getElementById('btn-add-window').addEventListener('click', () => {
+      const last = state.windows[state.windows.length - 1];
+      state.windows.push({
+        id: nextId++,
+        room: last ? last.room : 'Room',
+        qty: 1,
+        w: 24,
+        h: 36
+      });
+      renderWindowRows();
+      runOptimization();
+    });
+
+    // Window list input & delete delegation
+    const winList = document.getElementById('windows-list');
+    winList.addEventListener('change', (e) => {
+      const row = e.target.closest('.win-row');
+      if (!row) return;
+      const id = parseInt(row.dataset.id, 10);
+      const win = state.windows.find(w => w.id === id);
+      if (!win) return;
+
+      const field = e.target.dataset.field;
+      if (field === 'room') {
+        win.room = e.target.value;
+      } else if (field === 'qty') {
+        win.qty = Math.max(1, parseInt(e.target.value, 10) || 1);
+      } else if (field === 'w') {
+        win.w = Math.max(1, parseFloat(e.target.value) || 1);
+      } else if (field === 'h') {
+        win.h = Math.max(1, parseFloat(e.target.value) || 1);
+      }
+      updateInputSummary();
+      runOptimization();
+    });
+
+    winList.addEventListener('click', (e) => {
+      const delBtn = e.target.closest('[data-action="delete-row"]');
+      if (!delBtn) return;
+      const id = parseInt(delBtn.dataset.id, 10);
+      state.windows = state.windows.filter(w => w.id !== id);
+      renderWindowRows();
+      runOptimization();
+    });
+
+    // Results container delegation (roll tabs, strategy buttons, trim pills, pull checklist)
+    document.getElementById('results-container').addEventListener('click', (e) => {
+      const rollBtn = e.target.closest('[data-action="select-roll"]');
+      if (rollBtn) {
+        state.selectedRollWidth = parseFloat(rollBtn.dataset.width);
+        runOptimization();
+        return;
+      }
+
+      const stratBtn = e.target.closest('[data-action="select-strategy"]');
+      if (stratBtn) {
+        state.selectedStrategy = stratBtn.dataset.strategy;
+        runOptimization();
+        return;
+      }
+
+      const trimBtn = e.target.closest('[data-action="set-trim"]');
+      if (trimBtn) {
+        state.maxSideTrim = parseFloat(trimBtn.dataset.trim);
+        state.checkedPulls = {};
+        runOptimization();
+        return;
+      }
+
+      const pullCard = e.target.closest('[data-action="toggle-pull"]');
+      if (pullCard) {
+        const key = pullCard.dataset.key;
+        state.checkedPulls[key] = !state.checkedPulls[key];
+        runOptimization();
+      }
+    });
+
+    // Initial render
+    renderRollToggles();
+    renderWindowRows();
+    runOptimization();
+  });
+})();
+</script>
+</body>
+</html>
