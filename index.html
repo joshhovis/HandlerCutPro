@@ -35,7 +35,7 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSys
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 button{font-family:inherit;cursor:pointer;border:none;outline:none;transition:transform .1s,background .15s,border-color .15s}
 button:active{transform:scale(.97)}
-input,textarea{background:var(--inner);border:1px solid var(--bdr);border-radius:10px;color:var(--txt);font-family:inherit;font-size:14px;padding:8px 10px;width:100%}
+input,textarea{background:var(--inner);border:1px solid var(--bdr);border-radius:10px;color:var(--txt);font-family:inherit;font-size:13.5px;padding:8px 10px;width:100%}
 input:focus,textarea:focus{outline:none;border-color:var(--amb)}
 input[type=number]{font-family:ui-monospace,monospace;font-weight:700;text-align:center;-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
@@ -43,7 +43,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
 /* Header */
 header{position:sticky;top:0;z-index:40;background:var(--hdr);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--bdr);padding:10px 14px}
-.hdr-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hdr-in{max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .logo-box{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:11px;background:var(--inner);border:1px solid var(--bdr2)}
 .title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -52,17 +52,18 @@ header{position:sticky;top:0;z-index:40;background:var(--hdr);backdrop-filter:bl
 .sub{font-size:10px;color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
 .shop-btn{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--amb-bg);color:var(--amb2);border:1px solid rgba(245,158,11,.35);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .shop-add{font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:transparent;color:var(--dim);border:1px dashed var(--bdr)}
-.shop-bar{max-width:760px;margin:8px auto 0;padding:8px;background:var(--card);border:1px solid var(--bdr2);border-radius:11px;display:flex;gap:6px}
+.shop-bar{max-width:820px;margin:8px auto 0;padding:8px;background:var(--card);border:1px solid var(--bdr2);border-radius:11px;display:flex;gap:6px}
 .hdr-act{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .btn-ico{width:34px;height:34px;border-radius:10px;background:var(--elev);color:var(--txt);border:1px solid var(--bdr2);font-size:15px;display:flex;align-items:center;justify-content:center}
 .btn-sec{background:var(--elev);color:var(--txt);border:1px solid var(--bdr2);padding:8px 11px;border-radius:10px;font-size:11.5px;font-weight:700}
 .btn-cy{background:var(--cy-bg);color:var(--cy2);border:1px solid rgba(34,211,238,.35);padding:7px 11px;border-radius:10px;font-size:11.5px;font-weight:700}
+.btn-pur{background:var(--pur-bg);color:var(--pur2);border:1px solid rgba(168,85,247,.38);padding:7px 11px;border-radius:10px;font-size:11.5px;font-weight:700}
 .btn-pcy{background:var(--cy);color:#08101e;padding:8px 13px;border-radius:10px;font-size:12px;font-weight:800}
 .btn-del{background:transparent;color:var(--mut);padding:6px 9px;border-radius:8px;font-size:11.5px;font-weight:600}
 .btn-del:hover{color:var(--ros);background:var(--ros-bg)}
 
 /* Main & Cards */
-main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction:column;gap:14px}
+main{max-width:820px;margin:0 auto;padding:14px 12px;display:flex;flex-direction:column;gap:14px}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:15px;box-shadow:var(--shd)}
 .sec-hdr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
 .sec-ttl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);display:flex;align-items:center;gap:7px}
@@ -70,7 +71,7 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 
 /* Pills & Rolls */
 .ctrl-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:11px}
-.pill-grp{display:inline-flex;align-items:center;background:var(--inner);border:1px solid var(--bdr);border-radius:10px;padding:3px;gap:2px}
+.pill-grp{display:inline-flex;align-items:center;background:var(--inner);border:1px solid var(--bdr);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
 .pill-lbl{font-size:11px;color:var(--mut);padding:0 6px;font-weight:600}
 .pill{padding:5px 9px;border-radius:7px;font-size:11px;font-weight:800;background:transparent;color:var(--mut)}
 .pill.on-amb{background:var(--amb);color:#0b0f19}
@@ -87,25 +88,35 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 
 /* Cut List */
 .paste-box{background:var(--inner);border:1px solid rgba(34,211,238,.45);border-radius:13px;padding:11px;margin-bottom:12px}
+.preset-strip{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.pre-chip{font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:7px;background:var(--elev);color:var(--mut);border:1px solid var(--bdr)}
+.pre-chip:hover{border-color:var(--cy);color:var(--cy2)}
 .w-hdr{display:none}
-@media(min-width:580px){
-  .w-hdr{display:grid;grid-template-columns:5fr 1.5fr 2fr 2fr 34px;gap:8px;padding:0 4px 6px;font-size:10px;text-transform:uppercase;color:var(--dim);text-align:center}
-  .w-hdr div:first-child{text-align:left}
+@media(min-width:660px){
+  .w-hdr{display:grid;grid-template-columns:2.4fr 3.2fr 1.1fr 1.5fr 1.5fr 34px;gap:8px;padding:0 4px 6px;font-size:10px;text-transform:uppercase;color:var(--dim);text-align:center}
+  .w-hdr div:first-child,.w-hdr div:nth-child(2){text-align:left}
 }
 .w-list{display:flex;flex-direction:column;gap:8px}
-.w-row{background:var(--inner);border:1px solid var(--bdr);border-radius:12px;padding:9px;display:grid;grid-template-columns:1fr 1.2fr 1.2fr 34px;gap:7px;align-items:end}
-.w-room{grid-column:1/-1}
+.w-row{background:var(--inner);border:1px solid var(--bdr);border-radius:12px;padding:9px;display:grid;grid-template-columns:1fr 1fr 1fr 34px;gap:7px;align-items:end}
+.w-film{grid-column:1 / span 2;border-color:rgba(168,85,247,.35)!important;color:var(--pur2)!important;font-weight:700}
+.w-room{grid-column:3 / span 2}
 .m-lbl{display:block;font-size:9px;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:3px}
-@media(min-width:580px){
-  .w-row{grid-template-columns:5fr 1.5fr 2fr 2fr 34px;align-items:center;padding:7px}
-  .w-room{grid-column:auto}
+@media(min-width:660px){
+  .w-row{grid-template-columns:2.4fr 3.2fr 1.1fr 1.5fr 1.5fr 34px;align-items:center;padding:7px}
+  .w-film,.w-room{grid-column:auto}
   .m-lbl{display:none}
 }
-.btn-add{margin-top:11px;width:100%;padding:11px;border-radius:12px;background:transparent;border:2px dashed var(--bdr2);color:var(--txt);font-size:13px;font-weight:700}
+.act-row{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-add{width:100%;padding:11px;border-radius:12px;background:transparent;border:2px dashed var(--bdr2);color:var(--txt);font-size:12.5px;font-weight:700}
 .btn-add:hover{border-color:var(--amb);color:var(--amb2)}
-.sum-ft{margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.btn-add-grp{width:100%;padding:11px;border-radius:12px;background:var(--pur-bg);border:2px dashed rgba(168,85,247,.55);color:var(--pur2);font-size:12.5px;font-weight:700}
+.btn-add-grp:hover{border-color:var(--pur2)}
+.sum-ft{margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr);display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-size:12px;color:var(--mut)}
 
-/* Comparison & KPIs */
+/* Film Group Sections & Comparison */
+.film-sec{background:var(--card);border:1px solid var(--bdr2);border-radius:18px;padding:15px;box-shadow:var(--shd);display:flex;flex-direction:column;gap:12px}
+.film-hdr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--bdr)}
+.film-bdg{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:8px;background:var(--pur-bg);color:var(--pur2);border:1px solid rgba(168,85,247,.35)}
 .comp-grid{display:grid;grid-template-columns:1fr;gap:9px}
 @media(min-width:560px){.comp-grid{grid-template-columns:repeat(2,1fr)}}
 .c-card{background:var(--inner);border:2px solid var(--bdr);border-radius:13px;padding:11px;text-align:left;color:var(--txt);display:flex;flex-direction:column;gap:7px}
@@ -119,7 +130,7 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 .bdg-bad{background:var(--ros-bg);color:var(--ros);font-size:9.5px;font-weight:800;padding:3px 7px;border-radius:6px;text-transform:uppercase}
 .c-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);padding-top:5px;border-top:1px solid var(--bdr)}
 .c-stats strong{display:block;font-size:13px;color:var(--txt);margin-top:1px}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:11px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:4px}
 .kpi{background:var(--inner);border:1px solid var(--bdr);border-radius:11px;padding:9px 4px;text-align:center}
 .kpi span{display:block}
 .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
@@ -128,27 +139,27 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 .s-btn.fs{background:var(--cy-bg);border-color:var(--cy);color:var(--txt)}
 
 /* Stages, Blades, SVG & Pulls */
-.roll-ban{background:linear-gradient(135deg,var(--elev),var(--card));border:1px solid var(--pur);border-radius:14px;padding:11px 14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
+.roll-ban{background:linear-gradient(135deg,var(--elev),var(--inner));border:1px solid var(--pur);border-radius:13px;padding:10px 13px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
 .shift-div{position:relative;display:flex;align-items:center;justify-content:center;padding:3px 0}
 .shift-ln{position:absolute;left:10px;right:10px;height:1px;background:var(--amb)}
 .shift-bdg{position:relative;background:var(--bg);border:1px solid var(--amb);color:var(--amb2);font-size:11px;font-weight:800;padding:5px 12px;border-radius:999px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.stg-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:var(--shd)}
+.stg-card{background:var(--inner);border:1px solid var(--bdr);border-radius:15px;overflow:hidden}
 .stg-hdr{background:var(--elev);padding:10px 14px;border-bottom:1px solid var(--bdr);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
 .b-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px 14px 0}
-.b-box{background:var(--inner);border:2px solid var(--bdr);border-radius:12px;padding:9px 11px;display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0}
+.b-box{background:var(--card);border:2px solid var(--bdr);border-radius:12px;padding:9px 11px;display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0}
 .b-box.b1{border-color:rgba(244,63,94,.75)}
 .b-box.b2{border-color:rgba(245,158,11,.75)}
 .b-val{font-size:21px;font-weight:800;flex-shrink:0}
 .b-park{font-size:11px;font-weight:800;color:var(--dim);text-transform:uppercase;background:rgba(100,116,139,.15);padding:4px 7px;border-radius:6px;flex-shrink:0}
-.svg-wrap{margin:12px 14px 0;background:var(--inner);border:1px solid var(--bdr);border-radius:11px;padding:9px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.svg-wrap{margin:12px 14px 0;background:var(--card);border:1px solid var(--bdr);border-radius:11px;padding:9px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .svg-wrap svg{width:100%;min-width:460px;height:auto;display:block}
 .pulls{padding:14px;display:flex;flex-direction:column;gap:9px}
-.p-card{background:var(--inner);border:1px solid var(--bdr);border-radius:12px;padding:11px;cursor:pointer;user-select:none}
+.p-card{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:11px;cursor:pointer;user-select:none}
 .p-card.chk{opacity:.45}
 .p-card.chk .p-ttl{text-decoration:line-through}
-.chk-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--bdr2);background:var(--card);display:flex;align-items:center;justify-content:center;color:#0b0f19;font-weight:900;font-size:13px;flex-shrink:0}
+.chk-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--bdr2);background:var(--inner);display:flex;align-items:center;justify-content:center;color:#0b0f19;font-weight:900;font-size:13px;flex-shrink:0}
 .p-card.chk .chk-box{background:var(--em);border-color:var(--em)}
-.l-item{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:6px 9px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-size:12px}
+.l-item{background:var(--inner);border:1px solid var(--bdr);border-radius:8px;padding:6px 9px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-size:12px}
 .l-item.drop{color:var(--dim);border-style:dashed}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--elev);border:1px solid var(--bdr2);color:var(--txt);padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -175,7 +186,7 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
           <div class="title">HandlerCut <span>Pro</span></div>
           <span id="shop-slot"></span>
         </div>
-        <div class="sub mono">72" Handler • 2 Blades • Multi-Roll</div>
+        <div class="sub mono">72" Left-Stop (0") • 2 Blades • Film-Isolated</div>
       </div>
     </div>
     <div class="hdr-act">
@@ -221,30 +232,49 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
   <section class="card">
     <div class="sec-hdr">
       <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>2. Window Cut List</div>
-      <div style="display:flex;gap:6px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button type="button" id="btn-paste-tog" class="btn-cy">📋 Quick Paste Note</button>
         <button type="button" id="btn-clr-win" class="btn-del">Clear</button>
       </div>
     </div>
+
     <div id="paste-box" class="paste-box hidden">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;font-size:12px;font-weight:700;color:var(--cy2)">
-        <span>Paste note (e.g. Living Room / (4) 24 x 34):</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--cy2)">
+        <span>Paste note with headers (Black film-front, DR 20, EV, Frost, [Decorative]):</span>
         <button type="button" id="btn-paste-x" style="background:none;color:var(--mut);font-size:12px">Close ✕</button>
       </div>
-      <textarea id="paste-txt" class="mono" rows="5" placeholder="Living Room&#10;(4) 24 x 34&#10;Front sitting room&#10;(2) 24 x 34&#10;Upstairs Bathroom&#10;(2) 24 x 16"></textarea>
+      <div class="preset-strip" id="sample-notes">
+        <button type="button" data-sample="mixed" class="pre-chip mono">Load Sample: Black + DR + Frost</button>
+        <button type="button" data-sample="rooms" class="pre-chip mono">Load Sample: Ceramic 35 vs Blackout</button>
+      </div>
+      <textarea id="paste-txt" class="mono" rows="6" placeholder="Black film-front&#10;Transom - (1) 36x27&#10;door (1) 28x70&#10;Top Sides (2) 30x27&#10;&#10;DR 20&#10;Back Slider (2) 24x34"></textarea>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
         <button type="button" id="btn-paste-app" class="btn-sec">Append</button>
         <button type="button" id="btn-paste-rep" class="btn-pcy">Replace Cut List</button>
       </div>
     </div>
-    <div class="w-hdr mono"><div>Room / Label</div><div>Qty</div><div>Width"</div><div>Height"</div><div></div></div>
+
+    <datalist id="film-presets">
+      <option value="Ceramic 35"></option>
+      <option value="Blackout"></option>
+      <option value="Dual Reflective (DR)"></option>
+      <option value="Evening View (EV)"></option>
+      <option value="Frost"></option>
+      <option value="Security"></option>
+    </datalist>
+
+    <div class="w-hdr mono"><div>Film Type</div><div>Room / Label</div><div>Qty</div><div>Width"</div><div>Height"</div><div></div></div>
     <div id="w-list" class="w-list"></div>
-    <button type="button" id="btn-add-win" class="btn-add">+ Add Window Measurement</button>
+
+    <div class="act-row">
+      <button type="button" id="btn-add-win" class="btn-add">+ Add Window Measurement</button>
+      <button type="button" id="btn-add-grp" class="btn-add-grp">+ Add Film Group</button>
+    </div>
     <div id="in-sum" class="sum-ft mono"></div>
   </section>
 
   <!-- 3. RESULTS -->
-  <section id="results" style="display:flex;flex-direction:column;gap:14px"></section>
+  <section id="results" style="display:flex;flex-direction:column;gap:16px"></section>
 </main>
 
 <div id="toast" class="toast">Updated</div>
@@ -253,7 +283,7 @@ main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 (function(){
 'use strict';
 const MAX_W = 72;
-let uid = 10;
+let uid = 20;
 
 const S = {
   rolls: [
@@ -265,12 +295,13 @@ const S = {
   bleed: 0,
   trim: 4,
   wins: [
-    { id: 1, room: 'Living Room', qty: 4, w: 24, h: 34 },
-    { id: 2, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-    { id: 3, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+    { id: 1, film: 'Ceramic 35', room: 'Living Room', qty: 4, w: 24, h: 34 },
+    { id: 2, film: 'Ceramic 35', room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+    { id: 3, film: 'Ceramic 35', room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 },
+    { id: 4, film: 'Blackout', room: 'Backroom Transom', qty: 2, w: 17, h: 20 }
   ],
-  planId: null,
-  strat: 'lw', // 'lw' | 'fs'
+  selByFilm: {},
+  stratByFilm: {},
   checked: {},
   shop: ''
 };
@@ -287,7 +318,7 @@ function toast(msg){
   tTimer = setTimeout(() => el.classList.remove('show'), 2100);
 }
 
-/* Header: Theme & Optional Shop Name */
+/* Theme & Optional Shop Name */
 function setTheme(t){
   const lt = t === 'light';
   document.body.classList.toggle('light', lt);
@@ -334,7 +365,7 @@ function setBleed(v, notify=true){
   $('b-0').className = 'pill mono' + (v===0 ? ' on-amb' : '');
   $('b-1').className = 'pill mono' + (v===1 ? ' on-amb' : '');
   updateSum();
-  solve();
+  renderAll();
   if(notify) toast(v===0 ? 'Exact sizes (+0")' : 'Added +1" margin to W & H');
 }
 
@@ -344,17 +375,18 @@ function syncTrim(){
   });
 }
 
-/* Section 2: Windows */
+/* Section 2: Window Cut List & Context-Aware Multi-Film Parser */
 function renderWins(){
   const el = $('w-list');
   if(!S.wins.length){
-    el.innerHTML = `<div style="text-align:center;padding:20px;border-radius:11px;background:var(--inner);border:1px solid var(--bdr);color:var(--dim);font-size:13px">No measurements yet. Tap "+ Add Window Measurement" or "Quick Paste Note".</div>`;
+    el.innerHTML = `<div style="text-align:center;padding:20px;border-radius:11px;background:var(--inner);border:1px solid var(--bdr);color:var(--dim);font-size:13px">No measurements yet. Tap "+ Add Window Measurement", "+ Add Film Group", or "Quick Paste Note".</div>`;
     updateSum();
     return;
   }
   el.innerHTML = S.wins.map(w => `
     <div class="w-row" data-id="${w.id}">
-      <div class="w-room"><input type="text" data-f="room" value="${esc(w.room)}" placeholder="Room / Label"></div>
+      <div class="w-film"><span class="m-lbl mono">Film</span><input type="text" list="film-presets" data-f="film" value="${esc(w.film || 'Standard Film')}" placeholder="Film Type"></div>
+      <div class="w-room"><span class="m-lbl mono">Room</span><input type="text" data-f="room" value="${esc(w.room)}" placeholder="Room / Label"></div>
       <div><span class="m-lbl mono">Qty</span><input type="number" style="color:var(--amb2)" data-f="qty" value="${w.qty}" min="1" max="200"></div>
       <div><span class="m-lbl mono">Width"</span><input type="number" data-f="w" value="${w.w}" min="1" max="144" step="0.25"></div>
       <div><span class="m-lbl mono">Height"</span><input type="number" data-f="h" value="${w.h}" min="1" max="240" step="0.25"></div>
@@ -366,34 +398,94 @@ function renderWins(){
 
 function updateSum(){
   let cnt = 0, area = 0;
-  S.wins.forEach(w => { cnt += w.qty; area += (w.w + S.bleed) * (w.h + S.bleed) * w.qty; });
-  $('in-sum').innerHTML = `<span>Total Panes: <strong style="color:var(--txt)">${cnt}</strong></span><span>Net Glass: <strong style="color:var(--cy2)">${(area/144).toFixed(1)} sq ft</strong></span>`;
+  const films = new Set();
+  S.wins.forEach(w => {
+    cnt += w.qty;
+    area += (w.w + S.bleed) * (w.h + S.bleed) * w.qty;
+    films.add((w.film || 'Standard Film').trim() || 'Standard Film');
+  });
+  $('in-sum').innerHTML = `<span>Film Groups: <strong style="color:var(--pur2)">${films.size}</strong> • Panes: <strong style="color:var(--txt)">${cnt}</strong></span><span>Net Glass: <strong style="color:var(--cy2)">${(area/144).toFixed(1)} sq ft</strong></span>`;
+}
+
+function normalizeFilmName(raw){
+  let t = (raw || '').replace(/^[-–—:*#\s]+|[-–—:*#\s]+$/g, '').trim();
+  if(/^\[(.+)\]$/.test(t)) t = t.replace(/^\[|\]$/g, '').trim();
+  t = t.replace(/^film\s*[:\-]\s*/i, '').trim();
+  if(!t) return '';
+  const low = t.toLowerCase();
+  if(/^(dual\s*reflective|dr)(\s*\d+)?$/i.test(low)) return t.toUpperCase().startsWith('DR') ? t.toUpperCase() : `Dual Reflective (${t})`;
+  if(/^(evening\s*view|ev)(\s*\d+)?$/i.test(low)) return t.toUpperCase().startsWith('EV') ? t.toUpperCase() : `Evening View (${t})`;
+  if(/^frost(ed)?(\s+.*)?$/i.test(low)) return /frost/i.test(t) ? t : 'Frost';
+  if(/^black\s*out$/i.test(low)) return 'Blackout';
+  return t;
+}
+
+function extractInlineFilmAndRoom(labelText, activeFilm){
+  const txt = (labelText || '').replace(/^[-–—:]+|[-–—:]+$/g, '').trim();
+  if(!txt) return { film: activeFilm, room: 'Window' };
+  const bracket = txt.match(/\[([^\]]+)\]/);
+  if(bracket){
+    const film = normalizeFilmName(bracket[1]) || activeFilm;
+    const room = txt.replace(bracket[0], '').replace(/^[-–—:\s]+|[-–—:\s]+$/g, '').trim() || 'Window';
+    return { film, room };
+  }
+  const known = txt.match(/\b(ceramic\s*\d*|blackout|dual\s*reflective(?:\s*\d+)?|\bdr\s*\d*\b|evening\s*view(?:\s*\d+)?|\bev\s*\d*\b|frost(?:ed)?|security)\b/i);
+  if(known){
+    const film = normalizeFilmName(known[0]) || activeFilm;
+    const room = txt.replace(known[0], '').replace(/^[-–—:\s]+|[-–—:\s]+$/g, '').trim() || 'Window';
+    return { film, room };
+  }
+  return { film: activeFilm, room: txt };
 }
 
 function parsePaste(replace){
   const raw = $('paste-txt').value.trim();
   if(!raw) return toast('Paste your notes first');
-  let room = 'Window';
+  let activeFilm = 'Standard Film';
+  let lastRoom = 'Window';
   const out = [];
   const rx = /^(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/;
+
   for(const ln of raw.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)){
     const cl = ln.replace(/~?\d+(?:\.\d+)?\s*sq\s*ft/i,'').trim();
     const m = cl.match(rx);
     if(m){
-      const qty = parseInt(m[1]||m[4]||'1',10), w = parseFloat(m[2]), h = parseFloat(m[3]);
-      const tr = cl.replace(m[0],'').replace(/^[-–:]+/,'').trim();
-      if(qty>0 && w>0 && h>0) out.push({ id: uid++, room: tr || room, qty, w, h });
+      const qty = parseInt(m[1]||m[4]||'1',10);
+      const w = parseFloat(m[2]);
+      const h = parseFloat(m[3]);
+      const rest = cl.replace(m[0],'').trim();
+      if(qty>0 && w>0 && h>0){
+        if(rest){
+          const ex = extractInlineFilmAndRoom(rest, activeFilm);
+          lastRoom = ex.room;
+          out.push({ id: uid++, film: ex.film, room: ex.room, qty, w, h });
+        } else {
+          out.push({ id: uid++, film: activeFilm, room: lastRoom, qty, w, h });
+        }
+      }
     } else {
-      room = cl.replace(/[:\-]+$/,'').trim() || room;
+      // Non-dimension line: acts as a Film Header when starting a film block or tagged, otherwise Room label
+      const isFilmHeader = /^(film\s*:|\[.+\]|[-–—]{2,}|black\s*film|ceramic|blackout|dual\s*reflective|\bdr\b|evening\s*view|\bev\b|frost|security|decorative)/i.test(cl);
+      if(isFilmHeader || !out.length){
+        const norm = normalizeFilmName(cl);
+        if(norm) activeFilm = norm;
+      } else {
+        // Check if a room line explicitly names a film like "Back Room Ceramic 35"
+        const ex = extractInlineFilmAndRoom(cl, activeFilm);
+        if(ex.film !== activeFilm){
+          activeFilm = ex.film;
+        }
+        lastRoom = ex.room.replace(/[:\-]+$/,'').trim() || lastRoom;
+      }
     }
   }
   if(!out.length) return toast('No "W x H" measurements detected');
   S.wins = replace ? out : [...S.wins, ...out];
   $('paste-txt').value = '';
   $('paste-box').classList.add('hidden');
-  S.planId = null; S.checked = {};
-  renderWins(); solve();
-  toast(`Imported ${out.length} row(s)`);
+  S.checked = {};
+  renderWins(); renderAll();
+  toast(`Imported ${out.length} measurement(s)`);
 }
 
 /* =========================================================================
@@ -540,7 +632,6 @@ function solveRoll(rw, panes){
   const cfgs = genConfigs(rw, panes);
   const lw = finalizeRoll(solveStages(panes, cfgs, rw, S.trim), rw, panes);
 
-  // Fast Split (1-blade priority + Stage 2 shift)
   const oneB = cfgs.filter(c => { const b = getBlades(c, rw); return (b.b1!==null?1:0)+(b.b2!==null?1:0) <= 1; });
   let bestFs = null, bestSc = Infinity;
   for(const c of oneB){
@@ -638,25 +729,64 @@ function findMultiPlans(activeRolls, panes){
 }
 
 /* =========================================================================
-   RENDER RESULTS & HANDLER SVG
+   ISOLATED PER-FILM GROUP OPTIMIZATION & RENDERING
    ========================================================================= */
-function solve(){
+function renderAll(){
   const resEl = $('results');
   const activeRolls = S.rolls.filter(r=>r.on).map(r=>r.w);
   if(!activeRolls.length){
     resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--amb2);font-weight:700">Select at least one roll width above (72", 60", or 36").</div>`;
     return;
   }
-  const panes = [];
-  S.wins.forEach(w => {
-    const ew = Math.round((w.w + S.bleed)*100)/100, eh = Math.round((w.h + S.bleed)*100)/100;
-    for(let i=0; i<w.qty; i++) panes.push({ id: `${w.id}-${i}`, room: w.room || 'Window', w: ew, h: eh, area: ew*eh });
-  });
-  if(!panes.length){
+  if(!S.wins.length){
     resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--mut);font-size:13px">Add at least one window measurement above to optimize cuts.</div>`;
     return;
   }
 
+  // Group strictly by Film Type so different films never share a pull or setup
+  const filmOrder = [];
+  const filmBuckets = new Map();
+  S.wins.forEach(w => {
+    const fName = (w.film || 'Standard Film').trim() || 'Standard Film';
+    if(!filmBuckets.has(fName)){ filmOrder.push(fName); filmBuckets.set(fName, []); }
+    const ew = Math.round((w.w + S.bleed)*100)/100, eh = Math.round((w.h + S.bleed)*100)/100;
+    for(let i=0; i<w.qty; i++) filmBuckets.get(fName).push({ id: `${w.id}-${i}`, film: fName, room: w.room || 'Window', w: ew, h: eh, area: ew*eh });
+  });
+
+  let jobPullIn = 0, jobFilmSf = 0, jobNetSf = 0, jobPullCnt = 0;
+  const groupSections = filmOrder.map((fName, fIdx) => {
+    const panes = filmBuckets.get(fName);
+    const built = buildFilmSection(fName, fIdx, filmOrder.length, panes, activeRolls);
+    if(built.activeAgg){
+      jobPullIn += built.activeAgg.pullIn;
+      jobFilmSf += built.activeAgg.filmSf;
+      jobNetSf += built.activeAgg.netSf;
+      jobPullCnt += built.activeAgg.pullCnt;
+    }
+    return built.html;
+  });
+
+  const jobWasteSf = Math.max(0, jobFilmSf - jobNetSf);
+  const jobWastePct = jobFilmSf > 0 ? (jobWasteSf / jobFilmSf) * 100 : 0;
+
+  const overview = filmOrder.length > 1 ? `
+    <div class="card" style="border-color:rgba(34,211,238,.35)">
+      <div class="sec-hdr" style="margin-bottom:6px">
+        <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>3. Job Summary (${filmOrder.length} Isolated Film Groups)</div>
+        <span class="mono" style="font-size:10px;color:var(--mut)">Each film runs on its own roll/pulls</span>
+      </div>
+      <div class="kpi-grid mono">
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">TOTAL PULL</span><strong class="tab" style="font-size:14px">${(jobPullIn/12).toFixed(1)} ft</strong><span style="font-size:10px;color:var(--mut)">${jobPullCnt} pulls</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">FILM USED</span><strong class="tab" style="font-size:14px;color:var(--cy2)">${jobFilmSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">NET GLASS</span><strong class="tab" style="font-size:14px">${jobNetSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">WASTE</span><strong class="tab" style="font-size:14px;color:${jobWastePct<=10?'var(--em2)':'var(--amb2)'}">${jobWastePct.toFixed(1)}%</strong><span style="font-size:10px;color:var(--mut)">${jobWasteSf.toFixed(1)} sf</span></div>
+      </div>
+    </div>` : '';
+
+  resEl.innerHTML = overview + groupSections.join('');
+}
+
+function buildFilmSection(fName, fIdx, totalFilms, panes, activeRolls){
   const singlePlans = activeRolls.map(rw => {
     const r = solveRoll(rw, panes);
     if(!r.ok) return { id: `single-${rw}`, multi: false, rws: [rw], label: `${rw}" Roll Only`, sub: r.reason, ok: false, reason: r.reason };
@@ -681,86 +811,71 @@ function solve(){
   });
 
   const best = plans[0];
-  const cur = plans.find(p => p.id === S.planId) || best;
-  S.planId = cur.id;
-  if(cur.ok && S.strat === 'fs' && !cur.fs) S.strat = 'lw';
+  const cur = plans.find(p => p.id === S.selByFilm[fName]) || best;
+  S.selByFilm[fName] = cur.id;
+  let strat = S.stratByFilm[fName] || 'lw';
+  if(cur.ok && strat === 'fs' && !cur.fs) strat = 'lw';
+  S.stratByFilm[fName] = strat;
 
   const compHtml = `
-    <div class="card">
-      <div class="sec-hdr">
-        <div class="sec-ttl mono"><span class="dot" style="background:var(--em)"></span>3. Roll Plan Comparison</div>
-        <span class="mono" style="font-size:10px;color:var(--dim)">Tap to inspect</span>
-      </div>
-      <div class="comp-grid">
-        ${plans.map(p => {
-          const isB = p.ok && p.id === best.id, isS = p.id === cur.id;
-          if(!p.ok) return `<button type="button" data-plan="${p.id}" class="c-card bad ${isS?'sel':''}"><div class="c-top"><strong class="mono" style="font-size:15px">${esc(p.label)}</strong><span class="bdg-bad mono">Too Narrow</span></div><div style="font-size:11px;color:var(--mut)">Cannot fit widest pane</div></button>`;
-          return `
-            <button type="button" data-plan="${p.id}" class="c-card ${p.multi?'multi':''} ${isS?'sel':''}">
-              <div class="c-top">
-                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><strong class="mono" style="font-size:15px">${esc(p.label)}</strong>${p.multi?`<span class="bdg-mul mono">Multi-Roll</span>`:''}</div>
-                ${isB ? `<span class="bdg-best mono">Best Choice</span>` : `<span class="mono" style="font-size:11px;color:var(--mut)">${p.lw.wastePct.toFixed(1)}% waste</span>`}
-              </div>
-              <div style="font-size:11px;color:var(--mut)">${esc(p.sub)}</div>
-              <div class="c-stats mono">
-                <div>PULL<strong class="tab">${p.lw.ft.toFixed(1)} ft</strong></div>
-                <div>FILM<strong class="tab">${p.lw.filmSf.toFixed(1)} sf</strong></div>
-                <div style="text-align:right">WASTE<strong class="tab" style="color:${p.lw.wastePct<=10?'var(--em2)':'var(--amb2)'}">${p.lw.wastePct.toFixed(1)}%</strong></div>
-              </div>
-            </button>`;
-        }).join('')}
-      </div>
+    <div class="comp-grid">
+      ${plans.map(p => {
+        const isB = p.ok && p.id === best.id, isS = p.id === cur.id;
+        if(!p.ok) return `<button type="button" data-fplan="${esc(fName)}" data-plan="${p.id}" class="c-card bad ${isS?'sel':''}"><div class="c-top"><strong class="mono" style="font-size:14px">${esc(p.label)}</strong><span class="bdg-bad mono">Too Narrow</span></div><div style="font-size:11px;color:var(--mut)">Cannot fit widest pane</div></button>`;
+        return `
+          <button type="button" data-fplan="${esc(fName)}" data-plan="${p.id}" class="c-card ${p.multi?'multi':''} ${isS?'sel':''}">
+            <div class="c-top">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><strong class="mono" style="font-size:14px">${esc(p.label)}</strong>${p.multi?`<span class="bdg-mul mono">Multi-Roll</span>`:''}</div>
+              ${isB ? `<span class="bdg-best mono">Best Choice</span>` : `<span class="mono" style="font-size:11px;color:var(--mut)">${p.lw.wastePct.toFixed(1)}% waste</span>`}
+            </div>
+            <div style="font-size:11px;color:var(--mut)">${esc(p.sub)}</div>
+            <div class="c-stats mono">
+              <div>PULL<strong class="tab">${p.lw.ft.toFixed(1)} ft</strong></div>
+              <div>FILM<strong class="tab">${p.lw.filmSf.toFixed(1)} sf</strong></div>
+              <div style="text-align:right">WASTE<strong class="tab" style="color:${p.lw.wastePct<=10?'var(--em2)':'var(--amb2)'}">${p.lw.wastePct.toFixed(1)}%</strong></div>
+            </div>
+          </button>`;
+      }).join('')}
     </div>`;
 
   if(!cur.ok){
-    resEl.innerHTML = compHtml + `<div class="card" style="border-color:rgba(244,63,94,.45)"><h3 style="color:var(--ros);font-size:15px">${esc(cur.label)} Cannot Fit Job</h3><p style="color:var(--mut);font-size:12.5px;margin-top:4px">${esc(cur.reason)}</p></div>`;
-    return;
+    return {
+      activeAgg: null,
+      html: `<section class="film-sec">
+        <div class="film-hdr"><span class="film-bdg mono">Film ${fIdx+1}/${totalFilms}: ${esc(fName)}</span><span class="mono" style="font-size:11px;color:var(--mut)">${panes.length} pane(s)</span></div>
+        ${compHtml}
+        <div style="padding:10px;border-radius:11px;background:var(--ros-bg);color:var(--ros);font-size:12.5px;font-weight:700">${esc(cur.reason)}</div>
+      </section>`
+    };
   }
 
-  const agg = (S.strat === 'fs' && cur.fs) ? cur.fs : cur.lw;
+  const agg = (strat === 'fs' && cur.fs) ? cur.fs : cur.lw;
   const totSetups = agg.allocs.reduce((s,a)=>s+a.setups.length, 0);
 
   const stratHtml = cur.fs ? `
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)">
-      <div class="mono" style="font-size:10px;text-transform:uppercase;color:var(--mut);font-weight:700">Blade Setup Strategy:</div>
+    <div style="padding-top:10px;border-top:1px solid var(--bdr)">
+      <div class="mono" style="font-size:10px;text-transform:uppercase;color:var(--mut);font-weight:700">Blade Setup Strategy (${esc(fName)}):</div>
       <div class="strat-grid">
-        <button type="button" data-strat="lw" class="s-btn ${S.strat==='lw'?'lw':''}">
+        <button type="button" data-fstrat="${esc(fName)}" data-strat="lw" class="s-btn ${strat==='lw'?'lw':''}">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><strong style="font-size:12px">Lowest Waste</strong><span class="mono" style="font-size:10px;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--em-bg);color:var(--em2)">${cur.lw.wastePct.toFixed(1)}%</span></div>
           <div class="mono" style="font-size:11px;color:var(--mut)">${cur.lw.pullCnt} pulls (${cur.lw.pullIn}")</div>
         </button>
-        <button type="button" data-strat="fs" class="s-btn ${S.strat==='fs'?'fs':''}">
+        <button type="button" data-fstrat="${esc(fName)}" data-strat="fs" class="s-btn ${strat==='fs'?'fs':''}">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><strong style="font-size:12px">Fast Split (1-Blade)</strong><span class="mono" style="font-size:10px;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--cy-bg);color:var(--cy2)">${cur.fs.wastePct.toFixed(1)}%</span></div>
           <div class="mono" style="font-size:11px;color:var(--mut)">${cur.fs.pullCnt} pulls (${cur.fs.pullIn}")</div>
         </button>
       </div>
     </div>` : '';
 
-  const kpiHtml = `
-    <div class="card">
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px">
-        <h3 style="font-size:17px;font-weight:800">${cur.multi ? `Multi-Roll: ${esc(cur.label)}` : `Load ${cur.rws[0]}" Roll`}</h3>
-        ${cur.id===best.id && S.strat==='lw' ? `<span class="mono" style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--em-bg);color:var(--em2)">★ Lowest Waste</span>` : ''}
-        ${cur.multi ? `<span class="mono" style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--pur-bg);color:var(--pur2)">⇄ ${cur.rws.length} Rolls</span>` : ''}
-      </div>
-      <p style="font-size:12px;color:var(--mut);margin-top:3px">Align roll flush at <strong class="mono" style="color:var(--txt)">0"</strong> left stop • <strong style="color:var(--cy2)">${totSetups} setup${totSetups>1?'s':''}</strong></p>
-      <div class="kpi-grid mono">
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">PULL</span><strong class="tab" style="font-size:14px">${agg.ft.toFixed(1)} ft</strong><span style="font-size:10px;color:var(--mut)">(${agg.pullIn}")</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">FILM</span><strong class="tab" style="font-size:14px;color:var(--cy2)">${agg.filmSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">GLASS</span><strong class="tab" style="font-size:14px">${agg.netSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">WASTE</span><strong class="tab" style="font-size:14px;color:${agg.wastePct<=10?'var(--em2)':'var(--amb2)'}">${agg.wastePct.toFixed(1)}%</strong><span style="font-size:10px;color:var(--mut)">${agg.wasteSf.toFixed(1)} sf</span></div>
-      </div>
-      ${stratHtml}
-    </div>`;
-
   const stagesHtml = agg.allocs.map((rp, ri) => {
     const ban = cur.multi ? `
       <div class="roll-ban">
-        <div style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:800"><span class="bdg-mul mono">Roll ${ri+1}/${agg.allocs.length}</span><span>Load ${rp.rw}" Roll</span></div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:800"><span class="bdg-mul mono">Roll ${ri+1}/${agg.allocs.length}</span><span>Load ${rp.rw}" Roll • ${esc(fName)}</span></div>
         <div class="mono" style="font-size:11px;color:var(--mut)">Pull: <strong style="color:var(--txt)">${rp.ft.toFixed(1)} ft (${rp.pullIn}")</strong> • Waste: <strong style="color:${rp.wastePct<=10?'var(--em2)':'var(--amb2)'}">${rp.wastePct.toFixed(1)}%</strong></div>
       </div>` : '';
 
     const stgs = rp.setups.map((st, si) => {
-      const card = renderStage(cur.id, rp, st);
+      const card = renderStage(`${fName}-${cur.id}`, rp, st, strat);
       if(si === 0) return card;
       const b1 = st.blades.b1 !== null ? `${st.blades.b1}"` : 'Parked';
       const b2 = st.blades.b2 !== null ? `${st.blades.b2}"` : 'Parked';
@@ -769,14 +884,34 @@ function solve(){
     return ban + stgs;
   }).join('');
 
-  resEl.innerHTML = compHtml + kpiHtml + stagesHtml;
+  return {
+    activeAgg: agg,
+    html: `<section class="film-sec">
+      <div class="film-hdr">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="film-bdg mono">${totalFilms>1?`Film ${fIdx+1}/${totalFilms}: `:''}${esc(fName)}</span>
+          <span class="mono" style="font-size:11px;color:var(--mut)">0" left stop • ${totSetups} setup${totSetups>1?'s':''}</span>
+        </div>
+        <span class="mono" style="font-size:11px;color:var(--mut)">${panes.length} pane(s)</span>
+      </div>
+      ${compHtml}
+      <div class="kpi-grid mono">
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">PULL</span><strong class="tab" style="font-size:14px">${agg.ft.toFixed(1)} ft</strong><span style="font-size:10px;color:var(--mut)">(${agg.pullIn}")</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">FILM</span><strong class="tab" style="font-size:14px;color:var(--cy2)">${agg.filmSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">GLASS</span><strong class="tab" style="font-size:14px">${agg.netSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">WASTE</span><strong class="tab" style="font-size:14px;color:${agg.wastePct<=10?'var(--em2)':'var(--amb2)'}">${agg.wastePct.toFixed(1)}%</strong><span style="font-size:10px;color:var(--mut)">${agg.wasteSf.toFixed(1)} sf</span></div>
+      </div>
+      ${stratHtml}
+      ${stagesHtml}
+    </section>`
+  };
 }
 
-function renderStage(planId, rp, st){
+function renderStage(scopeKey, rp, st, strat){
   const { b1, b2 } = st.blades;
   const actCnt = (b1!==null?1:0) + (b2!==null?1:0);
   const pullsHtml = st.pulls.map((pl, pi) => {
-    const key = `${planId}-${rp.rw}-${S.strat}-${st.num}-${pi}`;
+    const key = `${scopeKey}-${rp.rw}-${strat}-${st.num}-${pi}`;
     const chk = !!S.checked[key];
     const rows = st.lanes.map((lw, li) => {
       const sl = pl.slots[li];
@@ -799,7 +934,7 @@ function renderStage(planId, rp, st){
     }).join('');
 
     return `
-      <div class="p-card ${chk?'chk':''}" data-chk="${key}">
+      <div class="p-card ${chk?'chk':''}" data-chk="${esc(key)}">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px">
           <div style="display:flex;align-items:center;gap:9px">
             <div class="chk-box">${chk?'✓':''}</div>
@@ -930,27 +1065,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('btn-demo').onclick = () => {
     S.wins = [
-      { id: uid++, room: 'Living Room', qty: 4, w: 24, h: 34 },
-      { id: uid++, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-      { id: uid++, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+      { id: uid++, film: 'Ceramic 35', room: 'Living Room', qty: 4, w: 24, h: 34 },
+      { id: uid++, film: 'Ceramic 35', room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+      { id: uid++, film: 'Ceramic 35', room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 },
+      { id: uid++, film: 'Blackout', room: 'Backroom Transom', qty: 2, w: 17, h: 20 }
     ];
-    S.bleed = 0; S.trim = 4; S.planId = null; S.strat = 'lw'; S.checked = {};
-    syncTrim(); setBleed(0, false); renderWins(); solve();
+    S.bleed = 0; S.trim = 4; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {};
+    syncTrim(); setBleed(0, false); renderWins(); renderAll();
     toast('Demo job loaded');
   };
 
   $('b-0').onclick = () => setBleed(0);
   $('b-1').onclick = () => setBleed(1);
   document.querySelectorAll('[data-trim]').forEach(b => b.onclick = () => {
-    S.trim = +b.dataset.trim; S.planId = null; S.checked = {}; syncTrim(); solve();
+    S.trim = +b.dataset.trim; S.selByFilm = {}; S.checked = {}; syncTrim(); renderAll();
     toast(`Max side-trim: ${S.trim}"`);
   });
 
   $('roll-grid').onclick = e => {
     const rm = e.target.closest('[data-rm]');
-    if(rm){ e.stopPropagation(); S.rolls = S.rolls.filter(r => r.w !== +rm.dataset.rm); S.planId = null; renderRolls(); solve(); return; }
+    if(rm){ e.stopPropagation(); S.rolls = S.rolls.filter(r => r.w !== +rm.dataset.rm); S.selByFilm = {}; renderRolls(); renderAll(); return; }
     const tg = e.target.closest('[data-tog]');
-    if(tg){ const r = S.rolls.find(x => x.w === +tg.dataset.tog); if(r){ r.on = !r.on; S.planId = null; renderRolls(); solve(); } }
+    if(tg){ const r = S.rolls.find(x => x.w === +tg.dataset.tog); if(r){ r.on = !r.on; S.selByFilm = {}; renderRolls(); renderAll(); } }
   };
 
   $('btn-add-roll').onclick = () => {
@@ -958,8 +1094,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if(isNaN(v) || v < 10 || v > 72) return toast('Enter width 10"–72"');
     const ex = S.rolls.find(r => r.w === v);
     if(ex) ex.on = true; else S.rolls.push({ w: v, on: true, cust: true });
-    $('cust-roll').value = ''; S.planId = null; renderRolls(); solve();
+    $('cust-roll').value = ''; S.selByFilm = {}; renderRolls(); renderAll();
     toast(`Added ${v}" roll`);
+  };
+
+  $('sample-notes').onclick = e => {
+    const btn = e.target.closest('[data-sample]');
+    if(!btn) return;
+    $('paste-txt').value = btn.dataset.sample === 'mixed'
+      ? `Black film-front\nTransom - (1) 36x27\ndoor (1) 28x70\nTop Sides (2) 30x27\n\nDR 20\nSlider (2) 24x34\n\nFrost\nBath Window (2) 18x24`
+      : `Ceramic 35\nLiving Room\n(4) 24 x 34\nFront sitting room\n(2) 24 x 34\n\nBlackout\nBackroom\n(2) 24 x 34`;
   };
 
   $('btn-paste-tog').onclick = () => { $('paste-box').classList.toggle('hidden'); if(!$('paste-box').classList.contains('hidden')) $('paste-txt').focus(); };
@@ -967,40 +1111,49 @@ document.addEventListener('DOMContentLoaded', () => {
   $('btn-paste-app').onclick = () => parsePaste(false);
   $('btn-paste-rep').onclick = () => parsePaste(true);
 
-  $('btn-clr-win').onclick = () => { S.wins = []; S.planId = null; S.checked = {}; renderWins(); solve(); };
+  $('btn-clr-win').onclick = () => { S.wins = []; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {}; renderWins(); renderAll(); };
   $('btn-add-win').onclick = () => {
     const last = S.wins[S.wins.length-1];
-    S.wins.push({ id: uid++, room: last ? last.room : 'Room', qty: 1, w: 24, h: 36 });
-    S.planId = null; renderWins(); solve();
+    S.wins.push({ id: uid++, film: last ? last.film : 'Ceramic 35', room: last ? last.room : 'Room', qty: 1, w: 24, h: 36 });
+    renderWins(); renderAll();
+  };
+  $('btn-add-grp').onclick = () => {
+    const used = new Set(S.wins.map(w => (w.film || '').trim()));
+    const picks = ['Blackout', 'Dual Reflective (DR)', 'Evening View (EV)', 'Frost', 'Ceramic 35', 'Security'];
+    const nextFilm = picks.find(p => !used.has(p)) || `Film Group ${used.size + 1}`;
+    S.wins.push({ id: uid++, film: nextFilm, room: 'New Area', qty: 1, w: 24, h: 36 });
+    renderWins(); renderAll();
+    toast(`Added ${nextFilm} group`);
   };
 
   $('w-list').onchange = e => {
     const row = e.target.closest('.w-row'); if(!row) return;
     const w = S.wins.find(x => x.id === +row.dataset.id); if(!w) return;
     const f = e.target.dataset.f;
-    if(f === 'room') w.room = e.target.value;
+    if(f === 'film') w.film = e.target.value;
+    else if(f === 'room') w.room = e.target.value;
     else if(f === 'qty') w.qty = Math.max(1, parseInt(e.target.value,10)||1);
     else if(f === 'w') w.w = Math.max(1, parseFloat(e.target.value)||1);
     else if(f === 'h') w.h = Math.max(1, parseFloat(e.target.value)||1);
-    S.planId = null; updateSum(); solve();
+    S.selByFilm = {}; updateSum(); renderAll();
   };
 
   $('w-list').onclick = e => {
     const dl = e.target.closest('[data-del]'); if(!dl) return;
     S.wins = S.wins.filter(x => x.id !== +dl.dataset.del);
-    S.planId = null; renderWins(); solve();
+    S.selByFilm = {}; renderWins(); renderAll();
   };
 
   $('results').onclick = e => {
     const pl = e.target.closest('[data-plan]');
-    if(pl){ S.planId = pl.dataset.plan; solve(); return; }
+    if(pl){ const fn = pl.dataset.fplan; if(fn) S.selByFilm[fn] = pl.dataset.plan; renderAll(); return; }
     const st = e.target.closest('[data-strat]');
-    if(st){ S.strat = st.dataset.strat; solve(); return; }
+    if(st){ const fn = st.dataset.fstrat; if(fn) S.stratByFilm[fn] = st.dataset.strat; renderAll(); return; }
     const ck = e.target.closest('[data-chk]');
-    if(ck){ S.checked[ck.dataset.chk] = !S.checked[ck.dataset.chk]; solve(); }
+    if(ck){ S.checked[ck.dataset.chk] = !S.checked[ck.dataset.chk]; renderAll(); }
   };
 
-  renderRolls(); syncTrim(); renderWins(); solve();
+  renderRolls(); syncTrim(); renderWins(); renderAll();
 });
 })();
 </script>
