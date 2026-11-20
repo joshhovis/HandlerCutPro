@@ -2,2595 +2,1006 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0b0f19" id="meta-theme-color">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#0b0f19" id="meta-theme">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HandlerCut Pro">
-<link id="pwa-manifest-link" rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22HandlerCut%20Pro%22%2C%22short_name%22%3A%22HandlerCut%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%230b0f19%22%7D">
-<title>HandlerCut Pro — Film Handler Cut Optimizer</title>
+<title>HandlerCut Pro — Film Handler Optimizer</title>
 <style>
-  :root {
-    --bg-app: #0b0f19;
-    --bg-card: #131b2e;
-    --bg-card-inner: #0d1322;
-    --bg-elevated: #1c2742;
-    --border-subtle: #24314f;
-    --border-strong: #354770;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-dim: #64748b;
-    --amber: #f59e0b;
-    --amber-bright: #fbbf24;
-    --amber-bg: rgba(245, 158, 11, 0.14);
-    --emerald: #10b981;
-    --emerald-bright: #34d399;
-    --emerald-bg: rgba(16, 185, 129, 0.15);
-    --cyan: #06b6d4;
-    --cyan-bright: #22d3ee;
-    --cyan-bg: rgba(6, 182, 212, 0.15);
-    --rose: #f43f5e;
-    --rose-bg: rgba(244, 63, 94, 0.15);
-    --header-bg: rgba(11, 15, 25, 0.94);
-    --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.35);
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  }
-
-  body.light-mode {
-    --bg-app: #eef2f7;
-    --bg-card: #ffffff;
-    --bg-card-inner: #f4f7fb;
-    --bg-elevated: #e6ecf5;
-    --border-subtle: #cbd5e1;
-    --border-strong: #94a3b8;
-    --text-main: #0f172a;
-    --text-muted: #475569;
-    --text-dim: #64748b;
-    --amber: #d97706;
-    --amber-bright: #b45309;
-    --amber-bg: rgba(217, 119, 6, 0.12);
-    --emerald: #059669;
-    --emerald-bright: #047857;
-    --emerald-bg: rgba(5, 150, 105, 0.12);
-    --cyan: #0284c7;
-    --cyan-bright: #0369a1;
-    --cyan-bg: rgba(2, 132, 199, 0.12);
-    --rose: #dc2626;
-    --rose-bg: rgba(220, 38, 38, 0.12);
-    --header-bg: rgba(255, 255, 255, 0.94);
-    --shadow-card: 0 8px 20px rgba(15, 23, 42, 0.08);
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    background-color: var(--bg-app);
-    color: var(--text-main);
-    font-family: var(--font-sans);
-    line-height: 1.4;
-    padding-bottom: 84px;
-    overflow-x: hidden;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-
-  .tabular {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Header */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    background: var(--header-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 10px 14px;
-  }
-
-  .header-inner {
-    max-width: 760px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 0;
-  }
-
-  .brand-mark {
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-strong);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .brand-title-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .brand-title {
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--text-main);
-  }
-
-  .brand-title span {
-    color: var(--amber-bright);
-  }
-
-  .shop-badge-btn {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: var(--amber-bg);
-    color: var(--amber-bright);
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .shop-edit-trigger {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-dim);
-    border: 1px dashed var(--border-subtle);
-  }
-
-  .shop-edit-trigger:hover {
-    color: var(--text-main);
-    border-color: var(--border-strong);
-  }
-
-  .shop-editor-bar {
-    max-width: 760px;
-    margin: 8px auto 0;
-    padding: 8px 10px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-strong);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .shop-editor-bar.hidden {
-    display: none;
-  }
-
-  .brand-sub {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .btn-theme {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    border: 1px solid var(--border-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-  }
-
-  /* Buttons */
-  button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease;
-  }
-
-  button:active {
-    transform: scale(0.97);
-  }
-
-  .btn-secondary {
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    border: 1px solid var(--border-strong);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .btn-secondary:hover {
-    background: #253356;
-  }
-
-  .btn-cyan {
-    background: var(--cyan-bg);
-    color: var(--cyan-bright);
-    border: 1px solid rgba(34, 211, 238, 0.35);
-    padding: 7px 12px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-primary-cyan {
-    background: var(--cyan);
-    color: #08101e;
-    padding: 9px 14px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .btn-ghost-danger {
-    background: transparent;
-    color: var(--text-muted);
-    padding: 7px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  .btn-ghost-danger:hover {
-    color: var(--rose);
-    background: var(--rose-bg);
-  }
-
-  /* Layout Container */
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 16px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: var(--shadow-card);
-  }
-
-  .section-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .dot-amber { background: var(--amber); }
-  .dot-cyan { background: var(--cyan); }
-  .dot-emerald { background: var(--emerald); }
-
-  /* Pill Switchers */
-  .pill-group {
-    display: inline-flex;
-    align-items: center;
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 3px;
-    gap: 2px;
-  }
-
-  .pill-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    padding: 0 6px;
-    font-weight: 600;
-  }
-
-  .pill-btn {
-    padding: 5px 10px;
-    border-radius: 7px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 800;
-    background: transparent;
-    color: var(--text-muted);
-  }
-
-  .pill-btn.active-amber {
-    background: var(--amber);
-    color: #0b0f19;
-  }
-
-  .pill-btn.active-cyan {
-    background: var(--cyan);
-    color: #0b0f19;
-  }
-
-  /* Roll Grid */
-  .roll-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  @media (min-width: 560px) {
-    .roll-grid {
-      grid-template-columns: repeat(5, 1fr);
-    }
-  }
-
-  .roll-toggle {
-    position: relative;
-    background: var(--bg-card-inner);
-    border: 2px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 12px 6px;
-    text-align: center;
-    color: var(--text-dim);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-  }
-
-  .roll-toggle.enabled {
-    background: var(--amber-bg);
-    border-color: var(--amber);
-    color: var(--text-main);
-  }
-
-  .roll-toggle-width {
-    font-family: var(--font-mono);
-    font-size: 17px;
-    font-weight: 800;
-  }
-
-  .roll-toggle-status {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .roll-toggle.enabled .roll-toggle-status {
-    color: var(--amber-bright);
-  }
-
-  .roll-remove-badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--rose);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Custom Roll Add Row */
-  .custom-roll-row {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-subtle);
-    display: flex;
-    gap: 8px;
-  }
-
-  input[type="text"],
-  input[type="number"],
-  textarea {
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    color: var(--text-main);
-    font-family: inherit;
-    font-size: 14px;
-    padding: 9px 11px;
-    width: 100%;
-    transition: border-color 0.15s ease;
-  }
-
-  input:focus,
-  textarea:focus {
-    outline: none;
-    border-color: var(--amber);
-  }
-
-  input[type="number"] {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    text-align: center;
-    -moz-appearance: textfield;
-  }
-
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Quick Paste Box */
-  .paste-panel {
-    background: var(--bg-card-inner);
-    border: 1px solid rgba(34, 211, 238, 0.45);
-    border-radius: 14px;
-    padding: 12px;
-    margin-bottom: 14px;
-  }
-
-  .paste-panel.hidden {
-    display: none;
-  }
-
-  .paste-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--cyan-bright);
-  }
-
-  .paste-panel textarea {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    resize: vertical;
-    margin-bottom: 10px;
-  }
-
-  .paste-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  /* Window Rows */
-  .win-col-headers {
-    display: none;
-  }
-
-  @media (min-width: 600px) {
-    .win-col-headers {
-      display: grid;
-      grid-template-columns: 5fr 1.6fr 2fr 2fr 36px;
-      gap: 8px;
-      padding: 0 4px 6px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-dim);
-      text-align: center;
-    }
-    .win-col-headers div:first-child {
-      text-align: left;
-    }
-  }
-
-  .windows-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .win-row {
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1.25fr 1.25fr 36px;
-    gap: 8px;
-    align-items: end;
-  }
-
-  .win-room-cell {
-    grid-column: 1 / -1;
-  }
-
-  @media (min-width: 600px) {
-    .win-row {
-      grid-template-columns: 5fr 1.6fr 2fr 2fr 36px;
-      align-items: center;
-      padding: 8px;
-    }
-    .win-room-cell {
-      grid-column: auto;
-    }
-    .mobile-field-label {
-      display: none;
-    }
-  }
-
-  .mobile-field-label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    text-align: center;
-    margin-bottom: 4px;
-  }
-
-  .win-qty-input {
-    color: var(--amber-bright) !important;
-  }
-
-  .btn-del-row {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    background: transparent;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .btn-del-row:hover {
-    background: var(--rose-bg);
-    color: var(--rose);
-  }
-
-  .btn-add-row {
-    margin-top: 12px;
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    background: transparent;
-    border: 2px dashed var(--border-strong);
-    color: var(--text-main);
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .btn-add-row:hover {
-    border-color: var(--amber);
-    color: var(--amber-bright);
-    background: rgba(245, 158, 11, 0.05);
-  }
-
-  .summary-footer {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-subtle);
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  /* Comparison Grid */
-  .comp-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  @media (min-width: 560px) {
-    .comp-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .comp-card {
-    background: var(--bg-card-inner);
-    border: 2px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 12px;
-    text-align: left;
-    color: var(--text-main);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .comp-card.selected {
-    background: var(--bg-elevated);
-    border-color: var(--amber);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.14);
-  }
-
-  .comp-card.infeasible {
-    opacity: 0.55;
-  }
-
-  .comp-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-  }
-
-  .comp-roll-name {
-    font-family: var(--font-mono);
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .badge-best {
-    background: var(--emerald);
-    color: #06130e;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 7px;
-    border-radius: 6px;
-    text-transform: uppercase;
-  }
-
-  .badge-waste {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-  }
-
-  .badge-narrow {
-    background: var(--rose-bg);
-    color: var(--rose);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 7px;
-    border-radius: 6px;
-    text-transform: uppercase;
-  }
-
-  .comp-stats {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  .comp-stats strong {
-    display: block;
-    font-size: 13px;
-    color: var(--text-main);
-    margin-top: 2px;
-  }
-
-  /* KPI Strip */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  .kpi-box {
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 10px 6px;
-    text-align: center;
-    font-family: var(--font-mono);
-  }
-
-  .kpi-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .kpi-val {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--text-main);
-    display: block;
-  }
-
-  .kpi-sub {
-    font-size: 10px;
-    color: var(--text-muted);
-    display: block;
-    margin-top: 2px;
-  }
-
-  /* Strategy Toggle */
-  .strategy-section {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border-subtle);
-  }
-
-  .strategy-top-bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .strategy-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .strategy-btn {
-    background: var(--bg-card-inner);
-    border: 2px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 10px;
-    text-align: left;
-    color: var(--text-muted);
-  }
-
-  .strategy-btn.active-lw {
-    background: var(--emerald-bg);
-    border-color: var(--emerald);
-    color: var(--text-main);
-  }
-
-  .strategy-btn.active-fs {
-    background: var(--cyan-bg);
-    border-color: var(--cyan);
-    color: var(--text-main);
-  }
-
-  .strategy-btn-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
-    margin-bottom: 4px;
-  }
-
-  .strategy-name {
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .strategy-pill {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 2px 6px;
-    border-radius: 5px;
-  }
-
-  .strategy-meta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  /* Shift Blades Divider */
-  .shift-divider {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 0;
-  }
-
-  .shift-line {
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--amber), transparent);
-  }
-
-  .shift-badge {
-    position: relative;
-    background: var(--bg-app);
-    border: 1px solid var(--amber);
-    color: var(--amber-bright);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 800;
-    padding: 6px 14px;
-    border-radius: 999px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Stage Card */
-  .stage-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-  }
-
-  .stage-header {
-    background: var(--bg-elevated);
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .stage-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 800;
-    padding: 4px 9px;
-    border-radius: 7px;
-    text-transform: uppercase;
-  }
-
-  .stage-tag-amber {
-    background: var(--amber);
-    color: #0b0f19;
-  }
-
-  .stage-tag-cyan {
-    background: var(--cyan);
-    color: #0b0f19;
-  }
-
-  /* Blade Readout Boxes */
-  .blade-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .blade-box {
-    background: var(--bg-card-inner);
-    border: 2px solid var(--border-subtle);
-    border-radius: 13px;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    min-width: 0;
-  }
-
-  .blade-box.active-b1 {
-    border-color: rgba(244, 63, 94, 0.75);
-  }
-
-  .blade-box.active-b2 {
-    border-color: rgba(245, 158, 11, 0.75);
-  }
-
-  .blade-info {
-    min-width: 0;
-  }
-
-  .blade-title {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .blade-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .blade-val {
-    font-family: var(--font-mono);
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text-main);
-    flex-shrink: 0;
-  }
-
-  .blade-val.parked {
-    font-size: 13px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    background: rgba(100, 116, 139, 0.14);
-    padding: 5px 8px;
-    border-radius: 7px;
-  }
-
-  .side-trim-warn {
-    margin-top: 10px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--amber-bright);
-    background: rgba(245, 158, 11, 0.08);
-    border: 1px solid rgba(245, 158, 11, 0.25);
-    padding: 8px 10px;
-    border-radius: 9px;
-  }
-
-  /* Visual Handler SVG Container */
-  .svg-wrapper {
-    margin: 14px 16px 0;
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 10px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .svg-wrapper svg {
-    width: 100%;
-    min-width: 480px;
-    height: auto;
-    display: block;
-  }
-
-  .svg-caption {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-  }
-
-  /* Sequential Pull Checklist */
-  .pulls-container {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .pull-card {
-    background: var(--bg-card-inner);
-    border: 1px solid var(--border-subtle);
-    border-radius: 13px;
-    padding: 12px;
-    cursor: pointer;
-    user-select: none;
-    transition: opacity 0.15s ease, border-color 0.15s ease;
-  }
-
-  .pull-card:hover {
-    border-color: var(--border-strong);
-  }
-
-  .pull-card.checked {
-    opacity: 0.45;
-  }
-
-  .pull-card.checked .pull-heading {
-    text-decoration: line-through;
-  }
-
-  .pull-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .pull-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .checkbox-box {
-    width: 24px;
-    height: 24px;
-    border-radius: 7px;
-    border: 2px solid var(--border-strong);
-    background: var(--bg-card);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0b0f19;
-    font-weight: 900;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .pull-card.checked .checkbox-box {
-    background: var(--emerald);
-    border-color: var(--emerald);
-  }
-
-  .pull-heading {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--text-main);
-  }
-
-  .pull-heading span {
-    font-family: var(--font-mono);
-    color: var(--amber-bright);
-    font-size: 15px;
-  }
-
-  .lane-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .lane-item {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 7px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    font-size: 12px;
-  }
-
-  .lane-item.drop {
-    color: var(--text-dim);
-    border-style: dashed;
-  }
-
-  .lane-badge {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 2px 6px;
-    border-radius: 5px;
-    background: var(--cyan-bg);
-    color: var(--cyan-bright);
-  }
-
-  .rot-badge {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 5px;
-    background: var(--amber-bg);
-    color: var(--amber-bright);
-  }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 22px;
-    left: 50%;
-    transform: translateX(-50%) translateY(16px);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-strong);
-    color: var(--text-main);
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    z-index: 60;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+:root{
+  --bg:#0b0f19;--card:#131b2e;--inner:#0d1322;--elev:#1c2742;
+  --bdr:#24314f;--bdr2:#354770;--txt:#f8fafc;--mut:#94a3b8;--dim:#64748b;
+  --amb:#f59e0b;--amb2:#fbbf24;--amb-bg:rgba(245,158,11,.14);
+  --em:#10b981;--em2:#34d399;--em-bg:rgba(16,185,129,.15);
+  --cy:#06b6d4;--cy2:#22d3ee;--cy-bg:rgba(6,182,212,.15);
+  --pur:#a855f7;--pur2:#c084fc;--pur-bg:rgba(168,85,247,.16);
+  --ros:#f43f5e;--ros-bg:rgba(244,63,94,.15);--hdr:rgba(11,15,25,.94);
+  --shd:0 8px 22px rgba(0,0,0,.35);
+}
+body.light{
+  --bg:#eef2f7;--card:#ffffff;--inner:#f4f7fb;--elev:#e6ecf5;
+  --bdr:#cbd5e1;--bdr2:#94a3b8;--txt:#0f172a;--mut:#475569;--dim:#64748b;
+  --amb:#d97706;--amb2:#b45309;--amb-bg:rgba(217,119,6,.12);
+  --em:#059669;--em2:#047857;--em-bg:rgba(5,150,105,.12);
+  --cy:#0284c7;--cy2:#0369a1;--cy-bg:rgba(2,132,199,.12);
+  --pur:#7e22ce;--pur2:#6b21a8;--pur-bg:rgba(126,34,206,.12);
+  --ros:#dc2626;--ros-bg:rgba(220,38,38,.12);--hdr:rgba(255,255,255,.94);
+  --shd:0 6px 18px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.4;padding-bottom:76px;overflow-x:hidden}
+.tab{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;transition:transform .1s,background .15s,border-color .15s}
+button:active{transform:scale(.97)}
+input,textarea{background:var(--inner);border:1px solid var(--bdr);border-radius:10px;color:var(--txt);font-family:inherit;font-size:14px;padding:8px 10px;width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--amb)}
+input[type=number]{font-family:ui-monospace,monospace;font-weight:700;text-align:center;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+.hidden{display:none!important}
+
+/* Header */
+header{position:sticky;top:0;z-index:40;background:var(--hdr);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--bdr);padding:10px 14px}
+.hdr-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo-box{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:11px;background:var(--inner);border:1px solid var(--bdr2)}
+.title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.title{font-size:16px;font-weight:800;letter-spacing:-.02em}
+.title span{color:var(--amb2)}
+.sub{font-size:10px;color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
+.shop-btn{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--amb-bg);color:var(--amb2);border:1px solid rgba(245,158,11,.35);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shop-add{font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:transparent;color:var(--dim);border:1px dashed var(--bdr)}
+.shop-bar{max-width:760px;margin:8px auto 0;padding:8px;background:var(--card);border:1px solid var(--bdr2);border-radius:11px;display:flex;gap:6px}
+.hdr-act{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.btn-ico{width:34px;height:34px;border-radius:10px;background:var(--elev);color:var(--txt);border:1px solid var(--bdr2);font-size:15px;display:flex;align-items:center;justify-content:center}
+.btn-sec{background:var(--elev);color:var(--txt);border:1px solid var(--bdr2);padding:8px 11px;border-radius:10px;font-size:11.5px;font-weight:700}
+.btn-cy{background:var(--cy-bg);color:var(--cy2);border:1px solid rgba(34,211,238,.35);padding:7px 11px;border-radius:10px;font-size:11.5px;font-weight:700}
+.btn-pcy{background:var(--cy);color:#08101e;padding:8px 13px;border-radius:10px;font-size:12px;font-weight:800}
+.btn-del{background:transparent;color:var(--mut);padding:6px 9px;border-radius:8px;font-size:11.5px;font-weight:600}
+.btn-del:hover{color:var(--ros);background:var(--ros-bg)}
+
+/* Main & Cards */
+main{max-width:760px;margin:0 auto;padding:14px 12px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:15px;box-shadow:var(--shd)}
+.sec-hdr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
+.sec-ttl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* Pills & Rolls */
+.ctrl-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:11px}
+.pill-grp{display:inline-flex;align-items:center;background:var(--inner);border:1px solid var(--bdr);border-radius:10px;padding:3px;gap:2px}
+.pill-lbl{font-size:11px;color:var(--mut);padding:0 6px;font-weight:600}
+.pill{padding:5px 9px;border-radius:7px;font-size:11px;font-weight:800;background:transparent;color:var(--mut)}
+.pill.on-amb{background:var(--amb);color:#0b0f19}
+.pill.on-cy{background:var(--cy);color:#0b0f19}
+.roll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(min-width:560px){.roll-grid{grid-template-columns:repeat(5,1fr)}}
+.r-tog{position:relative;background:var(--inner);border:2px solid var(--bdr);border-radius:12px;padding:11px 4px;text-align:center;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:2px}
+.r-tog.on{background:var(--amb-bg);border-color:var(--amb);color:var(--txt)}
+.r-w{font-size:17px;font-weight:800}
+.r-st{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.r-tog.on .r-st{color:var(--amb2)}
+.r-rm{position:absolute;top:-6px;right:-6px;width:19px;height:19px;border-radius:50%;background:var(--ros);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cust-row{margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr);display:flex;gap:8px}
+
+/* Cut List */
+.paste-box{background:var(--inner);border:1px solid rgba(34,211,238,.45);border-radius:13px;padding:11px;margin-bottom:12px}
+.w-hdr{display:none}
+@media(min-width:580px){
+  .w-hdr{display:grid;grid-template-columns:5fr 1.5fr 2fr 2fr 34px;gap:8px;padding:0 4px 6px;font-size:10px;text-transform:uppercase;color:var(--dim);text-align:center}
+  .w-hdr div:first-child{text-align:left}
+}
+.w-list{display:flex;flex-direction:column;gap:8px}
+.w-row{background:var(--inner);border:1px solid var(--bdr);border-radius:12px;padding:9px;display:grid;grid-template-columns:1fr 1.2fr 1.2fr 34px;gap:7px;align-items:end}
+.w-room{grid-column:1/-1}
+.m-lbl{display:block;font-size:9px;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:3px}
+@media(min-width:580px){
+  .w-row{grid-template-columns:5fr 1.5fr 2fr 2fr 34px;align-items:center;padding:7px}
+  .w-room{grid-column:auto}
+  .m-lbl{display:none}
+}
+.btn-add{margin-top:11px;width:100%;padding:11px;border-radius:12px;background:transparent;border:2px dashed var(--bdr2);color:var(--txt);font-size:13px;font-weight:700}
+.btn-add:hover{border-color:var(--amb);color:var(--amb2)}
+.sum-ft{margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+
+/* Comparison & KPIs */
+.comp-grid{display:grid;grid-template-columns:1fr;gap:9px}
+@media(min-width:560px){.comp-grid{grid-template-columns:repeat(2,1fr)}}
+.c-card{background:var(--inner);border:2px solid var(--bdr);border-radius:13px;padding:11px;text-align:left;color:var(--txt);display:flex;flex-direction:column;gap:7px}
+.c-card.sel{background:var(--elev);border-color:var(--amb)}
+.c-card.multi{border-color:rgba(168,85,247,.45)}
+.c-card.multi.sel{border-color:var(--pur2)}
+.c-card.bad{opacity:.5}
+.c-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.bdg-best{background:var(--em);color:#06130e;font-size:9.5px;font-weight:800;padding:3px 7px;border-radius:6px;text-transform:uppercase;white-space:nowrap}
+.bdg-mul{background:var(--pur);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:5px;text-transform:uppercase;white-space:nowrap}
+.bdg-bad{background:var(--ros-bg);color:var(--ros);font-size:9.5px;font-weight:800;padding:3px 7px;border-radius:6px;text-transform:uppercase}
+.c-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);padding-top:5px;border-top:1px solid var(--bdr)}
+.c-stats strong{display:block;font-size:13px;color:var(--txt);margin-top:1px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:11px}
+.kpi{background:var(--inner);border:1px solid var(--bdr);border-radius:11px;padding:9px 4px;text-align:center}
+.kpi span{display:block}
+.strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.s-btn{background:var(--inner);border:2px solid var(--bdr);border-radius:11px;padding:9px;text-align:left;color:var(--mut)}
+.s-btn.lw{background:var(--em-bg);border-color:var(--em);color:var(--txt)}
+.s-btn.fs{background:var(--cy-bg);border-color:var(--cy);color:var(--txt)}
+
+/* Stages, Blades, SVG & Pulls */
+.roll-ban{background:linear-gradient(135deg,var(--elev),var(--card));border:1px solid var(--pur);border-radius:14px;padding:11px 14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
+.shift-div{position:relative;display:flex;align-items:center;justify-content:center;padding:3px 0}
+.shift-ln{position:absolute;left:10px;right:10px;height:1px;background:var(--amb)}
+.shift-bdg{position:relative;background:var(--bg);border:1px solid var(--amb);color:var(--amb2);font-size:11px;font-weight:800;padding:5px 12px;border-radius:999px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.stg-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:var(--shd)}
+.stg-hdr{background:var(--elev);padding:10px 14px;border-bottom:1px solid var(--bdr);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px 14px 0}
+.b-box{background:var(--inner);border:2px solid var(--bdr);border-radius:12px;padding:9px 11px;display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0}
+.b-box.b1{border-color:rgba(244,63,94,.75)}
+.b-box.b2{border-color:rgba(245,158,11,.75)}
+.b-val{font-size:21px;font-weight:800;flex-shrink:0}
+.b-park{font-size:11px;font-weight:800;color:var(--dim);text-transform:uppercase;background:rgba(100,116,139,.15);padding:4px 7px;border-radius:6px;flex-shrink:0}
+.svg-wrap{margin:12px 14px 0;background:var(--inner);border:1px solid var(--bdr);border-radius:11px;padding:9px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.svg-wrap svg{width:100%;min-width:460px;height:auto;display:block}
+.pulls{padding:14px;display:flex;flex-direction:column;gap:9px}
+.p-card{background:var(--inner);border:1px solid var(--bdr);border-radius:12px;padding:11px;cursor:pointer;user-select:none}
+.p-card.chk{opacity:.45}
+.p-card.chk .p-ttl{text-decoration:line-through}
+.chk-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--bdr2);background:var(--card);display:flex;align-items:center;justify-content:center;color:#0b0f19;font-weight:900;font-size:13px;flex-shrink:0}
+.p-card.chk .chk-box{background:var(--em);border-color:var(--em)}
+.l-item{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:6px 9px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-size:12px}
+.l-item.drop{color:var(--dim);border-style:dashed}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--elev);border:1px solid var(--bdr2);color:var(--txt);padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-label="HandlerCut Pro Twin-Blade Film Handler Logo">
-          <svg viewBox="0 0 48 48" width="38" height="38" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="hcBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#334155"/>
-                <stop offset="50%" stop-color="#64748b"/>
-                <stop offset="100%" stop-color="#334155"/>
-              </linearGradient>
-              <linearGradient id="hcBlade1" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fb7185"/>
-                <stop offset="100%" stop-color="#e11d48"/>
-              </linearGradient>
-              <linearGradient id="hcBlade2" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fbbf24"/>
-                <stop offset="100%" stop-color="#d97706"/>
-              </linearGradient>
-            </defs>
-            <!-- Film sheet / cut preview below rail -->
-            <rect x="6" y="22" width="36" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1.2"/>
-            <line x1="18" y1="22" x2="18" y2="42" stroke="#f43f5e" stroke-width="1.3" stroke-dasharray="2.5 2"/>
-            <line x1="31" y1="22" x2="31" y2="42" stroke="#f59e0b" stroke-width="1.3" stroke-dasharray="2.5 2"/>
-            <!-- Precision 72" Handler Bar -->
-            <rect x="3" y="11" width="42" height="9" rx="2.5" fill="url(#hcBarGrad)" stroke="#94a3b8" stroke-width="1"/>
-            <!-- Ruler ticks along handler rail -->
-            <line x1="7" y1="11" x2="7" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-            <line x1="12" y1="11" x2="12" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
-            <line x1="17" y1="11" x2="17" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-            <line x1="22" y1="11" x2="22" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
-            <line x1="27" y1="11" x2="27" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-            <line x1="32" y1="11" x2="32" y2="13.5" stroke="#cbd5e1" stroke-width="0.9"/>
-            <line x1="37" y1="11" x2="37" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-            <line x1="41" y1="11" x2="41" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-            <!-- Left 0" stop block -->
-            <rect x="3" y="9" width="3" height="13" rx="1" fill="#22d3ee"/>
-            <!-- Twin Slitter Blade Carriages -->
-            <polygon points="15,7 21,7 19.5,24 16.5,24" fill="url(#hcBlade1)"/>
-            <circle cx="18" cy="9.5" r="1.4" fill="#fff1f2"/>
-            <polygon points="28,7 34,7 32.5,24 29.5,24" fill="url(#hcBlade2)"/>
-            <circle cx="31" cy="9.5" r="1.4" fill="#fffbeb"/>
-          </svg>
-        </div>
-        <div>
-          <div class="brand-title-row">
-            <div class="brand-title">HandlerCut <span>Pro</span></div>
-            <span id="shop-badge-slot"></span>
-          </div>
-          <div class="brand-sub">72" Handler • 2 Blades • 0" Left Stop</div>
-        </div>
+<header>
+  <div class="hdr-in">
+    <div class="brand">
+      <div class="logo-box" aria-label="HandlerCut Pro Twin-Blade Logo">
+        <svg viewBox="0 0 48 48" width="36" height="36">
+          <rect x="6" y="22" width="36" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1.2"/>
+          <line x1="18" y1="22" x2="18" y2="42" stroke="#f43f5e" stroke-width="1.4" stroke-dasharray="2.5 2"/>
+          <line x1="31" y1="22" x2="31" y2="42" stroke="#f59e0b" stroke-width="1.4" stroke-dasharray="2.5 2"/>
+          <rect x="3" y="11" width="42" height="9" rx="2.5" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+          <rect x="3" y="9" width="3" height="13" rx="1" fill="#22d3ee"/>
+          <polygon points="15,7 21,7 19.5,24 16.5,24" fill="#f43f5e"/>
+          <polygon points="28,7 34,7 32.5,24 29.5,24" fill="#f59e0b"/>
+        </svg>
       </div>
-      <div class="header-actions">
-        <button type="button" id="btn-theme" class="btn-theme" title="Toggle Dark / Light Mode" aria-label="Toggle Dark / Light Mode">☀️</button>
-        <button type="button" id="btn-demo" class="btn-secondary">Demo Job</button>
+      <div>
+        <div class="title-row">
+          <div class="title">HandlerCut <span>Pro</span></div>
+          <span id="shop-slot"></span>
+        </div>
+        <div class="sub mono">72" Handler • 2 Blades • Multi-Roll</div>
       </div>
     </div>
-
-    <div id="shop-editor-bar" class="shop-editor-bar hidden">
-      <input type="text" id="shop-name-input" placeholder="Optional shop name (leave blank to hide)" maxlength="40">
-      <button type="button" id="btn-save-shop" class="btn-primary-cyan" style="white-space:nowrap;">Save</button>
-      <button type="button" id="btn-clear-shop" class="btn-ghost-danger" style="white-space:nowrap;">Clear</button>
+    <div class="hdr-act">
+      <button type="button" id="btn-theme" class="btn-ico" title="Toggle Light/Dark Mode">☀️</button>
+      <button type="button" id="btn-demo" class="btn-sec">Demo Job</button>
     </div>
-  </header>
-
-  <main>
-    <!-- SECTION 1: ROLLS ON HAND -->
-    <section class="card">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="dot dot-amber"></span>
-          1. Rolls On Hand
-        </div>
-        <div class="pill-group">
-          <span class="pill-label">Extra Margin:</span>
-          <button type="button" id="bleed-0" class="pill-btn active-amber">+0"</button>
-          <button type="button" id="bleed-1" class="pill-btn">+1"</button>
-        </div>
-      </div>
-
-      <div id="roll-toggles" class="roll-grid"></div>
-
-      <div class="custom-roll-row">
-        <input type="number" id="custom-roll-input" placeholder="Custom roll width (e.g. 54)" min="10" max="72" step="0.5">
-        <button type="button" id="btn-add-roll" class="btn-secondary" style="white-space:nowrap; color:var(--amber-bright);">+ Add Roll</button>
-      </div>
-    </section>
-
-    <!-- SECTION 2: WINDOW CUT LIST -->
-    <section class="card">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="dot dot-cyan"></span>
-          2. Window Cut List
-        </div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <button type="button" id="btn-toggle-paste" class="btn-cyan">📋 Quick Paste Note</button>
-          <button type="button" id="btn-clear-windows" class="btn-ghost-danger">Clear</button>
-        </div>
-      </div>
-
-      <!-- Quick Paste Box -->
-      <div id="paste-box" class="paste-panel hidden">
-        <div class="paste-header">
-          <span>Paste your phone note below (e.g. (4) 24 x 34):</span>
-          <button type="button" id="btn-close-paste" style="background:none; color:var(--text-muted); font-size:12px;">Close ✕</button>
-        </div>
-        <textarea id="paste-textarea" rows="6" placeholder="Living Room&#10;(4) 24 x 34&#10;Front sitting room&#10;(2) 24 x 34&#10;Upstairs Bathroom&#10;(2) 24 x 16"></textarea>
-        <div class="paste-actions">
-          <button type="button" id="btn-paste-append" class="btn-secondary">Append to List</button>
-          <button type="button" id="btn-paste-replace" class="btn-primary-cyan">Replace Cut List</button>
-        </div>
-      </div>
-
-      <div class="win-col-headers">
-        <div>Room / Label</div>
-        <div>Qty</div>
-        <div>Width (in)</div>
-        <div>Height (in)</div>
-        <div></div>
-      </div>
-
-      <div id="windows-list" class="windows-list"></div>
-
-      <button type="button" id="btn-add-window" class="btn-add-row">+ Add Window Measurement</button>
-
-      <div id="input-summary" class="summary-footer"></div>
-    </section>
-
-    <!-- SECTION 3: OPTIMIZER RESULTS -->
-    <section id="results-container" style="display:flex; flex-direction:column; gap:16px;"></section>
-  </main>
-
-  <div id="toast" class="toast">
-    <span class="dot dot-amber"></span>
-    <span id="toast-msg">Updated</span>
   </div>
+  <div id="shop-bar" class="shop-bar hidden">
+    <input type="text" id="shop-in" placeholder="Optional shop name (leave blank to hide)" maxlength="40">
+    <button type="button" id="btn-shop-save" class="btn-pcy" style="white-space:nowrap">Save</button>
+    <button type="button" id="btn-shop-clr" class="btn-del" style="white-space:nowrap">Clear</button>
+  </div>
+</header>
+
+<main>
+  <!-- 1. ROLLS ON HAND -->
+  <section class="card">
+    <div class="sec-hdr">
+      <div class="sec-ttl mono"><span class="dot" style="background:var(--amb)"></span>1. Rolls On Hand</div>
+    </div>
+    <div class="ctrl-bar">
+      <div class="pill-grp">
+        <span class="pill-lbl">Extra Margin:</span>
+        <button type="button" id="b-0" class="pill mono on-amb">+0"</button>
+        <button type="button" id="b-1" class="pill mono">+1"</button>
+      </div>
+      <div class="pill-grp">
+        <span class="pill-lbl">Max Side-Trim:</span>
+        <button type="button" data-trim="2" class="pill mono">2"</button>
+        <button type="button" data-trim="3" class="pill mono">3"</button>
+        <button type="button" data-trim="4" class="pill mono on-cy">4"</button>
+        <button type="button" data-trim="6" class="pill mono">6"</button>
+      </div>
+    </div>
+    <div id="roll-grid" class="roll-grid"></div>
+    <div class="cust-row">
+      <input type="number" id="cust-roll" placeholder="Custom roll width (e.g. 54)" min="10" max="72" step="0.5">
+      <button type="button" id="btn-add-roll" class="btn-sec" style="white-space:nowrap;color:var(--amb2)">+ Add Roll</button>
+    </div>
+  </section>
+
+  <!-- 2. WINDOW CUT LIST -->
+  <section class="card">
+    <div class="sec-hdr">
+      <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>2. Window Cut List</div>
+      <div style="display:flex;gap:6px">
+        <button type="button" id="btn-paste-tog" class="btn-cy">📋 Quick Paste Note</button>
+        <button type="button" id="btn-clr-win" class="btn-del">Clear</button>
+      </div>
+    </div>
+    <div id="paste-box" class="paste-box hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;font-size:12px;font-weight:700;color:var(--cy2)">
+        <span>Paste note (e.g. Living Room / (4) 24 x 34):</span>
+        <button type="button" id="btn-paste-x" style="background:none;color:var(--mut);font-size:12px">Close ✕</button>
+      </div>
+      <textarea id="paste-txt" class="mono" rows="5" placeholder="Living Room&#10;(4) 24 x 34&#10;Front sitting room&#10;(2) 24 x 34&#10;Upstairs Bathroom&#10;(2) 24 x 16"></textarea>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
+        <button type="button" id="btn-paste-app" class="btn-sec">Append</button>
+        <button type="button" id="btn-paste-rep" class="btn-pcy">Replace Cut List</button>
+      </div>
+    </div>
+    <div class="w-hdr mono"><div>Room / Label</div><div>Qty</div><div>Width"</div><div>Height"</div><div></div></div>
+    <div id="w-list" class="w-list"></div>
+    <button type="button" id="btn-add-win" class="btn-add">+ Add Window Measurement</button>
+    <div id="in-sum" class="sum-ft mono"></div>
+  </section>
+
+  <!-- 3. RESULTS -->
+  <section id="results" style="display:flex;flex-direction:column;gap:14px"></section>
+</main>
+
+<div id="toast" class="toast">Updated</div>
 
 <script>
-(function() {
-  'use strict';
+(function(){
+'use strict';
+const MAX_W = 72;
+let uid = 10;
 
-  const HANDLER_MAX_WIDTH = 72;
-  let nextId = 10;
+const S = {
+  rolls: [
+    { w: 72, on: true, cust: false },
+    { w: 60, on: true, cust: false },
+    { w: 48, on: false, cust: false },
+    { w: 36, on: true, cust: false }
+  ],
+  bleed: 0,
+  trim: 4,
+  wins: [
+    { id: 1, room: 'Living Room', qty: 4, w: 24, h: 34 },
+    { id: 2, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+    { id: 3, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+  ],
+  planId: null,
+  strat: 'lw', // 'lw' | 'fs'
+  checked: {},
+  shop: ''
+};
 
-  const state = {
-    availableRolls: [
-      { width: 72, enabled: true, custom: false },
-      { width: 60, enabled: true, custom: false },
-      { width: 48, enabled: false, custom: false },
-      { width: 36, enabled: true, custom: false }
-    ],
-    bleedInches: 0,
-    maxSideTrim: 4,
-    windows: [
-      { id: 1, room: 'Living Room', qty: 4, w: 24, h: 34 },
-      { id: 2, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-      { id: 3, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
-    ],
-    selectedRollWidth: null,
-    selectedStrategy: 'lowestWaste', // 'lowestWaste' | 'fastSplit'
-    checkedPulls: {},
-    shopName: ''
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+let tTimer = null;
+function toast(msg){
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(tTimer);
+  tTimer = setTimeout(() => el.classList.remove('show'), 2100);
+}
+
+/* Header: Theme & Optional Shop Name */
+function setTheme(t){
+  const lt = t === 'light';
+  document.body.classList.toggle('light', lt);
+  $('btn-theme').textContent = lt ? '🌙' : '☀️';
+  $('meta-theme').setAttribute('content', lt ? '#eef2f7' : '#0b0f19');
+  try { localStorage.setItem('hc_theme', lt ? 'light' : 'dark'); } catch(_){}
+}
+
+function renderShop(){
+  const slot = $('shop-slot');
+  const v = (S.shop || '').trim();
+  slot.innerHTML = v
+    ? `<button type="button" id="b-shop-ed" class="shop-btn mono">${esc(v)} ✎</button>`
+    : `<button type="button" id="b-shop-ed" class="shop-add mono">+ Add Shop Name</button>`;
+  $('b-shop-ed').onclick = () => {
+    const bar = $('shop-bar');
+    bar.classList.toggle('hidden');
+    if(!bar.classList.contains('hidden')){ $('shop-in').value = S.shop; $('shop-in').focus(); }
+  };
+}
+
+function saveShop(val){
+  S.shop = (val || '').trim().slice(0, 40);
+  try { S.shop ? localStorage.setItem('hc_shop', S.shop) : localStorage.removeItem('hc_shop'); } catch(_){}
+  renderShop();
+  $('shop-bar').classList.add('hidden');
+  toast(S.shop ? `Shop set: ${S.shop}` : 'Shop name hidden');
+}
+
+/* Section 1: Rolls & Controls */
+function renderRolls(){
+  const sorted = [...S.rolls].sort((a,b) => b.w - a.w);
+  $('roll-grid').innerHTML = sorted.map(r => `
+    <button type="button" data-tog="${r.w}" class="r-tog ${r.on ? 'on' : ''}">
+      <span class="r-w mono">${r.w}"</span>
+      <span class="r-st mono">${r.on ? 'On Hand' : 'Off'}</span>
+      ${r.cust ? `<span data-rm="${r.w}" class="r-rm">✕</span>` : ''}
+    </button>
+  `).join('');
+}
+
+function setBleed(v, notify=true){
+  S.bleed = v;
+  $('b-0').className = 'pill mono' + (v===0 ? ' on-amb' : '');
+  $('b-1').className = 'pill mono' + (v===1 ? ' on-amb' : '');
+  updateSum();
+  solve();
+  if(notify) toast(v===0 ? 'Exact sizes (+0")' : 'Added +1" margin to W & H');
+}
+
+function syncTrim(){
+  document.querySelectorAll('[data-trim]').forEach(b => {
+    b.className = 'pill mono' + (+b.dataset.trim === S.trim ? ' on-cy' : '');
+  });
+}
+
+/* Section 2: Windows */
+function renderWins(){
+  const el = $('w-list');
+  if(!S.wins.length){
+    el.innerHTML = `<div style="text-align:center;padding:20px;border-radius:11px;background:var(--inner);border:1px solid var(--bdr);color:var(--dim);font-size:13px">No measurements yet. Tap "+ Add Window Measurement" or "Quick Paste Note".</div>`;
+    updateSum();
+    return;
+  }
+  el.innerHTML = S.wins.map(w => `
+    <div class="w-row" data-id="${w.id}">
+      <div class="w-room"><input type="text" data-f="room" value="${esc(w.room)}" placeholder="Room / Label"></div>
+      <div><span class="m-lbl mono">Qty</span><input type="number" style="color:var(--amb2)" data-f="qty" value="${w.qty}" min="1" max="200"></div>
+      <div><span class="m-lbl mono">Width"</span><input type="number" data-f="w" value="${w.w}" min="1" max="144" step="0.25"></div>
+      <div><span class="m-lbl mono">Height"</span><input type="number" data-f="h" value="${w.h}" min="1" max="240" step="0.25"></div>
+      <div style="display:flex;justify-content:center"><button type="button" class="btn-del" data-del="${w.id}">✕</button></div>
+    </div>
+  `).join('');
+  updateSum();
+}
+
+function updateSum(){
+  let cnt = 0, area = 0;
+  S.wins.forEach(w => { cnt += w.qty; area += (w.w + S.bleed) * (w.h + S.bleed) * w.qty; });
+  $('in-sum').innerHTML = `<span>Total Panes: <strong style="color:var(--txt)">${cnt}</strong></span><span>Net Glass: <strong style="color:var(--cy2)">${(area/144).toFixed(1)} sq ft</strong></span>`;
+}
+
+function parsePaste(replace){
+  const raw = $('paste-txt').value.trim();
+  if(!raw) return toast('Paste your notes first');
+  let room = 'Window';
+  const out = [];
+  const rx = /^(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/;
+  for(const ln of raw.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)){
+    const cl = ln.replace(/~?\d+(?:\.\d+)?\s*sq\s*ft/i,'').trim();
+    const m = cl.match(rx);
+    if(m){
+      const qty = parseInt(m[1]||m[4]||'1',10), w = parseFloat(m[2]), h = parseFloat(m[3]);
+      const tr = cl.replace(m[0],'').replace(/^[-–:]+/,'').trim();
+      if(qty>0 && w>0 && h>0) out.push({ id: uid++, room: tr || room, qty, w, h });
+    } else {
+      room = cl.replace(/[:\-]+$/,'').trim() || room;
+    }
+  }
+  if(!out.length) return toast('No "W x H" measurements detected');
+  S.wins = replace ? out : [...S.wins, ...out];
+  $('paste-txt').value = '';
+  $('paste-box').classList.add('hidden');
+  S.planId = null; S.checked = {};
+  renderWins(); solve();
+  toast(`Imported ${out.length} row(s)`);
+}
+
+/* =========================================================================
+   OPTIMIZER ENGINE: 2-Blade Left-Aligned + Multi-Stage + Multi-Roll
+   ========================================================================= */
+function getBlades(lanes, rw){
+  const act = lanes.reduce((a,b)=>a+b, 0);
+  let b1 = null, b2 = null;
+  if(lanes.length === 1 && lanes[0] < rw) b1 = lanes[0];
+  else if(lanes.length === 2){ b1 = lanes[0]; if(lanes[0]+lanes[1] < rw) b2 = lanes[0]+lanes[1]; }
+  else if(lanes.length === 3){ b1 = lanes[0]; b2 = lanes[0]+lanes[1]; }
+  return { b1, b2, act, sideWaste: Math.max(0, Math.round((rw - act)*100)/100) };
+}
+
+function fitStrip(p, sw, maxTrim){
+  const opts = [];
+  if(p.w <= sw + 1e-6 && sw - p.w <= maxTrim + 1e-6) opts.push({ sw: p.w, ph: p.h, rot: false, slk: Math.max(0, sw - p.w) });
+  if(p.h <= sw + 1e-6 && sw - p.h <= maxTrim + 1e-6) opts.push({ sw: p.h, ph: p.w, rot: true,  slk: Math.max(0, sw - p.h) });
+  if(!opts.length) return null;
+  opts.sort((a,b) => Math.abs(a.ph - b.ph) > 1e-6 ? a.ph - b.ph : a.slk - b.slk);
+  return opts[0];
+}
+
+function fitCfg(p, lanes, maxTrim){
+  let best = null;
+  for(let i=0; i<lanes.length; i++){
+    const f = fitStrip(p, lanes[i], maxTrim);
+    if(!f) continue;
+    const sc = f.ph * 1000 + f.slk;
+    if(!best || sc < best.sc) best = { ...f, lIdx: i, sc };
+  }
+  return best;
+}
+
+function packCfg(panes, lanes, rw, maxTrim){
+  const items = [];
+  for(const p of panes){
+    const best = fitCfg(p, lanes, maxTrim);
+    if(!best) return null;
+    const valid = [];
+    lanes.forEach((lw, i) => { const f = fitStrip(p, lw, maxTrim); if(f) valid.push({ ...f, lIdx: i }); });
+    items.push({ p, best, valid });
+  }
+  const rem = [...items].sort((a,b) => Math.abs(b.best.ph - a.best.ph) > 1e-6 ? b.best.ph - a.best.ph : b.best.sw - a.best.sw);
+  const pulls = [];
+  while(rem.length){
+    const anc = rem.shift();
+    const slots = new Array(lanes.length).fill(null);
+    slots[anc.best.lIdx] = { p: anc.p, f: anc.best };
+    for(let l=0; l<lanes.length; l++){
+      if(slots[l]) continue;
+      let bi = -1, bo = null, bp = Infinity;
+      for(let i=0; i<rem.length; i++){
+        const opt = rem[i].valid.find(v => v.lIdx === l);
+        if(!opt) continue;
+        const diff = Math.abs(opt.ph - anc.best.ph);
+        const pen = diff * 10 + (opt.ph > anc.best.ph ? (opt.ph - anc.best.ph)*50 : 0) + opt.slk;
+        if(pen < bp){ bp = pen; bi = i; bo = opt; }
+      }
+      if(bi !== -1){ const ch = rem.splice(bi,1)[0]; slots[l] = { p: ch.p, f: bo }; }
+    }
+    const len = Math.max(...slots.map(s => s ? s.f.ph : 0));
+    pulls.push({ len, slots });
+  }
+  const pullIn = pulls.reduce((s,x)=>s+x.len, 0);
+  return { lanes, blades: getBlades(lanes, rw), pulls, pullIn, filmSqIn: pullIn * rw };
+}
+
+function genConfigs(rw, panes){
+  const ws = new Set();
+  panes.forEach(p => { if(p.w <= rw) ws.add(p.w); if(p.h <= rw) ws.add(p.h); });
+  [rw/2, rw/3].forEach(v => { const r = Math.round(v*100)/100; if(r>0 && r<=rw) ws.add(r); });
+  const arr = [...ws].sort((a,b)=>b-a), cfgs = [];
+  for(let i=0; i<arr.length; i++){
+    cfgs.push([arr[i]]);
+    for(let j=i; j<arr.length; j++){
+      if(arr[i]+arr[j] <= rw+1e-6){
+        cfgs.push([arr[i], arr[j]]);
+        for(let k=j; k<arr.length; k++) if(arr[i]+arr[j]+arr[k] <= rw+1e-6) cfgs.push([arr[i], arr[j], arr[k]]);
+      }
+    }
+  }
+  return cfgs;
+}
+
+function solveStages(panes, cfgs, rw, maxTrim){
+  let best1 = null;
+  for(const lim of [maxTrim, Infinity]){
+    for(const c of cfgs){
+      const pk = packCfg(panes, c, rw, lim);
+      if(!pk) continue;
+      const bc = (pk.blades.b1!==null?1:0) + (pk.blades.b2!==null?1:0);
+      const sc = pk.filmSqIn*100 + pk.pulls.length*10 + bc;
+      if(!best1 || sc < best1.sc) best1 = { ...pk, sc };
+    }
+    if(best1) break;
+  }
+
+  let unp = [...panes], stages = [], guard = 0;
+  while(unp.length && guard++ < 10){
+    let bestB = null;
+    for(const c of cfgs){
+      const fit = unp.filter(p => fitCfg(p, c, maxTrim));
+      if(!fit.length) continue;
+      const ex = unp.filter(p => { const f = fitCfg(p, c, maxTrim); return f && f.slk === 0; });
+      for(const sub of (ex.length ? [ex, fit] : [fit])){
+        const pk = packCfg(sub, c, rw, maxTrim);
+        if(!pk) continue;
+        const net = sub.reduce((s,p)=>s+p.area, 0);
+        const sc = (net/pk.filmSqIn)*1000 + sub.length*25 - (pk.filmSqIn-net)*0.02;
+        if(!bestB || sc > bestB.sc) bestB = { pk, sub, sc };
+      }
+    }
+    if(!bestB) break;
+    stages.push(bestB.pk);
+    const used = new Set(bestB.sub.map(p=>p.id));
+    unp = unp.filter(p => !used.has(p.id));
+  }
+
+  if(!unp.length && stages.length > 1 && best1){
+    const mSq = stages.reduce((s,x)=>s+x.filmSqIn, 0);
+    if(best1.filmSqIn - mSq > 144) return stages;
+  }
+  return best1 ? [best1] : null;
+}
+
+function finalizeRoll(setups, rw, panes){
+  const netSqIn = panes.reduce((s,p)=>s+p.area, 0);
+  const pullIn = setups.reduce((s,x)=>s+x.pullIn, 0);
+  const filmSqIn = setups.reduce((s,x)=>s+x.filmSqIn, 0);
+  const pullCnt = setups.reduce((s,x)=>s+x.pulls.length, 0);
+  const wasteSqIn = Math.max(0, filmSqIn - netSqIn);
+  return {
+    rw, setups: setups.map((x,i)=>({...x, num:i+1})),
+    pullIn, ft: pullIn/12, filmSf: filmSqIn/144, netSf: netSqIn/144,
+    wasteSf: wasteSqIn/144, wastePct: filmSqIn>0 ? (wasteSqIn/filmSqIn)*100 : 0,
+    pullCnt, filmSqIn, netSqIn
+  };
+}
+
+function solveRoll(rw, panes){
+  const over = panes.filter(p => Math.min(p.w, p.h) > rw);
+  if(over.length) return { rw, ok: false, reason: `${over.length} pane(s) exceed ${rw}" roll width.` };
+  const cfgs = genConfigs(rw, panes);
+  const lw = finalizeRoll(solveStages(panes, cfgs, rw, S.trim), rw, panes);
+
+  // Fast Split (1-blade priority + Stage 2 shift)
+  const oneB = cfgs.filter(c => { const b = getBlades(c, rw); return (b.b1!==null?1:0)+(b.b2!==null?1:0) <= 1; });
+  let bestFs = null, bestSc = Infinity;
+  for(const c of oneB){
+    const s1 = panes.filter(p => fitCfg(p, c, S.trim));
+    if(!s1.length) continue;
+    const pk1 = packCfg(s1, c, rw, S.trim);
+    if(!pk1) continue;
+    const u1 = new Set(s1.map(p=>p.id));
+    const rem = panes.filter(p => !u1.has(p.id));
+    let all = [pk1];
+    if(rem.length){
+      const s2 = solveStages(rem, cfgs, rw, S.trim);
+      if(!s2) continue;
+      all = [pk1, ...s2];
+    }
+    const fSq = all.reduce((s,x)=>s+x.filmSqIn, 0);
+    const pCnt = all.reduce((s,x)=>s+x.pulls.length, 0);
+    const sc = fSq*100 + pCnt*10 - s1.length*40 + (c.length===2 ? Math.abs(c[0]-c[1])*0.05 : 0);
+    if(sc < bestSc){ bestSc = sc; bestFs = all; }
+  }
+  let fs = null;
+  if(bestFs){
+    const cand = finalizeRoll(bestFs, rw, panes);
+    const same = cand.setups.length === lw.setups.length && cand.setups.every((x,i)=>x.blades.b1===lw.setups[i].blades.b1 && x.blades.b2===lw.setups[i].blades.b2);
+    if(!same) fs = cand;
+  }
+  return { rw, ok: true, lw, fs };
+}
+
+function aggAllocs(allocs){
+  const pullIn = allocs.reduce((s,a)=>s+a.pullIn, 0);
+  const filmSqIn = allocs.reduce((s,a)=>s+a.filmSqIn, 0);
+  const netSqIn = allocs.reduce((s,a)=>s+a.netSqIn, 0);
+  const pullCnt = allocs.reduce((s,a)=>s+a.pullCnt, 0);
+  const wasteSqIn = Math.max(0, filmSqIn - netSqIn);
+  return {
+    allocs, pullIn, ft: pullIn/12, filmSf: filmSqIn/144, netSf: netSqIn/144,
+    wasteSf: wasteSqIn/144, wastePct: filmSqIn>0 ? (wasteSqIn/filmSqIn)*100 : 0,
+    pullCnt, filmSqIn
+  };
+}
+
+function findMultiPlans(activeRolls, panes){
+  if(activeRolls.length < 2 || panes.length < 2) return [];
+  const gMap = new Map();
+  panes.forEach(p => {
+    const k = `${Math.min(p.w,p.h)}x${Math.max(p.w,p.h)}`;
+    if(!gMap.has(k)) gMap.set(k, []);
+    gMap.get(k).push(p);
+  });
+  let grps = [...gMap.values()];
+  if(grps.length < 2) return [];
+  if(grps.length > 7){
+    grps.sort((a,b)=>Math.min(b[0].w,b[0].h)-Math.min(a[0].w,a[0].h));
+    while(grps.length > 7){ const t = grps.pop(); grps[grps.length-1].push(...t); }
+  }
+  const rws = [...activeRolls].sort((a,b)=>b-a);
+  const total = Math.pow(rws.length, grps.length);
+  const bestByCombo = new Map();
+
+  for(let m=0; m<total; m++){
+    let tmp = m, bkts = new Map(), ok = true;
+    for(let g=0; g<grps.length; g++){
+      const rw = rws[tmp % rws.length];
+      tmp = Math.floor(tmp / rws.length);
+      if(Math.min(grps[g][0].w, grps[g][0].h) > rw){ ok = false; break; }
+      if(!bkts.has(rw)) bkts.set(rw, []);
+      bkts.get(rw).push(...grps[g]);
+    }
+    if(!ok || bkts.size < 2 || bkts.size > 3) continue;
+    const usedRws = [...bkts.keys()].sort((a,b)=>b-a);
+    const lwA = [], fsA = [];
+    let hasFs = false, bOk = true;
+    for(const rw of usedRws){
+      const res = solveRoll(rw, bkts.get(rw));
+      if(!res.ok){ bOk = false; break; }
+      lwA.push(res.lw);
+      if(res.fs){ fsA.push(res.fs); hasFs = true; } else fsA.push(res.lw);
+    }
+    if(!bOk) continue;
+    const key = usedRws.join('+');
+    const lwAgg = aggAllocs(lwA);
+    const prev = bestByCombo.get(key);
+    if(!prev || lwAgg.filmSqIn < prev.lw.filmSqIn - 1e-3){
+      const desc = lwA.map(a => `${a.rw}" (${a.setups.reduce((s,st)=>s+st.pulls.reduce((ps,p)=>ps+p.slots.filter(Boolean).length,0),0)}p)`).join(', ');
+      bestByCombo.set(key, {
+        id: `multi-${key}`, multi: true, rws: usedRws,
+        label: usedRws.map(w=>`${w}"`).join(' + ') + ' Rolls',
+        sub: `Split across ${usedRws.length} rolls: ${desc}`,
+        ok: true, lw: lwAgg, fs: hasFs ? aggAllocs(fsA) : null
+      });
+    }
+  }
+  return [...bestByCombo.values()];
+}
+
+/* =========================================================================
+   RENDER RESULTS & HANDLER SVG
+   ========================================================================= */
+function solve(){
+  const resEl = $('results');
+  const activeRolls = S.rolls.filter(r=>r.on).map(r=>r.w);
+  if(!activeRolls.length){
+    resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--amb2);font-weight:700">Select at least one roll width above (72", 60", or 36").</div>`;
+    return;
+  }
+  const panes = [];
+  S.wins.forEach(w => {
+    const ew = Math.round((w.w + S.bleed)*100)/100, eh = Math.round((w.h + S.bleed)*100)/100;
+    for(let i=0; i<w.qty; i++) panes.push({ id: `${w.id}-${i}`, room: w.room || 'Window', w: ew, h: eh, area: ew*eh });
+  });
+  if(!panes.length){
+    resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--mut);font-size:13px">Add at least one window measurement above to optimize cuts.</div>`;
+    return;
+  }
+
+  const singlePlans = activeRolls.map(rw => {
+    const r = solveRoll(rw, panes);
+    if(!r.ok) return { id: `single-${rw}`, multi: false, rws: [rw], label: `${rw}" Roll Only`, sub: r.reason, ok: false, reason: r.reason };
+    return {
+      id: `single-${rw}`, multi: false, rws: [rw], label: `${rw}" Roll Only`,
+      sub: `${r.lw.setups.length} setup${r.lw.setups.length>1?'s':''} • ${r.lw.pullCnt} pulls`,
+      ok: true, lw: aggAllocs([r.lw]), fs: r.fs ? aggAllocs([r.fs]) : null
+    };
+  });
+
+  const bestSingleSq = singlePlans.filter(p=>p.ok).reduce((m,p)=>Math.min(m, p.lw.filmSqIn), Infinity);
+  const multiPlans = findMultiPlans(activeRolls, panes).filter(mp => !isFinite(bestSingleSq) || mp.lw.filmSqIn < bestSingleSq - 36);
+
+  const plans = [...multiPlans, ...singlePlans].sort((a,b) => {
+    if(a.ok !== b.ok) return a.ok ? -1 : 1;
+    if(!a.ok && !b.ok) return b.rws[0] - a.rws[0];
+    const wd = a.lw.wastePct - b.lw.wastePct;
+    if(Math.abs(wd) > 0.25) return wd;
+    if(a.rws.length !== b.rws.length) return a.rws.length - b.rws.length;
+    if(a.lw.pullCnt !== b.lw.pullCnt) return a.lw.pullCnt - b.lw.pullCnt;
+    return b.rws[0] - a.rws[0];
+  });
+
+  const best = plans[0];
+  const cur = plans.find(p => p.id === S.planId) || best;
+  S.planId = cur.id;
+  if(cur.ok && S.strat === 'fs' && !cur.fs) S.strat = 'lw';
+
+  const compHtml = `
+    <div class="card">
+      <div class="sec-hdr">
+        <div class="sec-ttl mono"><span class="dot" style="background:var(--em)"></span>3. Roll Plan Comparison</div>
+        <span class="mono" style="font-size:10px;color:var(--dim)">Tap to inspect</span>
+      </div>
+      <div class="comp-grid">
+        ${plans.map(p => {
+          const isB = p.ok && p.id === best.id, isS = p.id === cur.id;
+          if(!p.ok) return `<button type="button" data-plan="${p.id}" class="c-card bad ${isS?'sel':''}"><div class="c-top"><strong class="mono" style="font-size:15px">${esc(p.label)}</strong><span class="bdg-bad mono">Too Narrow</span></div><div style="font-size:11px;color:var(--mut)">Cannot fit widest pane</div></button>`;
+          return `
+            <button type="button" data-plan="${p.id}" class="c-card ${p.multi?'multi':''} ${isS?'sel':''}">
+              <div class="c-top">
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><strong class="mono" style="font-size:15px">${esc(p.label)}</strong>${p.multi?`<span class="bdg-mul mono">Multi-Roll</span>`:''}</div>
+                ${isB ? `<span class="bdg-best mono">Best Choice</span>` : `<span class="mono" style="font-size:11px;color:var(--mut)">${p.lw.wastePct.toFixed(1)}% waste</span>`}
+              </div>
+              <div style="font-size:11px;color:var(--mut)">${esc(p.sub)}</div>
+              <div class="c-stats mono">
+                <div>PULL<strong class="tab">${p.lw.ft.toFixed(1)} ft</strong></div>
+                <div>FILM<strong class="tab">${p.lw.filmSf.toFixed(1)} sf</strong></div>
+                <div style="text-align:right">WASTE<strong class="tab" style="color:${p.lw.wastePct<=10?'var(--em2)':'var(--amb2)'}">${p.lw.wastePct.toFixed(1)}%</strong></div>
+              </div>
+            </button>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  if(!cur.ok){
+    resEl.innerHTML = compHtml + `<div class="card" style="border-color:rgba(244,63,94,.45)"><h3 style="color:var(--ros);font-size:15px">${esc(cur.label)} Cannot Fit Job</h3><p style="color:var(--mut);font-size:12.5px;margin-top:4px">${esc(cur.reason)}</p></div>`;
+    return;
+  }
+
+  const agg = (S.strat === 'fs' && cur.fs) ? cur.fs : cur.lw;
+  const totSetups = agg.allocs.reduce((s,a)=>s+a.setups.length, 0);
+
+  const stratHtml = cur.fs ? `
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)">
+      <div class="mono" style="font-size:10px;text-transform:uppercase;color:var(--mut);font-weight:700">Blade Setup Strategy:</div>
+      <div class="strat-grid">
+        <button type="button" data-strat="lw" class="s-btn ${S.strat==='lw'?'lw':''}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><strong style="font-size:12px">Lowest Waste</strong><span class="mono" style="font-size:10px;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--em-bg);color:var(--em2)">${cur.lw.wastePct.toFixed(1)}%</span></div>
+          <div class="mono" style="font-size:11px;color:var(--mut)">${cur.lw.pullCnt} pulls (${cur.lw.pullIn}")</div>
+        </button>
+        <button type="button" data-strat="fs" class="s-btn ${S.strat==='fs'?'fs':''}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><strong style="font-size:12px">Fast Split (1-Blade)</strong><span class="mono" style="font-size:10px;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--cy-bg);color:var(--cy2)">${cur.fs.wastePct.toFixed(1)}%</span></div>
+          <div class="mono" style="font-size:11px;color:var(--mut)">${cur.fs.pullCnt} pulls (${cur.fs.pullIn}")</div>
+        </button>
+      </div>
+    </div>` : '';
+
+  const kpiHtml = `
+    <div class="card">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px">
+        <h3 style="font-size:17px;font-weight:800">${cur.multi ? `Multi-Roll: ${esc(cur.label)}` : `Load ${cur.rws[0]}" Roll`}</h3>
+        ${cur.id===best.id && S.strat==='lw' ? `<span class="mono" style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--em-bg);color:var(--em2)">★ Lowest Waste</span>` : ''}
+        ${cur.multi ? `<span class="mono" style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--pur-bg);color:var(--pur2)">⇄ ${cur.rws.length} Rolls</span>` : ''}
+      </div>
+      <p style="font-size:12px;color:var(--mut);margin-top:3px">Align roll flush at <strong class="mono" style="color:var(--txt)">0"</strong> left stop • <strong style="color:var(--cy2)">${totSetups} setup${totSetups>1?'s':''}</strong></p>
+      <div class="kpi-grid mono">
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">PULL</span><strong class="tab" style="font-size:14px">${agg.ft.toFixed(1)} ft</strong><span style="font-size:10px;color:var(--mut)">(${agg.pullIn}")</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">FILM</span><strong class="tab" style="font-size:14px;color:var(--cy2)">${agg.filmSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">GLASS</span><strong class="tab" style="font-size:14px">${agg.netSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
+        <div class="kpi"><span style="font-size:9px;color:var(--dim)">WASTE</span><strong class="tab" style="font-size:14px;color:${agg.wastePct<=10?'var(--em2)':'var(--amb2)'}">${agg.wastePct.toFixed(1)}%</strong><span style="font-size:10px;color:var(--mut)">${agg.wasteSf.toFixed(1)} sf</span></div>
+      </div>
+      ${stratHtml}
+    </div>`;
+
+  const stagesHtml = agg.allocs.map((rp, ri) => {
+    const ban = cur.multi ? `
+      <div class="roll-ban">
+        <div style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:800"><span class="bdg-mul mono">Roll ${ri+1}/${agg.allocs.length}</span><span>Load ${rp.rw}" Roll</span></div>
+        <div class="mono" style="font-size:11px;color:var(--mut)">Pull: <strong style="color:var(--txt)">${rp.ft.toFixed(1)} ft (${rp.pullIn}")</strong> • Waste: <strong style="color:${rp.wastePct<=10?'var(--em2)':'var(--amb2)'}">${rp.wastePct.toFixed(1)}%</strong></div>
+      </div>` : '';
+
+    const stgs = rp.setups.map((st, si) => {
+      const card = renderStage(cur.id, rp, st);
+      if(si === 0) return card;
+      const b1 = st.blades.b1 !== null ? `${st.blades.b1}"` : 'Parked';
+      const b2 = st.blades.b2 !== null ? `${st.blades.b2}"` : 'Parked';
+      return `<div class="shift-div"><div class="shift-ln"></div><div class="shift-bdg mono"><span>⚡ SHIFT BLADES (${rp.rw}") → Stage ${st.num}:</span><span style="color:var(--txt)">B1: ${b1} • B2: ${b2}</span></div></div>${card}`;
+    }).join('');
+    return ban + stgs;
+  }).join('');
+
+  resEl.innerHTML = compHtml + kpiHtml + stagesHtml;
+}
+
+function renderStage(planId, rp, st){
+  const { b1, b2 } = st.blades;
+  const actCnt = (b1!==null?1:0) + (b2!==null?1:0);
+  const pullsHtml = st.pulls.map((pl, pi) => {
+    const key = `${planId}-${rp.rw}-${S.strat}-${st.num}-${pi}`;
+    const chk = !!S.checked[key];
+    const rows = st.lanes.map((lw, li) => {
+      const sl = pl.slots[li];
+      const sIn = li===0 ? 0 : (li===1 ? st.lanes[0] : st.lanes[0]+st.lanes[1]);
+      if(!sl) return `<div class="l-item drop mono"><span>L${li+1} (${sIn}"–${sIn+lw}")</span><span>Drop (${lw}"×${pl.len}")</span></div>`;
+      const dH = Math.round((pl.len - sl.f.ph)*100)/100, dW = Math.round((lw - sl.f.sw)*100)/100;
+      const ex = []; if(dH>0) ex.push(`+${dH}" tail`); if(dW>0) ex.push(`+${dW}" trim`);
+      return `
+        <div class="l-item">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="mono" style="font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;background:var(--cy-bg);color:var(--cy2)">L${li+1}</span>
+            <strong>${esc(sl.p.room)}</strong>
+            ${sl.f.rot ? `<span class="mono" style="font-size:10px;font-weight:700;padding:2px 5px;border-radius:4px;background:var(--amb-bg);color:var(--amb2)">↻ Rotated</span>` : ''}
+          </div>
+          <div class="mono" style="color:var(--mut)">
+            <strong style="color:var(--txt)">${sl.f.sw}"</strong>×<strong style="color:var(--txt)">${sl.f.ph}"</strong>
+            ${ex.length ? `<span style="color:var(--amb2);font-size:10px"> (${ex.join(', ')})</span>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="p-card ${chk?'chk':''}" data-chk="${key}">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px">
+          <div style="display:flex;align-items:center;gap:9px">
+            <div class="chk-box">${chk?'✓':''}</div>
+            <div class="p-ttl" style="font-size:13.5px;font-weight:800">Pull #${pi+1}: Pull <span class="mono" style="color:var(--amb2);font-size:15px">${pl.len}"</span> &amp; Cut</div>
+          </div>
+          <span class="mono" style="font-size:11px;color:var(--dim)">${(pl.len/12).toFixed(2)} ft</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">${rows}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="stg-card">
+      <div class="stg-hdr">
+        <div style="display:flex;align-items:center;gap:7px">
+          <span class="mono" style="font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:6px;background:${rp.setups.length>1&&st.num===1?'var(--cy)':'var(--amb)'};color:#0b0f19">${rp.rw}" Roll${rp.setups.length>1?` • Stage ${st.num}/${rp.setups.length}`:''}</span>
+          <span class="mono" style="font-size:12px;font-weight:700">${actCnt} Blade${actCnt!==1?'s':''} Active</span>
+        </div>
+        <span class="mono" style="font-size:11px;color:var(--mut)">${st.pulls.length} pull(s) • ${st.pullIn}"</span>
+      </div>
+      <div class="b-grid">
+        <div class="b-box ${b1!==null?'b1':''}">
+          <div><div class="mono" style="font-size:10px;font-weight:800;color:var(--ros)">BLADE 1</div><div style="font-size:11px;color:var(--mut)">From 0" left</div></div>
+          ${b1!==null ? `<div class="b-val mono tab">${b1}"</div>` : `<div class="b-park mono">Parked</div>`}
+        </div>
+        <div class="b-box ${b2!==null?'b2':''}">
+          <div><div class="mono" style="font-size:10px;font-weight:800;color:var(--amb2)">BLADE 2</div><div style="font-size:11px;color:var(--mut)">From 0" left</div></div>
+          ${b2!==null ? `<div class="b-val mono tab">${b2}"</div>` : `<div class="b-park mono">Parked</div>`}
+        </div>
+      </div>
+      <div class="svg-wrap">
+        <div class="mono" style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-bottom:5px">
+          <span>0" Left Stop → ${rp.rw}" Roll</span>
+          <span>B1: ${b1!==null?b1+'"':'Parked'} • B2: ${b2!==null?b2+'"':'Parked'}</span>
+        </div>
+        ${buildSvg(rp.rw, st)}
+      </div>
+      <div class="pulls">
+        <div class="sec-ttl mono" style="margin-bottom:1px">Sequential Pull Checklist (Tap to Check)</div>
+        ${pullsHtml}
+      </div>
+    </div>`;
+}
+
+function buildSvg(rw, st){
+  const px = 20, sc = 10, barW = MAX_W * sc, rollPx = rw * sc, svgW = barW + px*2 + 22;
+  const pSc = Math.min(2.4, Math.max(1.2, 190 / (st.pullIn || 1)));
+  const barY = 24, barH = 24;
+  let y = barY + barH + 12;
+  const blks = st.pulls.map(pl => { const h = Math.max(34, pl.len * pSc); const b = { y, h, pl }; y += h + 5; return b; });
+  const svgH = y + 12;
+
+  let ticks = '';
+  for(let i=0; i<=72; i+=6){
+    const x = px + i*sc, maj = i%12===0;
+    ticks += `<line x1="${x}" y1="${barY}" x2="${x}" y2="${barY+(maj?11:6)}" stroke="${maj?'#94a3b8':'#475569'}" stroke-width="${maj?1.5:1}"/>`;
+    if(maj) ticks += `<text x="${x}" y="${barY-5}" fill="#94a3b8" font-size="10.5" font-family="monospace" font-weight="700" text-anchor="middle">${i}"</text>`;
+  }
+
+  const cols = [
+    { f:'#0e7490', s:'#22d3ee', t:'#ecfeff' },
+    { f:'#1d4ed8', s:'#60a5fa', t:'#eff6ff' },
+    { f:'#047857', s:'#34d399', t:'#ecfdf5' }
+  ];
+
+  let pSvg = '';
+  blks.forEach(b => {
+    let lx = px;
+    st.lanes.forEach((lw, li) => {
+      const wPx = lw * sc, sl = b.pl.slots[li], c = cols[li%3];
+      if(sl){
+        const mc = Math.max(4, Math.floor(lw/1.5));
+        const nm = sl.p.room.length > mc ? sl.p.room.slice(0, mc)+'…' : sl.p.room;
+        pSvg += `<rect x="${lx+1}" y="${b.y}" width="${wPx-2}" height="${b.h}" rx="4" fill="${c.f}" fill-opacity=".38" stroke="${c.s}" stroke-width="1.5"/>
+          <text x="${lx+wPx/2}" y="${b.y+b.h/2-2}" fill="${c.t}" font-size="10.5" font-family="sans-serif" font-weight="700" text-anchor="middle">${esc(nm)}</text>
+          <text x="${lx+wPx/2}" y="${b.y+b.h/2+11}" fill="${c.s}" font-size="9.5" font-family="monospace" font-weight="700" text-anchor="middle">${sl.f.sw}"×${sl.f.ph}"</text>`;
+      } else {
+        pSvg += `<rect x="${lx+1}" y="${b.y}" width="${wPx-2}" height="${b.h}" rx="4" fill="#1e293b" fill-opacity=".45" stroke="#475569" stroke-dasharray="4 3"/>
+          <text x="${lx+wPx/2}" y="${b.y+b.h/2+3}" fill="#64748b" font-size="9.5" font-family="monospace" text-anchor="middle">DROP (${lw}"×${b.pl.len}")</text>`;
+      }
+      lx += wPx;
+    });
+    if(st.blades.sideWaste > 0){
+      pSvg += `<rect x="${px+st.blades.act*sc+1}" y="${b.y}" width="${st.blades.sideWaste*sc-2}" height="${b.h}" rx="3" fill="#7f1d1d" fill-opacity=".3" stroke="#f43f5e" stroke-opacity=".5" stroke-dasharray="3 3"/>`;
+    }
+    pSvg += `<text x="${px+rollPx+7}" y="${b.y+b.h/2+4}" fill="#fbbf24" font-size="10.5" font-family="monospace" font-weight="800">↓${b.pl.len}"</text>`;
+  });
+
+  let bSvg = '';
+  const { b1, b2 } = st.blades;
+  if(b1 !== null){
+    const x1 = px + b1*sc;
+    bSvg += `<line x1="${x1}" y1="${barY-2}" x2="${x1}" y2="${y}" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5 3"/>
+      <rect x="${x1-22}" y="${barY+barH-7}" width="44" height="16" rx="4" fill="#f43f5e"/>
+      <text x="${x1}" y="${barY+barH+4}" fill="#fff" font-size="9.5" font-family="monospace" font-weight="800" text-anchor="middle">B1:${b1}"</text>`;
+  }
+  if(b2 !== null){
+    const x2 = px + b2*sc;
+    bSvg += `<line x1="${x2}" y1="${barY-2}" x2="${x2}" y2="${y}" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 3"/>
+      <rect x="${x2-22}" y="${barY+barH-7}" width="44" height="16" rx="4" fill="#f59e0b"/>
+      <text x="${x2}" y="${barY+barH+4}" fill="#0b0f19" font-size="9.5" font-family="monospace" font-weight="800" text-anchor="middle">B2:${b2}"</text>`;
+  }
+
+  return `<svg viewBox="0 0 ${svgW} ${svgH}">
+    <rect x="${px}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    ${rw<72 ? `<text x="${px+rollPx+(barW-rollPx)/2}" y="${barY+16}" fill="#64748b" font-size="9.5" font-family="monospace" text-anchor="middle">Empty Bar (${72-rw}")</text>` : ''}
+    <rect x="${px}" y="${barY+12}" width="${rollPx}" height="${barH-12}" rx="2" fill="#334155"/>
+    <text x="${px+5}" y="${barY+21}" fill="#e2e8f0" font-size="9" font-family="monospace" font-weight="700">${rw}" ROLL (0"–${rw}")</text>
+    ${ticks}${pSvg}${bSvg}
+  </svg>`;
+}
+
+/* Event Bindings */
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    setTheme(localStorage.getItem('hc_theme') || 'dark');
+    S.shop = localStorage.getItem('hc_shop') || '';
+  } catch(_){ setTheme('dark'); }
+  renderShop();
+
+  $('btn-theme').onclick = () => {
+    const nx = document.body.classList.contains('light') ? 'dark' : 'light';
+    setTheme(nx); toast(nx === 'light' ? 'Light mode' : 'Dark mode');
+  };
+  $('btn-shop-save').onclick = () => saveShop($('shop-in').value);
+  $('btn-shop-clr').onclick = () => saveShop('');
+  $('shop-in').onkeydown = e => { if(e.key === 'Enter'){ e.preventDefault(); saveShop($('shop-in').value); } };
+
+  $('btn-demo').onclick = () => {
+    S.wins = [
+      { id: uid++, room: 'Living Room', qty: 4, w: 24, h: 34 },
+      { id: uid++, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
+      { id: uid++, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
+    ];
+    S.bleed = 0; S.trim = 4; S.planId = null; S.strat = 'lw'; S.checked = {};
+    syncTrim(); setBleed(0, false); renderWins(); solve();
+    toast('Demo job loaded');
   };
 
-  const HANDLER_LOGO_SVG_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#0b0f19"/><rect x="4" y="22" width="40" height="19" rx="3" fill="#131b2e" stroke="#475569" stroke-width="1.2"/><line x1="18" y1="22" x2="18" y2="41" stroke="#f43f5e" stroke-width="1.4" stroke-dasharray="2.5 2"/><line x1="31" y1="22" x2="31" y2="41" stroke="#f59e0b" stroke-width="1.4" stroke-dasharray="2.5 2"/><rect x="3" y="11" width="42" height="9" rx="2.5" fill="#475569" stroke="#cbd5e1" stroke-width="1"/><rect x="3" y="9" width="3" height="13" rx="1" fill="#22d3ee"/><polygon points="15,7 21,7 19.5,24 16.5,24" fill="#f43f5e"/><polygon points="28,7 34,7 32.5,24 29.5,24" fill="#f59e0b"/></svg>';
-
-  // =========================================================================
-  // SHOP NAME & TOAST UTILITIES
-  // =========================================================================
-  function renderShopBadge() {
-    const slot = document.getElementById('shop-badge-slot');
-    if (!slot) return;
-    const trimmed = (state.shopName || '').trim();
-    if (trimmed) {
-      slot.innerHTML = `
-        <button type="button" id="btn-edit-shop-badge" class="shop-badge-btn" title="Tap to edit shop name">
-          <span>${escapeHtml(trimmed)}</span>
-          <span style="opacity:0.75;">✎</span>
-        </button>
-      `;
-    } else {
-      slot.innerHTML = `
-        <button type="button" id="btn-edit-shop-badge" class="shop-edit-trigger" title="Set optional shop name">+ Shop</button>
-      `;
-    }
-    const editBtn = document.getElementById('btn-edit-shop-badge');
-    if (editBtn) {
-      editBtn.addEventListener('click', () => {
-        const bar = document.getElementById('shop-editor-bar');
-        const input = document.getElementById('shop-name-input');
-        if (!bar || !input) return;
-        bar.classList.toggle('hidden');
-        if (!bar.classList.contains('hidden')) {
-          input.value = state.shopName || '';
-          input.focus();
-        }
-      });
-    }
-  }
-
-  function saveShopName(value) {
-    state.shopName = (value || '').trim().slice(0, 40);
-    try {
-      if (state.shopName) {
-        localStorage.setItem('handlercut_shop_name', state.shopName);
-      } else {
-        localStorage.removeItem('handlercut_shop_name');
-      }
-    } catch (_) {}
-    renderShopBadge();
-    const bar = document.getElementById('shop-editor-bar');
-    if (bar) bar.classList.add('hidden');
-    showToast(state.shopName ? `Shop name set to "${state.shopName}"` : 'Shop name cleared');
-  }
-
-  let toastTimer = null;
-  function showToast(msg) {
-    const el = document.getElementById('toast');
-    const msgEl = document.getElementById('toast-msg');
-    if (!el || !msgEl) return;
-    msgEl.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  // =========================================================================
-  // ROLLS & BLEED CONTROLS
-  // =========================================================================
-  function renderRollToggles() {
-    const container = document.getElementById('roll-toggles');
-    if (!container) return;
-
-    const sorted = [...state.availableRolls].sort((a, b) => b.width - a.width);
-    container.innerHTML = sorted.map(roll => `
-      <button type="button" data-action="toggle-roll" data-width="${roll.width}"
-        class="roll-toggle ${roll.enabled ? 'enabled' : ''}">
-        <span class="roll-toggle-width">${roll.width}"</span>
-        <span class="roll-toggle-status">${roll.enabled ? 'On Hand' : 'Off'}</span>
-        ${roll.custom ? `<span data-action="remove-roll" data-width="${roll.width}" class="roll-remove-badge" title="Remove">✕</span>` : ''}
-      </button>
-    `).join('');
-  }
-
-  function setBleed(inches, notify = true) {
-    state.bleedInches = inches;
-    const b0 = document.getElementById('bleed-0');
-    const b1 = document.getElementById('bleed-1');
-    if (b0 && b1) {
-      b0.className = 'pill-btn' + (inches === 0 ? ' active-amber' : '');
-      b1.className = 'pill-btn' + (inches === 1 ? ' active-amber' : '');
-    }
-    updateInputSummary();
-    runOptimization();
-    if (notify) {
-      showToast(inches === 0 ? 'Using exact entered sizes (+0")' : 'Added +1" extra margin to W & H');
-    }
-  }
-
-  // =========================================================================
-  // WINDOW CUT LIST CONTROLS
-  // =========================================================================
-  function renderWindowRows() {
-    const container = document.getElementById('windows-list');
-    if (!container) return;
-
-    if (state.windows.length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:24px 12px; border-radius:12px; background:var(--bg-card-inner); border:1px solid var(--border-subtle); color:var(--text-dim); font-size:13px;">
-          No windows in cut list. Tap "+ Add Window Measurement" or "Quick Paste Note".
-        </div>
-      `;
-      updateInputSummary();
-      return;
-    }
-
-    container.innerHTML = state.windows.map(win => `
-      <div class="win-row" data-id="${win.id}">
-        <div class="win-room-cell">
-          <input type="text" data-field="room" value="${escapeHtml(win.room)}" placeholder="Room / Label (e.g. Living Room)">
-        </div>
-        <div>
-          <span class="mobile-field-label">Qty</span>
-          <input type="number" class="win-qty-input" data-field="qty" value="${win.qty}" min="1" max="200">
-        </div>
-        <div>
-          <span class="mobile-field-label">Width (in)</span>
-          <input type="number" data-field="w" value="${win.w}" min="1" max="144" step="0.25">
-        </div>
-        <div>
-          <span class="mobile-field-label">Height (in)</span>
-          <input type="number" data-field="h" value="${win.h}" min="1" max="240" step="0.25">
-        </div>
-        <div style="display:flex; justify-content:center;">
-          <button type="button" class="btn-del-row" data-action="delete-row" data-id="${win.id}" title="Remove row">✕</button>
-        </div>
-      </div>
-    `).join('');
-
-    updateInputSummary();
-  }
-
-    function updateInputSummary() {
-    const summary = document.getElementById('input-summary');
-    if (!summary) return;
-    let totalPanes = 0;
-    let netSqIn = 0;
-    state.windows.forEach(w => {
-      const ew = w.w + state.bleedInches;
-      const eh = w.h + state.bleedInches;
-      totalPanes += w.qty;
-      netSqIn += ew * eh * w.qty;
-    });
-    summary.innerHTML = `
-      <span>Total Panes: <strong style="color:var(--text-main);">${totalPanes}</strong></span>
-      <span>Net Film Area: <strong style="color:var(--cyan-bright);">${(netSqIn / 144).toFixed(1)} sq ft</strong></span>
-    `;
-  }
-
-  function parsePastedText(replace) {
-    const textarea = document.getElementById('paste-textarea');
-    if (!textarea) return;
-    const raw = textarea.value.trim();
-    if (!raw) {
-      showToast('Paste your window notes first');
-      return;
-    }
-
-    const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-    let currentRoom = 'Window';
-    const parsed = [];
-    const dimRegex = /^(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/;
-
-    for (const line of lines) {
-      const cleaned = line.replace(/~?\d+(?:\.\d+)?\s*sq\s*ft/i, '').trim();
-      const match = cleaned.match(dimRegex);
-      if (match) {
-        const qty = parseInt(match[1] || match[4] || '1', 10);
-        const w = parseFloat(match[2]);
-        const h = parseFloat(match[3]);
-        const trailing = cleaned.replace(match[0], '').replace(/^[-–:]+/, '').trim();
-        const label = trailing || currentRoom;
-        if (qty > 0 && w > 0 && h > 0) {
-          parsed.push({ id: nextId++, room: label, qty, w, h });
-        }
-      } else {
-        currentRoom = cleaned.replace(/[:\-]+$/, '').trim() || currentRoom;
-      }
-    }
-
-    if (parsed.length === 0) {
-      showToast('Could not detect any "W x H" sizes');
-      return;
-    }
-
-    state.windows = replace ? parsed : [...state.windows, ...parsed];
-    textarea.value = '';
-    document.getElementById('paste-box').classList.add('hidden');
-    state.selectedRollWidth = null;
-    state.checkedPulls = {};
-    renderWindowRows();
-    runOptimization();
-    showToast(`Imported ${parsed.length} window group(s)`);
-  }
-
-  // =========================================================================
-  // 2-BLADE MULTI-STAGE FILM HANDLER SOLVER
-  // =========================================================================
-  function computeBladePositions(lanes, rollWidth) {
-    const activeWidth = lanes.reduce((s, w) => s + w, 0);
-    let blade1 = null;
-    let blade2 = null;
-
-    if (lanes.length === 1) {
-      if (lanes[0] < rollWidth) blade1 = lanes[0];
-    } else if (lanes.length === 2) {
-      blade1 = lanes[0];
-      if (lanes[0] + lanes[1] < rollWidth) blade2 = lanes[0] + lanes[1];
-    } else if (lanes.length === 3) {
-      blade1 = lanes[0];
-      blade2 = lanes[0] + lanes[1];
-    }
-
-    return {
-      blade1,
-      blade2,
-      activeWidth,
-      sideWasteWidth: Math.max(0, Math.round((rollWidth - activeWidth) * 100) / 100)
-    };
-  }
-
-  function fitPaneInStripWidth(pane, stripWidth, maxAllowedTrim) {
-    const options = [];
-    if (pane.w <= stripWidth + 1e-6) {
-      const slackW = Math.max(0, stripWidth - pane.w);
-      if (slackW <= maxAllowedTrim + 1e-6) {
-        options.push({ stripW: pane.w, pullH: pane.h, rotated: false, slackW });
-      }
-    }
-    if (pane.h <= stripWidth + 1e-6) {
-      const slackW = Math.max(0, stripWidth - pane.h);
-      if (slackW <= maxAllowedTrim + 1e-6) {
-        options.push({ stripW: pane.h, pullH: pane.w, rotated: true, slackW });
-      }
-    }
-    if (options.length === 0) return null;
-
-    // Prefer shorter vertical pull length; tie-break by tighter fit
-    options.sort((a, b) => {
-      if (Math.abs(a.pullH - b.pullH) > 1e-6) return a.pullH - b.pullH;
-      return a.slackW - b.slackW;
-    });
-    return options[0];
-  }
-
-  function fitPaneInConfig(pane, lanes, maxAllowedTrim) {
-    let best = null;
-    for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
-      const sf = fitPaneInStripWidth(pane, lanes[lIdx], maxAllowedTrim);
-      if (!sf) continue;
-      const score = sf.pullH * 1000 + sf.slackW;
-      if (!best || score < best.score) {
-        best = { ...sf, laneIdx: lIdx, laneWidth: lanes[lIdx], score };
-      }
-    }
-    return best;
-  }
-
-  function packPanesWithConfig(targetPanes, lanes, rollWidth, maxAllowedTrim) {
-    const items = [];
-    for (const p of targetPanes) {
-      const best = fitPaneInConfig(p, lanes, maxAllowedTrim);
-      if (!best) return null;
-
-      const validLanes = [];
-      for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
-        const sf = fitPaneInStripWidth(p, lanes[lIdx], maxAllowedTrim);
-        if (sf) validLanes.push({ ...sf, laneIdx: lIdx, laneWidth: lanes[lIdx] });
-      }
-      items.push({ pane: p, best, validLanes });
-    }
-
-    const remaining = [...items].sort((a, b) => {
-      if (Math.abs(b.best.pullH - a.best.pullH) > 1e-6) return b.best.pullH - a.best.pullH;
-      return b.best.stripW - a.best.stripW;
-    });
-
-    const pulls = [];
-    while (remaining.length > 0) {
-      const anchor = remaining.shift();
-      const rowSlots = new Array(lanes.length).fill(null);
-      rowSlots[anchor.best.laneIdx] = { pane: anchor.pane, fit: anchor.best };
-
-      for (let lIdx = 0; lIdx < lanes.length; lIdx++) {
-        if (rowSlots[lIdx] !== null) continue;
-        let bestIdx = -1;
-        let bestOpt = null;
-        let bestPenalty = Infinity;
-
-        for (let i = 0; i < remaining.length; i++) {
-          const cand = remaining[i];
-          const opt = cand.validLanes.find(vl => vl.laneIdx === lIdx);
-          if (!opt) continue;
-          const hDiff = Math.abs(opt.pullH - anchor.best.pullH);
-          const expands = opt.pullH > anchor.best.pullH ? (opt.pullH - anchor.best.pullH) * 50 : 0;
-          const penalty = hDiff * 10 + expands + opt.slackW;
-          if (penalty < bestPenalty) {
-            bestPenalty = penalty;
-            bestIdx = i;
-            bestOpt = opt;
-          }
-        }
-
-        if (bestIdx !== -1) {
-          const chosen = remaining.splice(bestIdx, 1)[0];
-          rowSlots[lIdx] = { pane: chosen.pane, fit: bestOpt };
-        }
-      }
-
-      const pullLength = Math.max(...rowSlots.map(s => (s ? s.fit.pullH : 0)));
-      pulls.push({ pullLength, slots: rowSlots });
-    }
-
-    const totalPullInches = pulls.reduce((s, p) => s + p.pullLength, 0);
-    const totalFilmSqIn = totalPullInches * rollWidth;
-    return {
-      lanes,
-      blades: computeBladePositions(lanes, rollWidth),
-      pulls,
-      totalPullInches,
-      totalFilmSqIn
-    };
-  }
-
-  function generateLaneConfigs(rollWidth, panes) {
-    const widths = new Set();
-    panes.forEach(p => {
-      if (p.w <= rollWidth) widths.add(p.w);
-      if (p.h <= rollWidth) widths.add(p.h);
-    });
-    const half = Math.round((rollWidth / 2) * 100) / 100;
-    const third = Math.round((rollWidth / 3) * 100) / 100;
-    if (half > 0 && half <= rollWidth) widths.add(half);
-    if (third > 0 && third <= rollWidth) widths.add(third);
-
-    const list = Array.from(widths).sort((a, b) => b - a);
-    const configs = [];
-
-    for (let i = 0; i < list.length; i++) {
-      configs.push([list[i]]);
-      for (let j = i; j < list.length; j++) {
-        if (list[i] + list[j] <= rollWidth + 1e-6) {
-          configs.push([list[i], list[j]]);
-          for (let k = j; k < list.length; k++) {
-            if (list[i] + list[j] + list[k] <= rollWidth + 1e-6) {
-              configs.push([list[i], list[j], list[k]]);
-            }
-          }
-        }
-      }
-    }
-    return configs;
-  }
-
-  function finalizeStrategy(setups, rollWidth, panes) {
-    const netGlassSqIn = panes.reduce((s, p) => s + p.area, 0);
-    const totalPullInches = setups.reduce((s, st) => s + st.totalPullInches, 0);
-    const totalFilmSqIn = setups.reduce((s, st) => s + st.totalFilmSqIn, 0);
-    const totalPullCount = setups.reduce((s, st) => s + st.pulls.length, 0);
-    const wasteSqIn = Math.max(0, totalFilmSqIn - netGlassSqIn);
-    const wastePct = totalFilmSqIn > 0 ? (wasteSqIn / totalFilmSqIn) * 100 : 0;
-
-    return {
-      rollWidth,
-      setups: setups.map((st, idx) => ({ ...st, setupNumber: idx + 1 })),
-      totalPullInches,
-      totalLinearFeet: totalPullInches / 12,
-      totalFilmSqFt: totalFilmSqIn / 144,
-      netGlassSqFt: netGlassSqIn / 144,
-      wasteSqFt: wasteSqIn / 144,
-      wastePct,
-      totalPullCount,
-      totalFilmSqIn
-    };
-  }
-
-  function solveMultiStageOptimal(targetPanes, configs, rollWidth, maxSideTrim) {
-    // First try single setup within maxSideTrim
-    let bestSingle = null;
-    for (const trimLimit of [maxSideTrim, Infinity]) {
-      for (const cfg of configs) {
-        const packed = packPanesWithConfig(targetPanes, cfg, rollWidth, trimLimit);
-        if (!packed) continue;
-        const bCount = (packed.blades.blade1 !== null ? 1 : 0) + (packed.blades.blade2 !== null ? 1 : 0);
-        const score = packed.totalFilmSqIn * 100 + packed.pulls.length * 10 + bCount;
-        if (!bestSingle || score < bestSingle.score) {
-          bestSingle = { ...packed, score };
-        }
-      }
-      if (bestSingle) break;
-    }
-
-    // Also try multi-stage grouping by tight fit within maxSideTrim
-    let unplaced = [...targetPanes];
-    const multiSetups = [];
-    let guard = 0;
-
-    while (unplaced.length > 0 && guard < 12) {
-      guard++;
-      let bestBatch = null;
-      for (const cfg of configs) {
-        const fitting = unplaced.filter(p => fitPaneInConfig(p, cfg, maxSideTrim) !== null);
-        if (fitting.length === 0) continue;
-
-        const exact = unplaced.filter(p => {
-          const f = fitPaneInConfig(p, cfg, maxSideTrim);
-          return f !== null && f.slackW === 0;
-        });
-
-        const candidates = exact.length > 0 ? [exact, fitting] : [fitting];
-        for (const subset of candidates) {
-          const packed = packPanesWithConfig(subset, cfg, rollWidth, maxSideTrim);
-          if (!packed) continue;
-          const netArea = subset.reduce((s, p) => s + p.area, 0);
-          const eff = netArea / packed.totalFilmSqIn;
-          const bScore = eff * 1000 + subset.length * 25 - (packed.totalFilmSqIn - netArea) * 0.02;
-          if (!bestBatch || bScore > bestBatch.bScore) {
-            bestBatch = { packed, subset, bScore };
-          }
-        }
-      }
-
-      if (!bestBatch) break;
-      multiSetups.push(bestBatch.packed);
-      const used = new Set(bestBatch.subset.map(p => p.uid));
-      unplaced = unplaced.filter(p => !used.has(p.uid));
-    }
-
-    if (unplaced.length === 0 && multiSetups.length > 0) {
-      if (!bestSingle) return multiSetups;
-      const multiSqIn = multiSetups.reduce((s, st) => s + st.totalFilmSqIn, 0);
-      if (multiSetups.length > 1 && (bestSingle.totalFilmSqIn - multiSqIn) > 288) {
-        return multiSetups;
-      }
-    }
-
-    return bestSingle ? [bestSingle] : null;
-  }
-
-  function solveForRoll(rollWidth, panes) {
-    const oversized = panes.filter(p => Math.min(p.w, p.h) > rollWidth);
-    if (oversized.length > 0) {
-      return {
-        rollWidth,
-        feasible: false,
-        reason: `${oversized.length} pane(s) exceed ${rollWidth}" roll width.`
-      };
-    }
-
-    const configs = generateLaneConfigs(rollWidth, panes);
-
-    // Strategy A: Lowest Waste
-    const lwSetups = solveMultiStageOptimal(panes, configs, rollWidth, state.maxSideTrim);
-    const lowestWastePlan = finalizeStrategy(lwSetups, rollWidth, panes);
-
-    // Strategy B: Fast Split (1-Blade Priority + Stage 2 Shift for narrower panes)
-    const oneBladeConfigs = configs.filter(cfg => {
-      const b = computeBladePositions(cfg, rollWidth);
-      const count = (b.blade1 !== null ? 1 : 0) + (b.blade2 !== null ? 1 : 0);
-      return count <= 1;
-    });
-
-    let bestFastSetups = null;
-    let bestFastScore = Infinity;
-
-    for (const cfg of oneBladeConfigs) {
-      const stage1Panes = panes.filter(p => fitPaneInConfig(p, cfg, state.maxSideTrim) !== null);
-      if (stage1Panes.length === 0) continue;
-
-      const stage1Packed = packPanesWithConfig(stage1Panes, cfg, rollWidth, state.maxSideTrim);
-      if (!stage1Packed) continue;
-
-      const usedUids = new Set(stage1Panes.map(p => p.uid));
-      const remainingPanes = panes.filter(p => !usedUids.has(p.uid));
-
-      let allSetups = [stage1Packed];
-      if (remainingPanes.length > 0) {
-        const stage2Setups = solveMultiStageOptimal(remainingPanes, configs, rollWidth, state.maxSideTrim);
-        if (!stage2Setups) continue;
-        allSetups = [stage1Packed, ...stage2Setups];
-      }
-
-      const totalSqIn = allSetups.reduce((s, st) => s + st.totalFilmSqIn, 0);
-      const totalPulls = allSetups.reduce((s, st) => s + st.pulls.length, 0);
-      const balancePenalty = cfg.length === 2 ? Math.abs(cfg[0] - cfg[1]) * 0.05 : 0;
-      const score = totalSqIn * 100 + totalPulls * 10 - stage1Panes.length * 40 + balancePenalty;
-
-      if (score < bestFastScore) {
-        bestFastScore = score;
-        bestFastSetups = allSetups;
-      }
-    }
-
-    let fastSplitPlan = null;
-    if (bestFastSetups) {
-      const candidate = finalizeStrategy(bestFastSetups, rollWidth, panes);
-      const sameAsLW =
-        candidate.setups.length === lowestWastePlan.setups.length &&
-        candidate.setups.every((st, i) => {
-          const o = lowestWastePlan.setups[i];
-          return st.blades.blade1 === o.blades.blade1 && st.blades.blade2 === o.blades.blade2;
-        });
-      if (!sameAsLW) {
-        fastSplitPlan = candidate;
-      }
-    }
-
-    return {
-      rollWidth,
-      feasible: true,
-      lowestWastePlan,
-      fastSplitPlan
-    };
-  }
-
-  // =========================================================================
-  // RENDERING RESULTS & SVG DIAGRAMS
-  // =========================================================================
-  function runOptimization() {
-    const container = document.getElementById('results-container');
-    if (!container) return;
-
-    const activeRolls = state.availableRolls.filter(r => r.enabled).map(r => r.width);
-    if (activeRolls.length === 0) {
-      container.innerHTML = `
-        <div class="card" style="text-align:center; border-color:rgba(245,158,11,0.4);">
-          <p style="color:var(--amber-bright); font-weight:800; font-size:14px;">No Rolls Selected</p>
-          <p style="color:var(--text-muted); font-size:12px; margin-top:4px;">Tap at least one roll width above (72", 60", or 36").</p>
-        </div>
-      `;
-      return;
-    }
-
-    const panes = [];
-    state.windows.forEach(win => {
-      const ew = Math.round((win.w + state.bleedInches) * 100) / 100;
-      const eh = Math.round((win.h + state.bleedInches) * 100) / 100;
-      for (let i = 0; i < win.qty; i++) {
-        panes.push({
-          uid: `${win.id}-${i}`,
-          room: win.room || 'Window',
-          w: ew,
-          h: eh,
-          area: ew * eh
-        });
-      }
-    });
-
-    if (panes.length === 0) {
-      container.innerHTML = `
-        <div class="card" style="text-align:center; color:var(--text-muted); font-size:13px;">
-          Add at least one window measurement above to calculate optimal blade positions.
-        </div>
-      `;
-      return;
-    }
-
-    const rollPlans = activeRolls.map(rw => solveForRoll(rw, panes));
-    rollPlans.sort((a, b) => {
-      if (a.feasible !== b.feasible) return a.feasible ? -1 : 1;
-      if (!a.feasible && !b.feasible) return b.rollWidth - a.rollWidth;
-      const wDiff = a.lowestWastePlan.wastePct - b.lowestWastePlan.wastePct;
-      if (Math.abs(wDiff) > 0.05) return wDiff;
-      if (a.lowestWastePlan.totalPullCount !== b.lowestWastePlan.totalPullCount) {
-        return a.lowestWastePlan.totalPullCount - b.lowestWastePlan.totalPullCount;
-      }
-      return b.rollWidth - a.rollWidth;
-    });
-
-    const bestRoll = rollPlans[0];
-    const activeRoll = rollPlans.find(r => r.rollWidth === state.selectedRollWidth) || bestRoll;
-    state.selectedRollWidth = activeRoll.rollWidth;
-
-    if (activeRoll.feasible && state.selectedStrategy === 'fastSplit' && !activeRoll.fastSplitPlan) {
-      state.selectedStrategy = 'lowestWaste';
-    }
-
-    renderResults(rollPlans, bestRoll, activeRoll);
-  }
-
-  function renderResults(rollPlans, bestRoll, activeRoll) {
-    const container = document.getElementById('results-container');
-
-    const compCardsHtml = rollPlans.map(rp => {
-      const isBest = rp.feasible && rp.rollWidth === bestRoll.rollWidth;
-      const isSelected = rp.rollWidth === activeRoll.rollWidth;
-
-      if (!rp.feasible) {
-        return `
-          <button type="button" data-action="select-roll" data-width="${rp.rollWidth}"
-            class="comp-card infeasible ${isSelected ? 'selected' : ''}">
-            <div class="comp-top">
-              <span class="comp-roll-name">${rp.rollWidth}" Roll</span>
-              <span class="badge-narrow">Too Narrow</span>
-            </div>
-            <div style="font-size:11px; color:var(--text-dim);">Cannot fit widest pane</div>
-          </button>
-        `;
-      }
-
-      const lw = rp.lowestWastePlan;
-      return `
-        <button type="button" data-action="select-roll" data-width="${rp.rollWidth}"
-          class="comp-card ${isSelected ? 'selected' : ''}">
-          <div class="comp-top">
-            <span class="comp-roll-name">${rp.rollWidth}" Roll</span>
-            ${isBest ? `<span class="badge-best">Best Choice</span>` : `<span class="badge-waste">${lw.wastePct.toFixed(0)}% waste</span>`}
-          </div>
-          <div class="comp-stats">
-            <div>PULL<strong class="tabular">${lw.totalLinearFeet.toFixed(1)} ft</strong></div>
-            <div style="text-align:right;">WASTE<strong class="tabular" style="color:${lw.wastePct <= 10 ? 'var(--emerald-bright)' : 'var(--amber-bright)'};">${lw.wastePct.toFixed(1)}%</strong></div>
-          </div>
-        </button>
-      `;
-    }).join('');
-
-    const comparisonCard = `
-      <div class="card">
-        <div class="section-header">
-          <div class="section-title">
-            <span class="dot dot-emerald"></span>
-            3. Roll Comparison &amp; Recommendation
-          </div>
-          <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-dim);">Tap roll to inspect</span>
-        </div>
-        <div class="comp-grid">${compCardsHtml}</div>
-      </div>
-    `;
-
-    if (!activeRoll.feasible) {
-      container.innerHTML = comparisonCard + `
-        <div class="card" style="border-color:rgba(244,63,94,0.45);">
-          <h3 style="color:var(--rose); font-size:16px; font-weight:800;">${activeRoll.rollWidth}" Roll Cannot Fit All Panes</h3>
-          <p style="color:var(--text-muted); font-size:13px; margin-top:6px;">${escapeHtml(activeRoll.reason)}</p>
-        </div>
-      `;
-      return;
-    }
-
-    const plan = state.selectedStrategy === 'fastSplit' && activeRoll.fastSplitPlan
-      ? activeRoll.fastSplitPlan
-      : activeRoll.lowestWastePlan;
-
-    const trimOptions = [2, 3, 4, 6];
-    const strategyHtml = activeRoll.fastSplitPlan ? `
-      <div class="strategy-section">
-        <div class="strategy-top-bar">
-          <span style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">
-            Setup Strategy for ${activeRoll.rollWidth}" Roll:
-          </span>
-          <div class="pill-group">
-            <span class="pill-label">Max Side-Trim:</span>
-            ${trimOptions.map(t => `
-              <button type="button" data-action="set-trim" data-trim="${t}"
-                class="pill-btn ${state.maxSideTrim === t ? 'active-cyan' : ''}">${t}"</button>
-            `).join('')}
-          </div>
-        </div>
-        <div class="strategy-grid">
-          <button type="button" data-action="select-strategy" data-strategy="lowestWaste"
-            class="strategy-btn ${state.selectedStrategy === 'lowestWaste' ? 'active-lw' : ''}">
-            <div class="strategy-btn-head">
-              <span class="strategy-name">Lowest Waste</span>
-              <span class="strategy-pill" style="background:var(--emerald-bg); color:var(--emerald-bright);">
-                ${activeRoll.lowestWastePlan.wastePct.toFixed(1)}%
-              </span>
-            </div>
-            <div class="strategy-meta tabular">
-              ${activeRoll.lowestWastePlan.setups.length} setup • ${activeRoll.lowestWastePlan.totalPullCount} pulls (${activeRoll.lowestWastePlan.totalPullInches}")
-            </div>
-          </button>
-
-          <button type="button" data-action="select-strategy" data-strategy="fastSplit"
-            class="strategy-btn ${state.selectedStrategy === 'fastSplit' ? 'active-fs' : ''}">
-            <div class="strategy-btn-head">
-              <span class="strategy-name">Fast Split (1-Blade)</span>
-              <span class="strategy-pill" style="background:var(--cyan-bg); color:var(--cyan-bright);">
-                ${activeRoll.fastSplitPlan.wastePct.toFixed(1)}%
-              </span>
-            </div>
-            <div class="strategy-meta tabular">
-              ${activeRoll.fastSplitPlan.setups.length} ${activeRoll.fastSplitPlan.setups.length > 1 ? 'stages' : 'setup'} • ${activeRoll.fastSplitPlan.totalPullCount} pulls (${activeRoll.fastSplitPlan.totalPullInches}")
-            </div>
-          </button>
-        </div>
-      </div>
-    ` : '';
-
-    const kpiCard = `
-      <div class="card">
-        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">
-          <div>
-            <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
-              <h3 style="font-size:18px; font-weight:800; color:var(--text-main);">Load ${plan.rollWidth}" Roll</h3>
-              ${plan.rollWidth === bestRoll.rollWidth && state.selectedStrategy === 'lowestWaste'
-                ? `<span style="font-family:var(--font-mono); font-size:10px; font-weight:800; padding:3px 8px; border-radius:6px; background:var(--emerald-bg); color:var(--emerald-bright); border:1px solid rgba(16,185,129,0.3);">★ Lowest Waste</span>`
-                : ''}
-              ${state.selectedStrategy === 'fastSplit'
-                ? `<span style="font-family:var(--font-mono); font-size:10px; font-weight:800; padding:3px 8px; border-radius:6px; background:var(--cyan-bg); color:var(--cyan-bright); border:1px solid rgba(6,182,212,0.3);">⚡ ${plan.setups.length > 1 ? '1-Blade + Shift' : '1-Blade Fast Split'}</span>`
-                : ''}
-            </div>
-            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-              Flush roll against <strong style="color:var(--text-main); font-family:var(--font-mono);">0"</strong> left stop •
-              ${plan.setups.length === 1
-                ? '<strong style="color:var(--cyan-bright);">1 blade setup</strong> (no mid-job adjustment)'
-                : `<strong style="color:var(--amber-bright);">${plan.setups.length} blade stages</strong> (1-blade fast split first, then shift blades)`}
-            </p>
-          </div>
-        </div>
-
-        <div class="kpi-grid">
-          <div class="kpi-box">
-            <span class="kpi-label">Linear Pull</span>
-            <span class="kpi-val tabular">${plan.totalLinearFeet.toFixed(1)} ft</span>
-            <span class="kpi-sub tabular">(${plan.totalPullInches}")</span>
-          </div>
-          <div class="kpi-box">
-            <span class="kpi-label">Film Used</span>
-            <span class="kpi-val tabular" style="color:var(--cyan-bright);">${plan.totalFilmSqFt.toFixed(1)}</span>
-            <span class="kpi-sub">sq ft</span>
-          </div>
-          <div class="kpi-box">
-            <span class="kpi-label">Net Glass</span>
-            <span class="kpi-val tabular">${plan.netGlassSqFt.toFixed(1)}</span>
-            <span class="kpi-sub">sq ft</span>
-          </div>
-          <div class="kpi-box">
-            <span class="kpi-label">Waste</span>
-            <span class="kpi-val tabular" style="color:${plan.wastePct <= 10 ? 'var(--emerald-bright)' : 'var(--amber-bright)'};">${plan.wastePct.toFixed(1)}%</span>
-            <span class="kpi-sub tabular">${plan.wasteSqFt.toFixed(1)} sf</span>
-          </div>
-        </div>
-
-        ${strategyHtml}
-      </div>
-    `;
-
-    const stagesHtml = plan.setups.map((setup, idx) => {
-      const stageCard = renderStageCard(plan, setup);
-      if (idx === 0) return stageCard;
-
-      const b1 = setup.blades.blade1 !== null ? `${setup.blades.blade1}"` : 'Parked';
-      const b2 = setup.blades.blade2 !== null ? `${setup.blades.blade2}"` : 'Parked';
-      return `
-        <div class="shift-divider">
-          <div class="shift-line"></div>
-          <div class="shift-badge">
-            <span>⚡ SHIFT BLADES → Stage ${setup.setupNumber}:</span>
-            <span style="color:var(--text-main);">B1: ${b1}</span>
-            <span style="color:var(--text-dim);">•</span>
-            <span style="color:var(--text-main);">B2: ${b2}</span>
-          </div>
-        </div>
-        ${stageCard}
-      `;
-    }).join('');
-
-    container.innerHTML = comparisonCard + kpiCard + stagesHtml;
-  }
-
-  function renderStageCard(plan, setup) {
-    const { blade1, blade2, sideWasteWidth } = setup.blades;
-    const activeCount = (blade1 !== null ? 1 : 0) + (blade2 !== null ? 1 : 0);
-
-    const pullsHtml = setup.pulls.map((pull, pIdx) => {
-      const checkKey = `${plan.rollWidth}-${state.selectedStrategy}-${setup.setupNumber}-${pIdx}`;
-      const isChecked = !!state.checkedPulls[checkKey];
-
-      const laneRows = setup.lanes.map((laneW, lIdx) => {
-        const slot = pull.slots[lIdx];
-        const startIn = lIdx === 0 ? 0 : (lIdx === 1 ? setup.lanes[0] : setup.lanes[0] + setup.lanes[1]);
-        const endIn = startIn + laneW;
-
-        if (!slot) {
-          return `
-            <div class="lane-item drop">
-              <span style="font-family:var(--font-mono);">Lane ${lIdx + 1} (${startIn}"–${endIn}")</span>
-              <span style="font-family:var(--font-mono);">Drop / Scrap (${laneW}" × ${pull.pullLength}")</span>
-            </div>
-          `;
-        }
-
-        const p = slot.pane;
-        const f = slot.fit;
-        const dropH = Math.round((pull.pullLength - f.pullH) * 100) / 100;
-        const dropW = Math.round((laneW - f.stripW) * 100) / 100;
-        const extraNotes = [];
-        if (dropH > 0) extraNotes.push(`+${dropH}" tail`);
-        if (dropW > 0) extraNotes.push(`+${dropW}" trim`);
-
-        return `
-          <div class="lane-item">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="lane-badge">L${lIdx + 1}</span>
-              <strong style="color:var(--text-main);">${escapeHtml(p.room)}</strong>
-              ${f.rotated ? `<span class="rot-badge">↻ Rotated</span>` : ''}
-            </div>
-            <div style="font-family:var(--font-mono); color:var(--text-muted);">
-              <strong style="color:var(--text-main);">${f.stripW}"</strong> wide × <strong style="color:var(--text-main);">${f.pullH}"</strong>
-              ${extraNotes.length ? `<span style="color:var(--amber-bright); font-size:10px; margin-left:4px;">(${extraNotes.join(', ')})</span>` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      return `
-        <div class="pull-card ${isChecked ? 'checked' : ''}" data-action="toggle-pull" data-key="${checkKey}">
-          <div class="pull-top">
-            <div class="pull-left">
-              <div class="checkbox-box">${isChecked ? '✓' : ''}</div>
-              <div class="pull-heading">
-                Pull #${pIdx + 1}: Pull Down <span>${pull.pullLength}"</span> &amp; Cross-Cut
-              </div>
-            </div>
-            <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-dim);">
-              ${(pull.pullLength / 12).toFixed(2)} ft
-            </span>
-          </div>
-          <div class="lane-rows">${laneRows}</div>
-        </div>
-      `;
-    }).join('');
-
-    return `
-      <div class="stage-card">
-        <div class="stage-header">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span class="stage-tag ${plan.setups.length > 1 && setup.setupNumber === 1 ? 'stage-tag-cyan' : 'stage-tag-amber'}">
-              ${plan.setups.length > 1 ? `Stage ${setup.setupNumber} of ${plan.setups.length}` : 'Blade Setup'}
-            </span>
-            <span style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--text-main);">
-              ${activeCount === 1 ? '1 Blade Active' : `${activeCount} Blades Active`}
-            </span>
-          </div>
-          <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
-            ${setup.pulls.length} pull(s) • ${setup.totalPullInches}"
-          </span>
-        </div>
-
-        <div class="svg-wrapper">
-          <div class="svg-caption">
-            <span>0" Left Stop → ${plan.rollWidth}" Roll</span>
-            <span>B1: ${blade1 !== null ? blade1 + '"' : 'Off'} • B2: ${blade2 !== null ? blade2 + '"' : 'Off'}</span>
-          </div>
-          ${buildHandlerSvg(plan.rollWidth, setup)}
-        </div>
-
-        <div class="pulls-container">
-          <div class="section-title" style="margin-bottom:2px;">Sequential Pull Checklist (Tap to Check Off)</div>
-          ${pullsHtml}
-        </div>
-      </div>
-    `;
-  }
-
-  function buildHandlerSvg(rollWidth, setup) {
-    const padX = 22;
-    const scale = 10; // 72" = 720 SVG units
-    const barW = HANDLER_MAX_WIDTH * scale;
-    const rollPx = rollWidth * scale;
-    const svgW = barW + padX * 2 + 24;
-
-    const totalPullIn = setup.totalPullInches || 1;
-    const pullScale = Math.min(2.5, Math.max(1.25, 200 / totalPullIn));
-    const barY = 26;
-    const barH = 26;
-    let curY = barY + barH + 14;
-
-    const pullBlocks = setup.pulls.map(pull => {
-      const hPx = Math.max(36, pull.pullLength * pullScale);
-      const blk = { y: curY, h: hPx, pull };
-      curY += hPx + 5;
-      return blk;
-    });
-
-    const svgH = curY + 14;
-
-    let ticks = '';
-    for (let inch = 0; inch <= 72; inch += 6) {
-      const x = padX + inch * scale;
-      const major = inch % 12 === 0;
-      ticks += `<line x1="${x}" y1="${barY}" x2="${x}" y2="${barY + (major ? 12 : 7)}" stroke="${major ? '#94a3b8' : '#475569'}" stroke-width="${major ? 1.5 : 1}"/>`;
-      if (major) {
-        ticks += `<text x="${x}" y="${barY - 6}" fill="#94a3b8" font-size="11" font-family="monospace" font-weight="700" text-anchor="middle">${inch}"</text>`;
-      }
-    }
-
-    const colors = [
-      { fill: '#0e7490', stroke: '#22d3ee', text: '#ecfeff' },
-      { fill: '#1d4ed8', stroke: '#60a5fa', text: '#eff6ff' },
-      { fill: '#047857', stroke: '#34d399', text: '#ecfdf5' }
-    ];
-
-    let pullsSvg = '';
-    pullBlocks.forEach(pb => {
-      let laneX = padX;
-      setup.lanes.forEach((laneW, lIdx) => {
-        const wPx = laneW * scale;
-        const slot = pb.pull.slots[lIdx];
-        const col = colors[lIdx % colors.length];
-
-        if (slot) {
-          const maxChars = Math.max(4, Math.floor(laneW / 1.5));
-          const name = slot.pane.room.length > maxChars
-            ? slot.pane.room.slice(0, maxChars) + '…'
-            : slot.pane.room;
-          pullsSvg += `
-            <rect x="${laneX + 1}" y="${pb.y}" width="${wPx - 2}" height="${pb.h}" rx="4"
-              fill="${col.fill}" fill-opacity="0.38" stroke="${col.stroke}" stroke-width="1.5"/>
-            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 - 3}" fill="${col.text}"
-              font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">${escapeHtml(name)}</text>
-            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 + 11}" fill="${col.stroke}"
-              font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">${slot.fit.stripW}"×${slot.fit.pullH}"</text>
-          `;
-        } else {
-          pullsSvg += `
-            <rect x="${laneX + 1}" y="${pb.y}" width="${wPx - 2}" height="${pb.h}" rx="4"
-              fill="#1e293b" fill-opacity="0.45" stroke="#475569" stroke-width="1" stroke-dasharray="4 3"/>
-            <text x="${laneX + wPx / 2}" y="${pb.y + pb.h / 2 + 4}" fill="#64748b"
-              font-size="10" font-family="monospace" text-anchor="middle">DROP (${laneW}"×${pb.pull.pullLength}")</text>
-          `;
-        }
-        laneX += wPx;
-      });
-
-      const { activeWidth, sideWasteWidth } = setup.blades;
-      if (sideWasteWidth > 0) {
-        pullsSvg += `
-          <rect x="${padX + activeWidth * scale + 1}" y="${pb.y}" width="${sideWasteWidth * scale - 2}" height="${pb.h}" rx="3"
-            fill="#7f1d1d" fill-opacity="0.3" stroke="#f43f5e" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="3 3"/>
-        `;
-      }
-
-      pullsSvg += `
-        <text x="${padX + rollPx + 8}" y="${pb.y + pb.h / 2 + 4}" fill="#fbbf24"
-          font-size="11" font-family="monospace" font-weight="800">↓${pb.pull.pullLength}"</text>
-      `;
-    });
-
-    let bladesSvg = '';
-    const { blade1, blade2 } = setup.blades;
-    if (blade1 !== null) {
-      const x1 = padX + blade1 * scale;
-      bladesSvg += `
-        <line x1="${x1}" y1="${barY - 2}" x2="${x1}" y2="${curY}" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5 3"/>
-        <rect x="${x1 - 24}" y="${barY + barH - 8}" width="48" height="18" rx="4" fill="#f43f5e"/>
-        <text x="${x1}" y="${barY + barH + 4}" fill="#fff" font-size="10" font-family="monospace" font-weight="800" text-anchor="middle">B1:${blade1}"</text>
-      `;
-    }
-    if (blade2 !== null) {
-      const x2 = padX + blade2 * scale;
-      bladesSvg += `
-        <line x1="${x2}" y1="${barY - 2}" x2="${x2}" y2="${curY}" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 3"/>
-        <rect x="${x2 - 24}" y="${barY + barH - 8}" width="48" height="18" rx="4" fill="#f59e0b"/>
-        <text x="${x2}" y="${barY + barH + 4}" fill="#0b0f19" font-size="10" font-family="monospace" font-weight="800" text-anchor="middle">B2:${blade2}"</text>
-      `;
-    }
-
-    return `
-      <svg viewBox="0 0 ${svgW} ${svgH}">
-        <rect x="${padX}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
-        ${rollWidth < 72 ? `<text x="${padX + rollPx + (barW - rollPx) / 2}" y="${barY + 17}" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Empty Bar (${72 - rollWidth}")</text>` : ''}
-        <rect x="${padX}" y="${barY + 13}" width="${rollPx}" height="${barH - 13}" rx="2" fill="#334155"/>
-        <text x="${padX + 6}" y="${barY + 23}" fill="#e2e8f0" font-size="9.5" font-family="monospace" font-weight="700">${rollWidth}" ROLL (0"–${rollWidth}")</text>
-        ${ticks}
-        ${pullsSvg}
-        ${bladesSvg}
-      </svg>
-    `;
-  }
-
-  // =========================================================================
-  // THEME & PWA SETUP
-  // =========================================================================
-  function applyTheme(theme) {
-    const isLight = theme === 'light';
-    document.body.classList.toggle('light-mode', isLight);
-    const btn = document.getElementById('btn-theme');
-    if (btn) btn.textContent = isLight ? '🌙' : '☀️';
-    const metaTheme = document.getElementById('meta-theme-color');
-    if (metaTheme) metaTheme.setAttribute('content', isLight ? '#eef2f7' : '#0b0f19');
-    try {
-      localStorage.setItem('handlercut_theme', isLight ? 'light' : 'dark');
-    } catch (_) {}
-  }
-
-  function initPwa() {
-    const appTitle = state.shopName ? `HandlerCut Pro — ${state.shopName}` : 'HandlerCut Pro';
-    const manifestData = {
-      name: appTitle,
-      short_name: 'HandlerCut Pro',
-      description: '72-inch 2-blade Film Handler cut-list optimizer',
-      start_url: './',
-      display: 'standalone',
-      background_color: '#0b0f19',
-      theme_color: '#0b0f19',
-      icons: [
-        {
-          src: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(HANDLER_LOGO_SVG_ICON),
-          sizes: '192x192 512x512',
-          type: 'image/svg+xml',
-          purpose: 'any maskable'
-        }
-      ]
-    };
-
-    try {
-      const link = document.getElementById('pwa-manifest-link');
-      if (link) {
-        if (link.href && link.href.startsWith('blob:')) {
-          URL.revokeObjectURL(link.href);
-        }
-        const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/manifest+json' });
-        link.href = URL.createObjectURL(blob);
-      }
-      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost') && !navigator.serviceWorker.controller) {
-        const swCode = `
-          const CACHE_NAME = 'handlercut-pro-v1';
-          self.addEventListener('install', event => {
-            event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./'])));
-            self.skipWaiting();
-          });
-          self.addEventListener('fetch', event => {
-            event.respondWith(caches.match(event.request).then(res => res || fetch(event.request)));
-          });
-        `;
-        const swBlob = new Blob([swCode], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(swBlob);
-        navigator.serviceWorker.register(swUrl).catch(() => {});
-      }
-    } catch (_) {}
-  }
-
-  // =========================================================================
-  // EVENT WIRING ON DOMContentLoaded
-  // =========================================================================
-  document.addEventListener('DOMContentLoaded', () => {
-    let savedTheme = 'dark';
-    try {
-      savedTheme = localStorage.getItem('handlercut_theme') || 'dark';
-      state.shopName = localStorage.getItem('handlercut_shop_name') || '';
-    } catch (_) {}
-    applyTheme(savedTheme);
-    renderShopBadge();
-    initPwa();
-
-    const saveShopBtn = document.getElementById('btn-save-shop');
-    const clearShopBtn = document.getElementById('btn-clear-shop');
-    const shopInput = document.getElementById('shop-name-input');
-    if (saveShopBtn && shopInput) {
-      saveShopBtn.addEventListener('click', () => saveShopName(shopInput.value));
-      shopInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          saveShopName(shopInput.value);
-        }
-      });
-    }
-    if (clearShopBtn) {
-      clearShopBtn.addEventListener('click', () => saveShopName(''));
-    }
-
-    const themeBtn = document.getElementById('btn-theme');
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const next = document.body.classList.contains('light-mode') ? 'dark' : 'light';
-        applyTheme(next);
-        showToast(next === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
-      });
-    }
-
-    // Load Demo Job
-    document.getElementById('btn-demo').addEventListener('click', () => {
-      state.windows = [
-        { id: nextId++, room: 'Living Room', qty: 4, w: 24, h: 34 },
-        { id: nextId++, room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-        { id: nextId++, room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 }
-      ];
-      state.bleedInches = 0;
-      state.maxSideTrim = 4;
-      state.selectedRollWidth = null;
-      state.selectedStrategy = 'lowestWaste';
-      state.checkedPulls = {};
-      setBleed(0, false);
-      renderWindowRows();
-      runOptimization();
-      showToast('Loaded your example job');
-    });
-
-    // Bleed buttons
-    document.getElementById('bleed-0').addEventListener('click', () => setBleed(0));
-    document.getElementById('bleed-1').addEventListener('click', () => setBleed(1));
-
-    // Roll toggles delegation
-    document.getElementById('roll-toggles').addEventListener('click', (e) => {
-      const remBtn = e.target.closest('[data-action="remove-roll"]');
-      if (remBtn) {
-        e.stopPropagation();
-        const w = parseFloat(remBtn.dataset.width);
-        state.availableRolls = state.availableRolls.filter(r => r.width !== w);
-        state.selectedRollWidth = null;
-        renderRollToggles();
-        runOptimization();
-        return;
-      }
-
-      const toggleBtn = e.target.closest('[data-action="toggle-roll"]');
-      if (toggleBtn) {
-        const w = parseFloat(toggleBtn.dataset.width);
-        const roll = state.availableRolls.find(r => r.width === w);
-        if (roll) {
-          roll.enabled = !roll.enabled;
-          state.selectedRollWidth = null;
-          renderRollToggles();
-          runOptimization();
-        }
-      }
-    });
-
-    // Custom roll add
-    document.getElementById('btn-add-roll').addEventListener('click', () => {
-      const input = document.getElementById('custom-roll-input');
-      const val = parseFloat(input.value);
-      if (isNaN(val) || val < 10 || val > 72) {
-        showToast('Enter a width between 10" and 72"');
-        return;
-      }
-      const existing = state.availableRolls.find(r => r.width === val);
-      if (existing) {
-        existing.enabled = true;
-      } else {
-        state.availableRolls.push({ width: val, enabled: true, custom: true });
-      }
-      input.value = '';
-      state.selectedRollWidth = null;
-      renderRollToggles();
-      runOptimization();
-      showToast(`Added ${val}" roll`);
-    });
-
-    // Quick paste modal
-    document.getElementById('btn-toggle-paste').addEventListener('click', () => {
-      const box = document.getElementById('paste-box');
-      box.classList.toggle('hidden');
-      if (!box.classList.contains('hidden')) {
-        document.getElementById('paste-textarea').focus();
-      }
-    });
-    document.getElementById('btn-close-paste').addEventListener('click', () => {
-      document.getElementById('paste-box').classList.add('hidden');
-    });
-    document.getElementById('btn-paste-append').addEventListener('click', () => parsePastedText(false));
-    document.getElementById('btn-paste-replace').addEventListener('click', () => parsePastedText(true));
-
-    // Clear windows
-    document.getElementById('btn-clear-windows').addEventListener('click', () => {
-      state.windows = [];
-      state.checkedPulls = {};
-      renderWindowRows();
-      runOptimization();
-    });
-
-    // Add window row
-    document.getElementById('btn-add-window').addEventListener('click', () => {
-      const last = state.windows[state.windows.length - 1];
-      state.windows.push({
-        id: nextId++,
-        room: last ? last.room : 'Room',
-        qty: 1,
-        w: 24,
-        h: 36
-      });
-      renderWindowRows();
-      runOptimization();
-    });
-
-    // Window list input & delete delegation
-    const winList = document.getElementById('windows-list');
-    winList.addEventListener('change', (e) => {
-      const row = e.target.closest('.win-row');
-      if (!row) return;
-      const id = parseInt(row.dataset.id, 10);
-      const win = state.windows.find(w => w.id === id);
-      if (!win) return;
-
-      const field = e.target.dataset.field;
-      if (field === 'room') {
-        win.room = e.target.value;
-      } else if (field === 'qty') {
-        win.qty = Math.max(1, parseInt(e.target.value, 10) || 1);
-      } else if (field === 'w') {
-        win.w = Math.max(1, parseFloat(e.target.value) || 1);
-      } else if (field === 'h') {
-        win.h = Math.max(1, parseFloat(e.target.value) || 1);
-      }
-      updateInputSummary();
-      runOptimization();
-    });
-
-    winList.addEventListener('click', (e) => {
-      const delBtn = e.target.closest('[data-action="delete-row"]');
-      if (!delBtn) return;
-      const id = parseInt(delBtn.dataset.id, 10);
-      state.windows = state.windows.filter(w => w.id !== id);
-      renderWindowRows();
-      runOptimization();
-    });
-
-    // Results container delegation (roll tabs, strategy buttons, trim pills, pull checklist)
-    document.getElementById('results-container').addEventListener('click', (e) => {
-      const rollBtn = e.target.closest('[data-action="select-roll"]');
-      if (rollBtn) {
-        state.selectedRollWidth = parseFloat(rollBtn.dataset.width);
-        runOptimization();
-        return;
-      }
-
-      const stratBtn = e.target.closest('[data-action="select-strategy"]');
-      if (stratBtn) {
-        state.selectedStrategy = stratBtn.dataset.strategy;
-        runOptimization();
-        return;
-      }
-
-      const trimBtn = e.target.closest('[data-action="set-trim"]');
-      if (trimBtn) {
-        state.maxSideTrim = parseFloat(trimBtn.dataset.trim);
-        state.checkedPulls = {};
-        runOptimization();
-        return;
-      }
-
-      const pullCard = e.target.closest('[data-action="toggle-pull"]');
-      if (pullCard) {
-        const key = pullCard.dataset.key;
-        state.checkedPulls[key] = !state.checkedPulls[key];
-        runOptimization();
-      }
-    });
-
-    // Initial render
-    renderRollToggles();
-    renderWindowRows();
-    runOptimization();
+  $('b-0').onclick = () => setBleed(0);
+  $('b-1').onclick = () => setBleed(1);
+  document.querySelectorAll('[data-trim]').forEach(b => b.onclick = () => {
+    S.trim = +b.dataset.trim; S.planId = null; S.checked = {}; syncTrim(); solve();
+    toast(`Max side-trim: ${S.trim}"`);
   });
+
+  $('roll-grid').onclick = e => {
+    const rm = e.target.closest('[data-rm]');
+    if(rm){ e.stopPropagation(); S.rolls = S.rolls.filter(r => r.w !== +rm.dataset.rm); S.planId = null; renderRolls(); solve(); return; }
+    const tg = e.target.closest('[data-tog]');
+    if(tg){ const r = S.rolls.find(x => x.w === +tg.dataset.tog); if(r){ r.on = !r.on; S.planId = null; renderRolls(); solve(); } }
+  };
+
+  $('btn-add-roll').onclick = () => {
+    const v = parseFloat($('cust-roll').value);
+    if(isNaN(v) || v < 10 || v > 72) return toast('Enter width 10"–72"');
+    const ex = S.rolls.find(r => r.w === v);
+    if(ex) ex.on = true; else S.rolls.push({ w: v, on: true, cust: true });
+    $('cust-roll').value = ''; S.planId = null; renderRolls(); solve();
+    toast(`Added ${v}" roll`);
+  };
+
+  $('btn-paste-tog').onclick = () => { $('paste-box').classList.toggle('hidden'); if(!$('paste-box').classList.contains('hidden')) $('paste-txt').focus(); };
+  $('btn-paste-x').onclick = () => $('paste-box').classList.add('hidden');
+  $('btn-paste-app').onclick = () => parsePaste(false);
+  $('btn-paste-rep').onclick = () => parsePaste(true);
+
+  $('btn-clr-win').onclick = () => { S.wins = []; S.planId = null; S.checked = {}; renderWins(); solve(); };
+  $('btn-add-win').onclick = () => {
+    const last = S.wins[S.wins.length-1];
+    S.wins.push({ id: uid++, room: last ? last.room : 'Room', qty: 1, w: 24, h: 36 });
+    S.planId = null; renderWins(); solve();
+  };
+
+  $('w-list').onchange = e => {
+    const row = e.target.closest('.w-row'); if(!row) return;
+    const w = S.wins.find(x => x.id === +row.dataset.id); if(!w) return;
+    const f = e.target.dataset.f;
+    if(f === 'room') w.room = e.target.value;
+    else if(f === 'qty') w.qty = Math.max(1, parseInt(e.target.value,10)||1);
+    else if(f === 'w') w.w = Math.max(1, parseFloat(e.target.value)||1);
+    else if(f === 'h') w.h = Math.max(1, parseFloat(e.target.value)||1);
+    S.planId = null; updateSum(); solve();
+  };
+
+  $('w-list').onclick = e => {
+    const dl = e.target.closest('[data-del]'); if(!dl) return;
+    S.wins = S.wins.filter(x => x.id !== +dl.dataset.del);
+    S.planId = null; renderWins(); solve();
+  };
+
+  $('results').onclick = e => {
+    const pl = e.target.closest('[data-plan]');
+    if(pl){ S.planId = pl.dataset.plan; solve(); return; }
+    const st = e.target.closest('[data-strat]');
+    if(st){ S.strat = st.dataset.strat; solve(); return; }
+    const ck = e.target.closest('[data-chk]');
+    if(ck){ S.checked[ck.dataset.chk] = !S.checked[ck.dataset.chk]; solve(); }
+  };
+
+  renderRolls(); syncTrim(); renderWins(); solve();
+});
 })();
 </script>
 </body>
