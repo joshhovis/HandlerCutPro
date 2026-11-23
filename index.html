@@ -113,6 +113,15 @@ main{max-width:820px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 .btn-add-grp:hover{border-color:var(--pur2)}
 .sum-ft{margin-top:11px;padding-top:11px;border-top:1px solid var(--bdr);display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-size:12px;color:var(--mut)}
 
+/* Film Queue Stepper */
+.q-bar{background:var(--card);border:1px solid var(--bdr2);border-radius:16px;padding:12px;box-shadow:var(--shd);display:flex;flex-direction:column;gap:10px}
+.q-pills{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.q-tab{flex-shrink:0;background:var(--inner);border:2px solid var(--bdr);color:var(--mut);border-radius:11px;padding:8px 12px;font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px}
+.q-tab.act{background:var(--pur-bg);border-color:var(--pur2);color:var(--txt)}
+.q-tab.done{border-color:var(--em);color:var(--em2)}
+.q-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid var(--bdr)}
+.btn-next{background:var(--em);color:#06130e;padding:9px 14px;border-radius:10px;font-size:12px;font-weight:800}
+
 /* Film Group Sections & Comparison */
 .film-sec{background:var(--card);border:1px solid var(--bdr2);border-radius:18px;padding:15px;box-shadow:var(--shd);display:flex;flex-direction:column;gap:12px}
 .film-hdr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--bdr)}
@@ -186,7 +195,7 @@ main{max-width:820px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
           <div class="title">HandlerCut <span>Pro</span></div>
           <span id="shop-slot"></span>
         </div>
-        <div class="sub mono">72" Left-Stop (0") • 2 Blades • Film-Isolated</div>
+        <div class="sub mono">72" Left-Stop (0") • 2 Blades • Cut Queue</div>
       </div>
     </div>
     <div class="hdr-act">
@@ -202,10 +211,56 @@ main{max-width:820px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
 </header>
 
 <main>
-  <!-- 1. ROLLS ON HAND -->
+  <!-- 1. WINDOW CUT LIST -->
   <section class="card">
     <div class="sec-hdr">
-      <div class="sec-ttl mono"><span class="dot" style="background:var(--amb)"></span>1. Rolls On Hand</div>
+      <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>1. Window Cut List</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" id="btn-paste-tog" class="btn-cy">📋 Quick Paste Note</button>
+        <button type="button" id="btn-clr-win" class="btn-del">Clear</button>
+      </div>
+    </div>
+
+    <div id="paste-box" class="paste-box hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--cy2)">
+        <span>Paste note with headers (Blackout, Ceramic 35, White Frost, DR 20, EV, [Decorative]):</span>
+        <button type="button" id="btn-paste-x" style="background:none;color:var(--mut);font-size:12px">Close ✕</button>
+      </div>
+      <div class="preset-strip" id="sample-notes">
+        <button type="button" data-sample="queue" class="pre-chip mono">Load Sample: Blackout + Ceramic 35 + White Frost</button>
+        <button type="button" data-sample="mixed" class="pre-chip mono">Load Sample: Black + DR + Frost</button>
+      </div>
+      <textarea id="paste-txt" class="mono" rows="6" placeholder="Blackout&#10;(2) 12x20&#10;(4) 10x18&#10;Ceramic 35&#10;(4) 18x36&#10;(2) 18x70&#10;White Frost&#10;(2) 30x56"></textarea>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
+        <button type="button" id="btn-paste-app" class="btn-sec">Append</button>
+        <button type="button" id="btn-paste-rep" class="btn-pcy">Replace Cut List</button>
+      </div>
+    </div>
+
+    <datalist id="film-presets">
+      <option value="Ceramic 35"></option>
+      <option value="Blackout"></option>
+      <option value="White Frost"></option>
+      <option value="Dual Reflective (DR)"></option>
+      <option value="Evening View (EV)"></option>
+      <option value="Frost"></option>
+      <option value="Security"></option>
+    </datalist>
+
+    <div class="w-hdr mono"><div>Film Type</div><div>Room / Label</div><div>Qty</div><div>Width"</div><div>Height"</div><div></div></div>
+    <div id="w-list" class="w-list"></div>
+
+    <div class="act-row">
+      <button type="button" id="btn-add-win" class="btn-add">+ Add Window Measurement</button>
+      <button type="button" id="btn-add-grp" class="btn-add-grp">+ Add Film Group</button>
+    </div>
+    <div id="in-sum" class="sum-ft mono"></div>
+  </section>
+
+  <!-- 2. ROLLS ON HAND -->
+  <section id="rolls-sec" class="card hidden">
+    <div class="sec-hdr">
+      <div id="rolls-title" class="sec-ttl mono"><span class="dot" style="background:var(--amb)"></span>2. Rolls On Hand</div>
     </div>
     <div class="ctrl-bar">
       <div class="pill-grp">
@@ -236,51 +291,6 @@ main{max-width:820px;margin:0 auto;padding:14px 12px;display:flex;flex-direction
     </div>
   </section>
 
-  <!-- 2. WINDOW CUT LIST -->
-  <section class="card">
-    <div class="sec-hdr">
-      <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>2. Window Cut List</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" id="btn-paste-tog" class="btn-cy">📋 Quick Paste Note</button>
-        <button type="button" id="btn-clr-win" class="btn-del">Clear</button>
-      </div>
-    </div>
-
-    <div id="paste-box" class="paste-box hidden">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--cy2)">
-        <span>Paste note with headers (Black film-front, DR 20, EV, Frost, [Decorative]):</span>
-        <button type="button" id="btn-paste-x" style="background:none;color:var(--mut);font-size:12px">Close ✕</button>
-      </div>
-      <div class="preset-strip" id="sample-notes">
-        <button type="button" data-sample="mixed" class="pre-chip mono">Load Sample: Black + DR + Frost</button>
-        <button type="button" data-sample="rooms" class="pre-chip mono">Load Sample: Ceramic 35 vs Blackout</button>
-      </div>
-      <textarea id="paste-txt" class="mono" rows="6" placeholder="Black film-front&#10;Transom - (1) 36x27&#10;door (1) 28x70&#10;Top Sides (2) 30x27&#10;&#10;DR 20&#10;Back Slider (2) 24x34"></textarea>
-      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
-        <button type="button" id="btn-paste-app" class="btn-sec">Append</button>
-        <button type="button" id="btn-paste-rep" class="btn-pcy">Replace Cut List</button>
-      </div>
-    </div>
-
-    <datalist id="film-presets">
-      <option value="Ceramic 35"></option>
-      <option value="Blackout"></option>
-      <option value="Dual Reflective (DR)"></option>
-      <option value="Evening View (EV)"></option>
-      <option value="Frost"></option>
-      <option value="Security"></option>
-    </datalist>
-
-    <div class="w-hdr mono"><div>Film Type</div><div>Room / Label</div><div>Qty</div><div>Width"</div><div>Height"</div><div></div></div>
-    <div id="w-list" class="w-list"></div>
-
-    <div class="act-row">
-      <button type="button" id="btn-add-win" class="btn-add">+ Add Window Measurement</button>
-      <button type="button" id="btn-add-grp" class="btn-add-grp">+ Add Film Group</button>
-    </div>
-    <div id="in-sum" class="sum-ft mono"></div>
-  </section>
-
   <!-- 3. RESULTS -->
   <section id="results" style="display:flex;flex-direction:column;gap:16px"></section>
 </main>
@@ -294,21 +304,18 @@ const MAX_W = 72;
 let uid = 20;
 
 const S = {
-  rolls: [
+  defaultRolls: [
     { w: 72, on: true, cust: false },
     { w: 60, on: true, cust: false },
     { w: 48, on: false, cust: false },
     { w: 36, on: true, cust: false }
   ],
+  rollsByFilm: {},
+  activeFilm: '',
   bleed: 0,
   trim: 4,
   tail: 4,
-  wins: [
-    // { id: 1, film: 'Ceramic 35', room: 'Living Room', qty: 4, w: 24, h: 34 },
-    // { id: 2, film: 'Ceramic 35', room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-    // { id: 3, film: 'Ceramic 35', room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 },
-    // { id: 4, film: 'Blackout', room: 'Backroom Transom', qty: 2, w: 17, h: 20 }
-  ],
+  wins: [],
   selByFilm: {},
   stratByFilm: {},
   checked: {},
@@ -325,6 +332,30 @@ function toast(msg){
   el.classList.add('show');
   clearTimeout(tTimer);
   tTimer = setTimeout(() => el.classList.remove('show'), 2100);
+}
+
+function getFilmOrder(){
+  const order = [];
+  S.wins.forEach(w => {
+    const f = (w.film || 'Standard Film').trim() || 'Standard Film';
+    if(!order.includes(f)) order.push(f);
+  });
+  return order;
+}
+
+function getCurrentFilm(){
+  const order = getFilmOrder();
+  if(!order.length) return '';
+  if(!S.activeFilm || !order.includes(S.activeFilm)) S.activeFilm = order[0];
+  return S.activeFilm;
+}
+
+function getRollsForFilm(film){
+  const key = (film || 'Standard Film').trim() || 'Standard Film';
+  if(!S.rollsByFilm[key]){
+    S.rollsByFilm[key] = S.defaultRolls.map(r => ({ ...r }));
+  }
+  return S.rollsByFilm[key];
 }
 
 /* Theme & Optional Shop Name */
@@ -359,7 +390,15 @@ function saveShop(val){
 
 /* Section 1: Rolls & Controls */
 function renderRolls(){
-  const sorted = [...S.rolls].sort((a,b) => b.w - a.w);
+  const curFilm = getCurrentFilm();
+  const titleEl = $('rolls-title');
+  if(titleEl){
+    titleEl.innerHTML = curFilm
+      ? `<span class="dot" style="background:var(--amb)"></span>2. Rolls On Hand — <span style="color:var(--pur2)">${esc(curFilm)}</span>`
+      : `<span class="dot" style="background:var(--amb)"></span>2. Rolls On Hand`;
+  }
+  const list = curFilm ? getRollsForFilm(curFilm) : S.defaultRolls;
+  const sorted = [...list].sort((a,b) => b.w - a.w);
   $('roll-grid').innerHTML = sorted.map(r => `
     <button type="button" data-tog="${r.w}" class="r-tog ${r.on ? 'on' : ''}">
       <span class="r-w mono">${r.w}"</span>
@@ -419,7 +458,7 @@ function updateSum(){
     area += (w.w + S.bleed) * (w.h + S.bleed) * w.qty;
     films.add((w.film || 'Standard Film').trim() || 'Standard Film');
   });
-  $('in-sum').innerHTML = `<span>Film Groups: <strong style="color:var(--pur2)">${films.size}</strong> • Panes: <strong style="color:var(--txt)">${cnt}</strong></span><span>Net Glass: <strong style="color:var(--cy2)">${(area/144).toFixed(1)} sq ft</strong></span>`;
+  $('in-sum').innerHTML = `<span>Film Queue: <strong style="color:var(--pur2)">${films.size}</strong> • Panes: <strong style="color:var(--txt)">${cnt}</strong></span><span>Net Glass: <strong style="color:var(--cy2)">${(area/144).toFixed(1)} sq ft</strong></span>`;
 }
 
 function normalizeFilmName(raw){
@@ -430,6 +469,7 @@ function normalizeFilmName(raw){
   const low = t.toLowerCase();
   if(/^(dual\s*reflective|dr)(\s*\d+)?$/i.test(low)) return t.toUpperCase().startsWith('DR') ? t.toUpperCase() : `Dual Reflective (${t})`;
   if(/^(evening\s*view|ev)(\s*\d+)?$/i.test(low)) return t.toUpperCase().startsWith('EV') ? t.toUpperCase() : `Evening View (${t})`;
+  if(/^white\s*frost$/i.test(low)) return 'White Frost';
   if(/^frost(ed)?(\s+.*)?$/i.test(low)) return /frost/i.test(t) ? t : 'Frost';
   if(/^black\s*out$/i.test(low)) return 'Blackout';
   return t;
@@ -444,7 +484,7 @@ function extractInlineFilmAndRoom(labelText, activeFilm){
     const room = txt.replace(bracket[0], '').replace(/^[-–—:\s]+|[-–—:\s]+$/g, '').trim() || 'Window';
     return { film, room };
   }
-  const known = txt.match(/\b(ceramic\s*\d*|blackout|dual\s*reflective(?:\s*\d+)?|\bdr\s*\d*\b|evening\s*view(?:\s*\d+)?|\bev\s*\d*\b|frost(?:ed)?|security)\b/i);
+  const known = txt.match(/\b(ceramic\s*\d*|blackout|white\s*frost|dual\s*reflective(?:\s*\d+)?|\bdr\s*\d*\b|evening\s*view(?:\s*\d+)?|\bev\s*\d*\b|frost(?:ed)?|security)\b/i);
   if(known){
     const film = normalizeFilmName(known[0]) || activeFilm;
     const room = txt.replace(known[0], '').replace(/^[-–—:\s]+|[-–—:\s]+$/g, '').trim() || 'Window';
@@ -459,7 +499,7 @@ function parsePaste(replace){
   let activeFilm = 'Standard Film';
   let lastRoom = 'Window';
   const out = [];
-  const rx = /^(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/;
+  const rx = /(?:^|[\s\-–—:]+)(?:\(?(\d+)\)?\s*[xX*]?\s*)?(\d+(?:\.\d+)?)\s*[xX*×]\s*(\d+(?:\.\d+)?)(?:\s*\(?(\d+)\)?)?/; // <-- UPDATED (allows room label before dimensions)
 
   for(const ln of raw.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)){
     const cl = ln.replace(/~?\d+(?:\.\d+)?\s*sq\s*ft/i,'').trim();
@@ -468,7 +508,9 @@ function parsePaste(replace){
       const qty = parseInt(m[1]||m[4]||'1',10);
       const w = parseFloat(m[2]);
       const h = parseFloat(m[3]);
-      const rest = cl.replace(m[0],'').trim();
+      const before = cl.slice(0, m.index).trim(); // <-- ADDED
+      const after = cl.slice(m.index + m[0].length).trim(); // <-- ADDED
+      const rest = [before, after].filter(Boolean).join(' ').trim(); // <-- UPDATED
       if(qty>0 && w>0 && h>0){
         if(rest){
           const ex = extractInlineFilmAndRoom(rest, activeFilm);
@@ -479,13 +521,14 @@ function parsePaste(replace){
         }
       }
     } else {
-      // Non-dimension line: acts as a Film Header when starting a film block or tagged, otherwise Room label
-      const isFilmHeader = /^(film\s*:|\[.+\]|[-–—]{2,}|black\s*film|ceramic|blackout|dual\s*reflective|\bdr\b|evening\s*view|\bev\b|frost|security|decorative)/i.test(cl);
+      const isFilmHeader = /^(film\s*:|\[.+\]|[-–—]{2,}|black\s*film|white\s*frost|ceramic|blackout|dual\s*reflective|\bdr\b|evening\s*view|\bev\b|frost|security|decorative)/i.test(cl);
       if(isFilmHeader || !out.length){
         const norm = normalizeFilmName(cl);
-        if(norm) activeFilm = norm;
+        if(norm){
+          activeFilm = norm;
+          lastRoom = 'Window';
+        }
       } else {
-        // Check if a room line explicitly names a film like "Back Room Ceramic 35"
         const ex = extractInlineFilmAndRoom(cl, activeFilm);
         if(ex.film !== activeFilm){
           activeFilm = ex.film;
@@ -496,6 +539,7 @@ function parsePaste(replace){
   }
   if(!out.length) return toast('No "W x H" measurements detected');
   S.wins = replace ? out : [...S.wins, ...out];
+  if(replace) S.activeFilm = out[0].film;
   $('paste-txt').value = '';
   $('paste-box').classList.add('hidden');
   S.checked = {};
@@ -504,7 +548,7 @@ function parsePaste(replace){
 }
 
 /* =========================================================================
-   OPTIMIZER ENGINE: 2-Blade Left-Aligned + Multi-Stage + Multi-Roll
+   OPTIMIZER ENGINE: 2-Blade Left-Aligned + Tail Allowance + Multi-Stage + Multi-Roll
    ========================================================================= */
 function getBlades(lanes, rw){
   const act = lanes.reduce((a,b)=>a+b, 0);
@@ -535,7 +579,7 @@ function fitCfg(p, lanes, maxTrim){
   return best;
 }
 
-function packCfg(panes, lanes, rw, maxTrim){
+function packCfg(panes, lanes, rw, maxTrim, maxTail = S.tail){
   const items = [];
   for(const p of panes){
     const best = fitCfg(p, lanes, maxTrim);
@@ -557,8 +601,8 @@ function packCfg(panes, lanes, rw, maxTrim){
         const opt = rem[i].valid.find(v => v.lIdx === l);
         if(!opt) continue;
         const diff = Math.abs(opt.ph - anc.best.ph);
-        const overTail = Math.max(0, diff - S.tail); 
-        const pen = diff * 10 + overTail * 250 + (opt.ph > anc.best.ph ? (opt.ph - anc.best.ph)*50 : 0) + opt.slk; 
+        const overTail = Math.max(0, diff - maxTail);
+        const pen = diff * 10 + overTail * 250 + (opt.ph > anc.best.ph ? (opt.ph - anc.best.ph)*50 : 0) + opt.slk;
         if(pen < bp){ bp = pen; bi = i; bo = opt; }
       }
       if(bi !== -1){ const ch = rem.splice(bi,1)[0]; slots[l] = { p: ch.p, f: bo }; }
@@ -566,16 +610,16 @@ function packCfg(panes, lanes, rw, maxTrim){
     const len = Math.max(...slots.map(s => s ? s.f.ph : 0));
     pulls.push({ len, slots });
   }
-  let tailIn = 0, overTailIn = 0; 
-  for(const pl of pulls){ 
-    for(let l=0; l<lanes.length; l++){ 
-      const t = pl.slots[l] ? Math.max(0, pl.len - pl.slots[l].f.ph) : pl.len; 
-      tailIn += t; 
-      if(t > S.tail + 1e-6) overTailIn += (t - S.tail); 
-    } 
-  } 
+  let tailIn = 0, overTailIn = 0;
+  for(const pl of pulls){
+    for(let l=0; l<lanes.length; l++){
+      const t = pl.slots[l] ? Math.max(0, pl.len - pl.slots[l].f.ph) : pl.len;
+      tailIn += t;
+      if(t > maxTail + 1e-6) overTailIn += (t - maxTail);
+    }
+  }
   const pullIn = pulls.reduce((s,x)=>s+x.len, 0);
-  return { lanes, blades: getBlades(lanes, rw), pulls, pullIn, tailIn, overTailIn, filmSqIn: pullIn * rw }; 
+  return { lanes, blades: getBlades(lanes, rw), pulls, pullIn, tailIn, overTailIn, filmSqIn: pullIn * rw };
 }
 
 function genConfigs(rw, panes){
@@ -599,10 +643,10 @@ function solveStages(panes, cfgs, rw, maxTrim){
   let best1 = null;
   for(const lim of [maxTrim, Infinity]){
     for(const c of cfgs){
-      const pk = packCfg(panes, c, rw, lim);
+      const pk = packCfg(panes, c, rw, lim, S.tail);
       if(!pk) continue;
       const bc = (pk.blades.b1!==null?1:0) + (pk.blades.b2!==null?1:0);
-      const sc = pk.filmSqIn*100 + pk.pulls.length*10 + bc;
+      const sc = pk.filmSqIn*100 + pk.overTailIn*4000 + pk.pulls.length*10 + bc;
       if(!best1 || sc < best1.sc) best1 = { ...pk, sc };
     }
     if(best1) break;
@@ -616,10 +660,10 @@ function solveStages(panes, cfgs, rw, maxTrim){
       if(!fit.length) continue;
       const ex = unp.filter(p => { const f = fitCfg(p, c, maxTrim); return f && f.slk === 0; });
       for(const sub of (ex.length ? [ex, fit] : [fit])){
-        const pk = packCfg(sub, c, rw, maxTrim);
+        const pk = packCfg(sub, c, rw, maxTrim, S.tail);
         if(!pk) continue;
         const net = sub.reduce((s,p)=>s+p.area, 0);
-        const sc = (net/pk.filmSqIn)*1000 + sub.length*25 - (pk.filmSqIn-net)*0.02;
+        const sc = (net/pk.filmSqIn)*1000 + sub.length*25 - (pk.filmSqIn-net)*0.02 - pk.overTailIn*35;
         if(!bestB || sc > bestB.sc) bestB = { pk, sub, sc };
       }
     }
@@ -631,7 +675,8 @@ function solveStages(panes, cfgs, rw, maxTrim){
 
   if(!unp.length && stages.length > 1 && best1){
     const mSq = stages.reduce((s,x)=>s+x.filmSqIn, 0);
-    if(best1.filmSqIn - mSq > 144) return stages;
+    const mOver = stages.reduce((s,x)=>s+x.overTailIn, 0);
+    if(best1.filmSqIn - mSq > 144 || best1.overTailIn - mOver > S.tail) return stages;
   }
   return best1 ? [best1] : null;
 }
@@ -661,7 +706,7 @@ function solveRoll(rw, panes){
   for(const c of oneB){
     const s1 = panes.filter(p => fitCfg(p, c, S.trim));
     if(!s1.length) continue;
-    const pk1 = packCfg(s1, c, rw, S.trim);
+    const pk1 = packCfg(s1, c, rw, S.trim, S.tail);
     if(!pk1) continue;
     const u1 = new Set(s1.map(p=>p.id));
     const rem = panes.filter(p => !u1.has(p.id));
@@ -673,7 +718,8 @@ function solveRoll(rw, panes){
     }
     const fSq = all.reduce((s,x)=>s+x.filmSqIn, 0);
     const pCnt = all.reduce((s,x)=>s+x.pulls.length, 0);
-    const sc = fSq*100 + pCnt*10 - s1.length*40 + (c.length===2 ? Math.abs(c[0]-c[1])*0.05 : 0);
+    const oTail = all.reduce((s,x)=>s+x.overTailIn, 0);
+    const sc = fSq*100 + oTail*4000 + pCnt*10 - s1.length*40 + (c.length===2 ? Math.abs(c[0]-c[1])*0.05 : 0);
     if(sc < bestSc){ bestSc = sc; bestFs = all; }
   }
   let fs = null;
@@ -753,61 +799,67 @@ function findMultiPlans(activeRolls, panes){
 }
 
 /* =========================================================================
-   ISOLATED PER-FILM GROUP OPTIMIZATION & RENDERING
+   SINGLE-FILM CUT QUEUE RENDERING
    ========================================================================= */
 function renderAll(){
+  const rollsSec = $('rolls-sec'); // <-- ADDED
+  if(rollsSec) rollsSec.classList.toggle('hidden', !S.wins.length); // <-- ADDED
+  renderRolls();
   const resEl = $('results');
-  const activeRolls = S.rolls.filter(r=>r.on).map(r=>r.w);
-  if(!activeRolls.length){
-    resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--amb2);font-weight:700">Select at least one roll width above (72", 60", or 36").</div>`;
-    return;
-  }
   if(!S.wins.length){
     resEl.innerHTML = `<div class="card" style="text-align:center;color:var(--mut);font-size:13px">Add at least one window measurement above to optimize cuts.</div>`;
     return;
   }
 
-  // Group strictly by Film Type so different films never share a pull or setup
-  const filmOrder = [];
+  const filmOrder = getFilmOrder();
+  const curFilm = getCurrentFilm();
+  const fIdx = filmOrder.indexOf(curFilm);
+
   const filmBuckets = new Map();
+  filmOrder.forEach(f => filmBuckets.set(f, []));
   S.wins.forEach(w => {
     const fName = (w.film || 'Standard Film').trim() || 'Standard Film';
-    if(!filmBuckets.has(fName)){ filmOrder.push(fName); filmBuckets.set(fName, []); }
     const ew = Math.round((w.w + S.bleed)*100)/100, eh = Math.round((w.h + S.bleed)*100)/100;
     for(let i=0; i<w.qty; i++) filmBuckets.get(fName).push({ id: `${w.id}-${i}`, film: fName, room: w.room || 'Window', w: ew, h: eh, area: ew*eh });
   });
 
-  let jobPullIn = 0, jobFilmSf = 0, jobNetSf = 0, jobPullCnt = 0;
-  const groupSections = filmOrder.map((fName, fIdx) => {
-    const panes = filmBuckets.get(fName);
-    const built = buildFilmSection(fName, fIdx, filmOrder.length, panes, activeRolls);
-    if(built.activeAgg){
-      jobPullIn += built.activeAgg.pullIn;
-      jobFilmSf += built.activeAgg.filmSf;
-      jobNetSf += built.activeAgg.netSf;
-      jobPullCnt += built.activeAgg.pullCnt;
-    }
-    return built.html;
-  });
+  const activeRolls = getRollsForFilm(curFilm).filter(r => r.on).map(r => r.w);
+  const panes = filmBuckets.get(curFilm) || [];
 
-  const jobWasteSf = Math.max(0, jobFilmSf - jobNetSf);
-  const jobWastePct = jobFilmSf > 0 ? (jobWasteSf / jobFilmSf) * 100 : 0;
+  const qTabs = filmOrder.map((f, idx) => {
+    const isAct = f === curFilm;
+    const pCount = filmBuckets.get(f).length;
+    return `<button type="button" data-qfilm="${esc(f)}" class="q-tab ${isAct ? 'act' : ''}">
+      <span class="mono">${idx + 1}.</span>
+      <span>${esc(f)}</span>
+      <span class="mono" style="font-size:10px;opacity:.75">(${pCount}p)</span>
+    </button>`;
+  }).join('');
 
-  const overview = filmOrder.length > 1 ? `
-    <div class="card" style="border-color:rgba(34,211,238,.35)">
-      <div class="sec-hdr" style="margin-bottom:6px">
-        <div class="sec-ttl mono"><span class="dot" style="background:var(--cy)"></span>3. Job Summary (${filmOrder.length} Isolated Film Groups)</div>
-        <span class="mono" style="font-size:10px;color:var(--mut)">Each film runs on its own roll/pulls</span>
+  const prevFilm = fIdx > 0 ? filmOrder[fIdx - 1] : null;
+  const nextFilm = fIdx < filmOrder.length - 1 ? filmOrder[fIdx + 1] : null;
+
+  const queueBar = `
+    <div class="q-bar">
+      <div class="sec-hdr" style="margin-bottom:0">
+        <div class="sec-ttl mono"><span class="dot" style="background:var(--pur)"></span>3. Cut Queue (${fIdx + 1} of ${filmOrder.length})</div>
+        <span class="mono" style="font-size:10.5px;color:var(--mut)">Showing 1 film at a time</span>
       </div>
-      <div class="kpi-grid mono">
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">TOTAL PULL</span><strong class="tab" style="font-size:14px">${(jobPullIn/12).toFixed(1)} ft</strong><span style="font-size:10px;color:var(--mut)">${jobPullCnt} pulls</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">FILM USED</span><strong class="tab" style="font-size:14px;color:var(--cy2)">${jobFilmSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">NET GLASS</span><strong class="tab" style="font-size:14px">${jobNetSf.toFixed(1)}</strong><span style="font-size:10px;color:var(--mut)">sq ft</span></div>
-        <div class="kpi"><span style="font-size:9px;color:var(--dim)">WASTE</span><strong class="tab" style="font-size:14px;color:${jobWastePct<=10?'var(--em2)':'var(--amb2)'}">${jobWastePct.toFixed(1)}%</strong><span style="font-size:10px;color:var(--mut)">${jobWasteSf.toFixed(1)} sf</span></div>
-      </div>
-    </div>` : '';
+      <div class="q-pills">${qTabs}</div>
+      ${filmOrder.length > 1 ? `
+        <div class="q-nav">
+          ${prevFilm ? `<button type="button" data-qfilm="${esc(prevFilm)}" class="btn-sec">← ${esc(prevFilm)}</button>` : `<span></span>`}
+          ${nextFilm ? `<button type="button" data-qfilm="${esc(nextFilm)}" class="btn-next">Done w/ ${esc(curFilm)} → Next: ${esc(nextFilm)}</button>` : `<span class="mono" style="font-size:11px;color:var(--em2);font-weight:800">✓ Final Film in Queue</span>`}
+        </div>` : ''}
+    </div>`;
 
-  resEl.innerHTML = overview + groupSections.join('');
+  if(!activeRolls.length){
+    resEl.innerHTML = queueBar + `<div class="card" style="text-align:center;color:var(--amb2);font-weight:700">Select at least one roll width above for <span style="color:var(--pur2)">${esc(curFilm)}</span>.</div>`;
+    return;
+  }
+
+  const built = buildFilmSection(curFilm, fIdx, filmOrder.length, panes, activeRolls);
+  resEl.innerHTML = queueBar + built.html;
 }
 
 function buildFilmSection(fName, fIdx, totalFilms, panes, activeRolls){
@@ -1089,14 +1141,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('btn-demo').onclick = () => {
     S.wins = [
-      { id: uid++, film: 'Ceramic 35', room: 'Living Room', qty: 4, w: 24, h: 34 },
-      { id: uid++, film: 'Ceramic 35', room: 'Front sitting room', qty: 2, w: 24, h: 34 },
-      { id: uid++, film: 'Ceramic 35', room: 'Upstairs Bathroom', qty: 2, w: 24, h: 16 },
-      { id: uid++, film: 'Blackout', room: 'Backroom Transom', qty: 2, w: 17, h: 20 }
+      { id: uid++, film: 'Blackout', room: 'Front Windows', qty: 2, w: 12, h: 20 },
+      { id: uid++, film: 'Blackout', room: 'Side Glass', qty: 4, w: 10, h: 18 },
+      { id: uid++, film: 'Ceramic 35', room: 'Living Room', qty: 4, w: 18, h: 36 },
+      { id: uid++, film: 'Ceramic 35', room: 'Slider', qty: 2, w: 18, h: 70 },
+      { id: uid++, film: 'White Frost', room: 'Bathroom', qty: 2, w: 30, h: 56 }
     ];
-    S.bleed = 0; S.trim = 4; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {};
-    syncTrim(); setBleed(0, false); renderWins(); renderAll();
-    toast('Demo job loaded');
+    S.rollsByFilm = {
+      'Blackout': [{ w:72,on:false,cust:false },{ w:60,on:true,cust:false },{ w:48,on:false,cust:false },{ w:36,on:false,cust:false }],
+      'Ceramic 35': [{ w:72,on:true,cust:false },{ w:60,on:false,cust:false },{ w:48,on:false,cust:false },{ w:36,on:true,cust:false }],
+      'White Frost': [{ w:72,on:true,cust:false },{ w:60,on:true,cust:false },{ w:48,on:false,cust:false },{ w:36,on:true,cust:false }]
+    };
+    S.activeFilm = 'Blackout';
+    S.bleed = 0; S.trim = 4; S.tail = 4; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {};
+    syncTrim(); syncTail(); setBleed(0, false); renderWins(); renderAll();
+    toast('Demo queue loaded');
   };
 
   $('b-0').onclick = () => setBleed(0);
@@ -1105,33 +1164,48 @@ document.addEventListener('DOMContentLoaded', () => {
     S.trim = +b.dataset.trim; S.selByFilm = {}; S.checked = {}; syncTrim(); renderAll();
     toast(`Max side-trim: ${S.trim}"`);
   });
-  document.querySelectorAll('[data-tail]').forEach(b => b.onclick = () => { 
-    S.tail = +b.dataset.tail; S.selByFilm = {}; S.checked = {}; syncTail(); renderAll(); 
-    toast(`Max tail allowance: ${S.tail}"`); 
+  document.querySelectorAll('[data-tail]').forEach(b => b.onclick = () => {
+    S.tail = +b.dataset.tail; S.selByFilm = {}; S.checked = {}; syncTail(); renderAll();
+    toast(`Max tail allowance: ${S.tail}"`);
   });
 
   $('roll-grid').onclick = e => {
+    const curFilm = getCurrentFilm();
+    const list = curFilm ? getRollsForFilm(curFilm) : S.defaultRolls;
     const rm = e.target.closest('[data-rm]');
-    if(rm){ e.stopPropagation(); S.rolls = S.rolls.filter(r => r.w !== +rm.dataset.rm); S.selByFilm = {}; renderRolls(); renderAll(); return; }
+    if(rm){
+      e.stopPropagation();
+      const idx = list.findIndex(r => r.w === +rm.dataset.rm);
+      if(idx !== -1) list.splice(idx, 1);
+      if(curFilm) delete S.selByFilm[curFilm];
+      renderRolls(); renderAll(); return;
+    }
     const tg = e.target.closest('[data-tog]');
-    if(tg){ const r = S.rolls.find(x => x.w === +tg.dataset.tog); if(r){ r.on = !r.on; S.selByFilm = {}; renderRolls(); renderAll(); } }
+    if(tg){
+      const r = list.find(x => x.w === +tg.dataset.tog);
+      if(r){ r.on = !r.on; if(curFilm) delete S.selByFilm[curFilm]; renderRolls(); renderAll(); }
+    }
   };
 
   $('btn-add-roll').onclick = () => {
     const v = parseFloat($('cust-roll').value);
     if(isNaN(v) || v < 10 || v > 72) return toast('Enter width 10"–72"');
-    const ex = S.rolls.find(r => r.w === v);
-    if(ex) ex.on = true; else S.rolls.push({ w: v, on: true, cust: true });
-    $('cust-roll').value = ''; S.selByFilm = {}; renderRolls(); renderAll();
-    toast(`Added ${v}" roll`);
+    const curFilm = getCurrentFilm();
+    const list = curFilm ? getRollsForFilm(curFilm) : S.defaultRolls;
+    const ex = list.find(r => r.w === v);
+    if(ex) ex.on = true; else list.push({ w: v, on: true, cust: true });
+    $('cust-roll').value = '';
+    if(curFilm) delete S.selByFilm[curFilm];
+    renderRolls(); renderAll();
+    toast(`Added ${v}" roll${curFilm ? ` for ${curFilm}` : ''}`);
   };
 
   $('sample-notes').onclick = e => {
     const btn = e.target.closest('[data-sample]');
     if(!btn) return;
-    $('paste-txt').value = btn.dataset.sample === 'mixed'
-      ? `Black film-front\nTransom - (1) 36x27\ndoor (1) 28x70\nTop Sides (2) 30x27\n\nDR 20\nSlider (2) 24x34\n\nFrost\nBath Window (2) 18x24`
-      : `Ceramic 35\nLiving Room\n(4) 24 x 34\nFront sitting room\n(2) 24 x 34\n\nBlackout\nBackroom\n(2) 24 x 34`;
+    $('paste-txt').value = btn.dataset.sample === 'queue'
+      ? `Blackout\n(2) 12x20\n(4) 10x18\nCeramic 35\n(4) 18x36\n(2) 18x70\nWhite Frost\n(2) 30x56`
+      : `Black film-front\nTransom - (1) 36x27\ndoor (1) 28x70\nTop Sides (2) 30x27\n\nDR 20\nSlider (2) 24x34\n\nFrost\nBath Window (2) 18x24`;
   };
 
   $('btn-paste-tog').onclick = () => { $('paste-box').classList.toggle('hidden'); if(!$('paste-box').classList.contains('hidden')) $('paste-txt').focus(); };
@@ -1139,7 +1213,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('btn-paste-app').onclick = () => parsePaste(false);
   $('btn-paste-rep').onclick = () => parsePaste(true);
 
-  $('btn-clr-win').onclick = () => { S.wins = []; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {}; renderWins(); renderAll(); };
+  $('btn-clr-win').onclick = () => { S.wins = []; S.activeFilm = ''; S.selByFilm = {}; S.stratByFilm = {}; S.checked = {}; renderWins(); renderAll(); };
   $('btn-add-win').onclick = () => {
     const last = S.wins[S.wins.length-1];
     S.wins.push({ id: uid++, film: last ? last.film : 'Ceramic 35', room: last ? last.room : 'Room', qty: 1, w: 24, h: 36 });
@@ -1147,9 +1221,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   $('btn-add-grp').onclick = () => {
     const used = new Set(S.wins.map(w => (w.film || '').trim()));
-    const picks = ['Blackout', 'Dual Reflective (DR)', 'Evening View (EV)', 'Frost', 'Ceramic 35', 'Security'];
+    const picks = ['Blackout', 'Ceramic 35', 'White Frost', 'Dual Reflective (DR)', 'Evening View (EV)', 'Security'];
     const nextFilm = picks.find(p => !used.has(p)) || `Film Group ${used.size + 1}`;
     S.wins.push({ id: uid++, film: nextFilm, room: 'New Area', qty: 1, w: 24, h: 36 });
+    S.activeFilm = nextFilm;
     renderWins(); renderAll();
     toast(`Added ${nextFilm} group`);
   };
@@ -1158,7 +1233,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = e.target.closest('.w-row'); if(!row) return;
     const w = S.wins.find(x => x.id === +row.dataset.id); if(!w) return;
     const f = e.target.dataset.f;
-    if(f === 'film') w.film = e.target.value;
+    if(f === 'film'){ w.film = e.target.value; S.activeFilm = w.film.trim() || 'Standard Film'; }
     else if(f === 'room') w.room = e.target.value;
     else if(f === 'qty') w.qty = Math.max(1, parseInt(e.target.value,10)||1);
     else if(f === 'w') w.w = Math.max(1, parseFloat(e.target.value)||1);
@@ -1173,6 +1248,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   $('results').onclick = e => {
+    const qf = e.target.closest('[data-qfilm]');
+    if(qf){ S.activeFilm = qf.dataset.qfilm; renderAll(); $('results').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const pl = e.target.closest('[data-plan]');
     if(pl){ const fn = pl.dataset.fplan; if(fn) S.selByFilm[fn] = pl.dataset.plan; renderAll(); return; }
     const st = e.target.closest('[data-strat]');
